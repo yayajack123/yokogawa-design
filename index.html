@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Technical training for safer, more reliable industrial operations."
+    />
+    <title>Yokogawa Industrial Training</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="components.js"></script>
+</head>
+  <body id="top">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <div data-component="navbar"></div>
+
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+    <main id="main-content">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="hero-content">
+            <div class="hero-intro">
+              <h1 id="hero-title">Build expertise for more reliable industrial operations</h1>
+              <p>
+                Yokogawa technical training helps engineers and operators understand systems,
+                improve safety, and maintain facility performance.
+              </p>
+            </div>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#courses">Explore Courses</a>
+              <a class="button button-outlined" href="#contact">Ask Our Team</a>
+            </div>
+          </div>
+
+          <dl class="hero-stats">
+            <div class="stat">
+              <dt>20+</dt>
+              <dd>Course Catalog</dd>
+            </div>
+            <div class="stat">
+              <dt>7</dt>
+              <dd>Training Categories</dd>
+            </div>
+            <div class="stat">
+              <dt>20+</dt>
+              <dd>Professional Instructors</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="hero-media" aria-hidden="true">
+          <video autoplay muted loop playsinline preload="metadata" poster="asset/hero-photo.jpg">
+            <source src="asset/hero-background.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </section>
+      <section class="quick-search" id="quick-search" aria-labelledby="quick-search-title" hidden>
+        <img class="search-watermark" src="asset/search-watermark.svg" alt="" />
+        <h2 id="quick-search-title">Find the right course</h2>
+        <div class="course-search" role="search" aria-label="Find a training course">
+          <div class="search-field">
+            <img src="asset/icon-search.svg" alt="" />
+            <label class="visually-hidden" for="course-query">Course name</label>
+            <input id="course-query" name="query" type="search" placeholder="Search by course name" />
+          </div>
+          <div class="category-field">
+            <label class="visually-hidden" for="course-category">Category</label>
+            <select id="course-category" name="category">
+              <option value="" selected>Category</option>
+              <option value="centum-vp">CENTUM VP Courses</option>
+              <option value="advanced-solution">Advanced Solution Courses</option>
+              <option value="safety">Safety Courses</option>
+              <option value="others">Others</option>
+              <option value="rapid">RAPID</option>
+              <option value="online">Online Courses</option>
+              <option value="academic">Academic</option>
+            </select>
+            <img src="asset/icon-arrow-down.svg" alt="" />
+          </div>
+          <button id="home_page_course_search_button" class="button button-secondary" type="button">Find Courses</button>
+        </div>
+      </section>
+
+      <section class="about-section" id="about-us" aria-labelledby="about-title">
+        <div class="about-media">
+          <img src="asset/about-industrial-training.png" alt="An instructor guiding engineers through hands-on process instrumentation and control system training" loading="lazy" data-speed="0.96" />
+        </div>
+        <div class="about-content">
+          <div class="about-intro">
+            <h2 id="about-title">Learn from Yokogawa’s industry experience</h2>
+            <p>Our training programs help engineers, operators, and technical teams deepen their understanding of control systems, instrumentation, safety, and facility operations.</p>
+          </div>
+          <ul class="about-benefits">
+            <li><img src="asset/icon-tick-circle.svg" alt="" /><span>Content tailored to industry needs</span></li>
+            <li><img src="asset/icon-tick-circle.svg" alt="" /><span>Instructors with hands-on industry experience</span></li>
+            <li><img src="asset/icon-tick-circle.svg" alt="" /><span>Learning facilities that support skills development</span></li>
+          </ul>
+          <a class="button button-outlined about-link" href="https://www.yokogawa.com/my/" target="_blank" rel="noopener noreferrer" aria-label="About Us (opens in a new tab)">About Us <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 5h6v6M19 5l-9 9" /><path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" /></svg></a>
+        </div>
+      </section>
+      <section class="why-us" id="why-us" aria-labelledby="why-us-title">
+        <div class="why-us-background" aria-hidden="true"><img src="asset/why-us-background.jpg" alt="" loading="lazy" data-speed="0.96" /></div>
+        <img class="why-us-watermark" src="asset/why-us-watermark.svg" alt="" />
+        <div class="why-us-intro">
+          <h2 id="why-us-title">Training that makes a difference<br class="why-us-break" /> in your everyday work</h2>
+          <p>From theory to practice, every session focuses on real-world applications.</p>
+        </div>
+        <div class="benefit-panel">
+          <article class="benefit-card">
+            <div class="benefit-icon"><img src="asset/benefit-settings.svg" alt="" /></div>
+            <div class="benefit-copy"><h3>Real-world applications</h3><p>Learn system configuration, operation, and maintenance through industry case studies.</p></div>
+          </article>
+          <article class="benefit-card">
+            <div class="benefit-icon"><img src="asset/benefit-people.svg" alt="" /></div>
+            <div class="benefit-copy"><h3>Interactive learning</h3><p>Deepen your understanding through simulations and hands-on exercises.</p></div>
+          </article>
+          <article class="benefit-card">
+            <div class="benefit-icon"><img src="asset/benefit-shield.svg" alt="" /></div>
+            <div class="benefit-copy"><h3>Technical and soft skills</h3><p>Build communication and teamwork skills through technology projects.</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="categories" id="categories" aria-labelledby="categories-title">
+        <div class="categories-heading">
+          <h2 id="categories-title">Choose the field you want to master</h2>
+        </div>
+        <div class="category-grid">
+          <a class="category-card" href="courses.html#centum-vp">
+            <div class="category-card-top">
+              <span class="category-icon"><img src="asset/category-settings.svg" alt="" /></span>
+              <img src="asset/icon-arrow-right.svg" alt="" />
+            </div>
+            <div class="category-card-copy"><h3>CENTUM VP Courses</h3><p>7 courses</p></div>
+          </a>
+          <a class="category-card" href="courses.html#advanced-solution">
+            <div class="category-card-top">
+              <span class="category-icon"><img src="asset/category-cpu-setting.svg" alt="" /></span>
+              <img src="asset/icon-arrow-right.svg" alt="" />
+            </div>
+            <div class="category-card-copy"><h3>Advanced Solution Courses</h3><p>6 courses</p></div>
+          </a>
+          <a class="category-card" href="courses.html#safety">
+            <div class="category-card-top">
+              <span class="category-icon"><img src="asset/category-shield.svg" alt="" /></span>
+              <img src="asset/icon-arrow-right.svg" alt="" />
+            </div>
+            <div class="category-card-copy"><h3>Safety Courses</h3><p>9 courses</p></div>
+          </a>
+          <a class="category-card" href="courses.html#others">
+            <div class="category-card-top">
+              <span class="category-icon"><img src="asset/category-other.svg" alt="" /></span>
+              <img src="asset/icon-arrow-right.svg" alt="" />
+            </div>
+            <div class="category-card-copy"><h3>Others</h3><p>3 courses</p></div>
+          </a>
+          <a class="category-card" href="courses.html#rapid">
+            <div class="category-card-top">
+              <span class="category-icon"><img src="asset/category-rapid.svg" alt="" /></span>
+              <img src="asset/icon-arrow-right.svg" alt="" />
+            </div>
+            <div class="category-card-copy"><h3>RAPID</h3><p>5 courses</p></div>
+          </a>
+          <a class="category-card" href="courses.html#online">
+            <div class="category-card-top">
+              <span class="category-icon"><img src="asset/category-monitor.svg" alt="" /></span>
+              <img src="asset/icon-arrow-right.svg" alt="" />
+            </div>
+            <div class="category-card-copy"><h3>Online Courses</h3><p>9 courses</p></div>
+          </a>
+          <a class="category-card" href="courses.html#academic">
+            <div class="category-card-top">
+              <span class="category-icon"><img src="asset/category-book.svg" alt="" /></span>
+              <img src="asset/icon-arrow-right.svg" alt="" />
+            </div>
+            <div class="category-card-copy"><h3>Academic</h3><p>3 courses</p></div>
+          </a>
+          <a class="category-all" href="courses.html">See all course <img src="asset/icon-arrow-right.svg" alt="" /></a>
+        </div>
+      </section>
+      <section class="courses-section" id="courses" aria-labelledby="courses-title">
+        <div class="courses-heading"><h2 id="courses-title">Popular courses for<br />industrial teams</h2><p>Structured programs with skills you can apply right away.</p></div>
+        <div class="course-grid">
+          <article class="course-card">
+            <div class="course-photo-frame"><img class="course-photo" src="asset/course-1.jpg" alt="" loading="lazy" /></div>
+            <div class="course-details"><p class="course-category"><img src="asset/course-mark.svg" alt="" /> CONTROL SYSTEM</p><h3>CENTUM VP Engineering</h3>
+              <div class="course-meta"><span><img src="asset/icon-calendar.svg" alt="" /> 5 days</span><span class="course-price"><img src="asset/icon-money.svg" alt="" /> Rp 2,000,000</span></div>
+            </div><a class="button button-outlined" href="courses.html">View Details</a>
+          </article>
+          <article class="course-card">
+            <div class="course-photo-frame"><img class="course-photo" src="asset/course-2.jpg" alt="" loading="lazy" /></div>
+            <div class="course-details"><p class="course-category"><img src="asset/course-mark.svg" alt="" /> CONTROL SYSTEM</p><h3>Fundamental Instrumentation</h3>
+              <div class="course-meta"><span><img src="asset/icon-calendar.svg" alt="" /> 5 days</span><span class="course-price"><img src="asset/icon-money.svg" alt="" /> Rp 2,000,000</span></div>
+            </div><a class="button button-outlined" href="courses.html">View Details</a>
+          </article>
+          <article class="course-card">
+            <div class="course-photo-frame"><img class="course-photo" src="asset/course-3.jpg" alt="" loading="lazy" /></div>
+            <div class="course-details"><p class="course-category"><img src="asset/course-mark.svg" alt="" /> CONTROL SYSTEM</p><h3>ProSafe RS Operation</h3>
+              <div class="course-meta"><span><img src="asset/icon-calendar.svg" alt="" /> 5 days</span><span class="course-price"><img src="asset/icon-money.svg" alt="" /> Rp 2,000,000</span></div>
+            </div><a class="button button-outlined" href="courses.html">View Details</a>
+          </article>
+          <article class="course-card">
+            <div class="course-photo-frame"><img class="course-photo" src="asset/course-4.jpg" alt="" loading="lazy" /></div>
+            <div class="course-details"><p class="course-category"><img src="asset/course-mark.svg" alt="" /> CONTROL SYSTEM</p><h3>CENTUM VP Maintenance</h3>
+              <div class="course-meta"><span><img src="asset/icon-calendar.svg" alt="" /> 5 days</span><span class="course-price"><img src="asset/icon-money.svg" alt="" /> Rp 2,000,000</span></div>
+            </div><a class="button button-outlined" href="courses.html">View Details</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="faq-section" id="faq" aria-labelledby="faq-title">
+        <div class="faq-intro"><div><h2 id="faq-title">What to know before training</h2><p>Find answers about eligibility, facilities, payment, and training certificates.</p></div><a class="button button-outlined" href="faq.html">View All FAQs</a></div>
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>Who can attend Yokogawa training?</summary>
+            <div class="faq-answer"><p>Training is designed for industry professionals, including plant managers, operators, technicians, engineers, specialists, and maintenance staff. Eligibility may vary by course topic.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is there a fee for Yokogawa training?</summary>
+            <div class="faq-answer"><p>Yes. Fees vary by program and include training materials and books, a bag, a certificate, snacks, and lunch. Accommodation is not included. Contact your nearest Yokogawa office for fee information.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>How long does Yokogawa training usually last?</summary>
+            <div class="faq-answer"><p>Duration depends on the course and its schedule. Yokogawa lists daily training hours as 9:00 a.m. to 4:30 p.m.; check your chosen course schedule for the number of days.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Where is Yokogawa training usually held?</summary>
+            <div class="faq-answer"><p>Scheduled training usually takes place at the PT Yokogawa Indonesia office at Plaza Oleos in South Jakarta. For unscheduled or customized training, the location can be arranged, including at the customer's site.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Is Yokogawa training available online?</summary>
+            <div class="faq-answer"><p>Some programs are available remotely or through e-learning, but online delivery is not available for every course. Contact Yokogawa to confirm the format of your chosen program.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>What key topics does Yokogawa training cover?</summary>
+            <div class="faq-answer"><p>Topics include control systems and instrumentation, such as CENTUM VP, SCADA, ProSafe, Exaquantum, process measurement, field instrument calibration, and analyzers. Topic availability depends on the scheduled programs.</p></div>
+          </details>
+        </div>
+      </section>
+
+      <section class="locations-section" id="locations" aria-labelledby="locations-title">
+        <div class="locations-heading"><h2 id="locations-title">Find a Yokogawa office near you</h2><p>Connect with our training center and regional offices across Indonesia.</p></div>
+        <div class="locations-layout">
+          <div class="locations-map-area">
+            <div class="locations-map" aria-label="Illustrative map of Yokogawa locations across Indonesia">
+              <div class="locations-map-national">
+              <img src="asset/indonesia-dotted.svg" alt="" loading="lazy" />
+            <a class="location-marker location-marker--jakarta" href="#location-jakarta" data-location="jakarta" aria-label="View Jakarta location"><span aria-hidden="true"></span></a>
+            <a class="location-marker location-marker--pekanbaru" href="#location-pekanbaru" data-location="pekanbaru" aria-label="View Pekanbaru location"><span aria-hidden="true"></span></a>
+            <a class="location-marker location-marker--cilegon" href="#location-cilegon" data-location="cilegon" aria-label="View Cilegon location"><span aria-hidden="true"></span></a>
+            <a class="location-marker location-marker--balikpapan" href="#location-balikpapan" data-location="balikpapan" aria-label="View Balikpapan location"><span aria-hidden="true"></span></a>
+            <a class="location-marker location-marker--surabaya" href="#location-surabaya" data-location="surabaya" aria-label="View Surabaya location"><span aria-hidden="true"></span></a>
+            <a class="location-marker location-marker--medan" href="#location-medan" data-location="medan" aria-label="View Medan location"><span aria-hidden="true"></span></a>
+            <a class="location-marker location-marker--luwuk" href="#location-luwuk" data-location="luwuk" aria-label="View Luwuk location"><span aria-hidden="true"></span></a>
+              </div>
+              <div class="locations-map-region" id="banten-jakarta-map" aria-label="Illustrative map of Banten and Jakarta locations" hidden>
+                <div class="locations-map-fallback">
+                  <img src="asset/banten-jakarta-dotted.svg" alt="" loading="lazy" />
+                  <svg class="jakarta-connectors" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M52.78 60.62 L49 75 M62.04 56.29 L66 70 M64.81 54.13 L83 52 M67.59 47.63 L75 30" /></svg>
+                  <a class="location-marker regional-pin regional-pin--cilegon" href="#location-cilegon" data-location="cilegon" aria-label="View Cilegon branch" title="Cilegon"><span aria-hidden="true"></span><strong>Cilegon</strong></a>
+                  <a class="location-marker regional-pin regional-pin--serpong" href="#location-serpong" data-location="serpong" aria-label="View Serpong staging location" title="Serpong"><span aria-hidden="true"></span><strong>Serpong</strong></a>
+                  <a class="location-marker regional-pin regional-pin--jakarta" href="#location-jakarta" data-location="jakarta" aria-label="View Plaza Oleos location" title="Plaza Oleos"><span aria-hidden="true"></span><strong>Plaza Oleos</strong></a>
+                  <a class="location-marker regional-pin regional-pin--halim" href="#location-halim" data-location="halim" aria-label="View Halim staging location" title="Halim"><span aria-hidden="true"></span><strong>Halim</strong></a>
+                  <a class="location-marker regional-pin regional-pin--pulogadung" href="#location-pulogadung" data-location="pulogadung" aria-label="View Pulogadung staging location" title="Pulogadung"><span aria-hidden="true"></span><strong>Pulogadung</strong></a>
+                </div>
+              </div>
+            </div>
+            <button id="home_page_locations_back_button" class="locations-map-back" type="button" hidden>← All locations</button>
+            <p class="locations-map-note">Markers show approximate locations; nearby pins are spaced for clarity.</p>
+          </div>
+          <div class="locations-directory">
+            <div class="locations-details" aria-live="polite">
+              <!-- Balikpapan address and phone follow Yokogawa's contact page; confirm before publication. -->
+            <article class="location-detail" id="location-jakarta" data-location-panel="jakarta">
+              <p class="location-type">Training Center &amp; Head Office</p><h3>Jakarta</h3>
+              <p class="location-address">Plaza Oleos, 3rd Floor, Suite A–H, Jl. TB Simatupang Kav. 53, South Jakarta 12520</p><p class="location-phone"><span>Phone</span> <a href="tel:+622129712600">+62 21 2971 2600</a></p>
+              <a class="button location-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Plaza%20Oleos%20Yokogawa%20Jakarta">View on Maps</a>
+            </article>
+            <article class="location-detail" id="location-halim" data-location-panel="halim">
+              <p class="location-type">Staging Location</p><h3>Halim</h3>
+              <p class="location-address">Intirub Business Park, Jl. Cililitan Besar No. 454, Jakarta 13650</p><p class="location-phone"><span>Phone</span> <a href="tel:+622129373405">+62 21 2937 3405</a> / <a href="tel:+622129373406">3406</a></p>
+              <a class="button location-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Intirub%20Business%20Park%20Jl%20Cililitan%20Besar%20454%20Jakarta">View on Maps</a>
+            </article>
+            <article class="location-detail" id="location-pulogadung" data-location-panel="pulogadung">
+              <p class="location-type">Staging Location</p><h3>Pulogadung</h3>
+              <p class="location-address">Jl. Rawa Gelam 3 No. 8, Pulogadung, Jakarta 13930</p>
+              <p class="location-address">Map pin shows an approximate area; the exact location needs confirmation.</p>
+              <a class="button location-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Yokogawa%20Jl%20Rawa%20Gelam%203%20No%208%20Pulogadung%20Jakarta">View on Maps</a>
+            </article>
+            <article class="location-detail" id="location-serpong" data-location-panel="serpong">
+              <p class="location-type">Staging Location</p><h3>Serpong</h3>
+              <p class="location-address">Komplek Pergudangan Taman Tekno, Blok L2 No. 1 &amp; 2, Cisauk, Tangerang 15314</p><p class="location-phone"><span>Phone</span> <a href="tel:+622175682386">+62 21 7568 2386</a></p>
+              <a class="button location-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Yokogawa%20Taman%20Tekno%20Blok%20L2%20Serpong">View on Maps</a>
+            </article>
+            <article class="location-detail" id="location-pekanbaru" data-location-panel="pekanbaru">
+              <p class="location-type">Branch Office</p><h3>Pekanbaru</h3>
+              <p class="location-address">Graha Sucofindo, 1st Floor, Jl. Achmad Yani No. 79, Pekanbaru, Riau 28115</p><p class="location-phone"><span>Phone</span> <a href="tel:+62761856395">+62 761 856395</a></p>
+              <a class="button location-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Graha%20Sucofindo%20Jl%20Achmad%20Yani%2079%20Pekanbaru">View on Maps</a>
+            </article>
+            <article class="location-detail" id="location-cilegon" data-location-panel="cilegon">
+              <p class="location-type">Branch Office</p><h3>Cilegon</h3>
+              <p class="location-address">Graha Sucofindo, 2nd Floor, Jl. Achmad Yani No. 106, Cilegon, Banten 42421</p><p class="location-phone"><span>Phone</span> <a href="tel:+62254397206">+62 254 397206</a></p>
+              <a class="button location-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Graha%20Sucofindo%20Jl%20Achmad%20Yani%20106%20Cilegon">View on Maps</a>
+            </article>
+            <article class="location-detail" id="location-balikpapan" data-location-panel="balikpapan">
+              <p class="location-type">Branch Office</p><h3>Balikpapan</h3>
+              <p class="location-address">Grand Sudirman Balikpapan, 8th Floor, Suite 09, Jl. Jend. Sudirman No. 7, Balikpapan 76113</p><p class="location-phone"><span>Phone</span> <a href="tel:+625427219688">+62 542 7219688</a></p>
+              <a class="button location-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Grand%20Sudirman%20Jl%20Jend%20Sudirman%207%20Balikpapan">View on Maps</a>
+            </article>
+            <article class="location-detail" id="location-surabaya" data-location-panel="surabaya">
+              <p class="location-type">Branch Office</p><h3>Surabaya</h3>
+              <p class="location-address">Graha Pena, 8th Floor, Room 804, Jl. Achmad Yani No. 88, Surabaya 60234</p><p class="location-phone"><span>Phone</span> <a href="tel:+62318202132">+62 31 8202132</a></p>
+              <a class="button location-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Graha%20Pena%20Jl%20Achmad%20Yani%2088%20Surabaya">View on Maps</a>
+            </article>
+            <article class="location-detail" id="location-medan" data-location-panel="medan">
+              <p class="location-type">Representative Office</p><h3>Medan</h3>
+              <p class="location-address">Grand City Hall Hotel, Ground Floor L-15, Jl. Balai Kota No. 1, Medan, North Sumatra 20112</p><p class="location-phone"><span>Phone</span> <a href="tel:+62614557000;ext=8404">+62 61 4557000 ext. 8404</a></p>
+              <a class="button location-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Grand%20City%20Hall%20Hotel%20Jl%20Balai%20Kota%201%20Medan">View on Maps</a>
+            </article>
+            <article class="location-detail" id="location-luwuk" data-location-panel="luwuk">
+              <p class="location-type">Service Representative</p><h3>Luwuk</h3>
+              <p class="location-address">Luwuk, Banggai, Sulawesi 94713</p>
+              <a class="button location-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Luwuk%20Banggai%20Sulawesi">View on Maps</a>
+            </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div data-component="cta"></div>
+    </main>
+    <div data-component="footer"></div>
+      </div>
+    </div>
+    <script defer src="asset/vendor/gsap/gsap.min.js"></script>
+    <script defer src="cta-motion.js"></script>
+    <script defer src="asset/vendor/gsap/ScrollTrigger.min.js"></script>
+    <script defer src="asset/vendor/gsap/ScrollSmoother.min.js"></script>
+    <script defer src="motion.js"></script>
+    <script defer src="locations.js"></script>
+  </body>
+</html>

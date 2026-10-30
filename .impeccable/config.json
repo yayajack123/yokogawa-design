@@ -1,0 +1,23 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "open sans",
+        "createdAt": "2026-10-28T07:21:58.109Z",
+        "reason": "design.md and the supplied Yokogawa Figma styles specify Open Sans as the primary font."
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-28T07:33:04.164Z",
+        "reason": "False positive on quick-search: styles.css applies 64px vertical padding and the shared desktop-page-gutter (75px at 1440px), with explicit 32px tablet and 20px phone insets; responsive previews confirmed text and controls are inset."
+      }
+    ]
+  }
+}

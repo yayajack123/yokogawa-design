@@ -1,0 +1,44 @@
+{
+  "brief": "test studio",
+  "seed": 1,
+  "option": null,
+  "direction": "editorial-grid",
+  "ctx": {
+    "have": [],
+    "strict": false,
+    "items": {}
+  },
+  "have": [],
+  "keep": [],
+  "pinned": {},
+  "hero": "hero-split-7-5",
+  "sections": [
+    {
+      "role": "intro",
+      "id": "s-big-figure"
+    },
+    {
+      "role": "pricing",
+      "id": "s-index-list"
+    },
+    {
+      "role": "process",
+      "id": "s-columns-text"
+    },
+    {
+      "role": "testimonial",
+      "id": "s-statement"
+    },
+    {
+      "role": "cta",
+      "id": "s-field-band"
+    },
+    {
+      "role": "footer",
+      "id": "s-closing-simple"
+    }
+  ],
+  "warnings": [],
+  "redraws": [],
+  "dealtAt": "2026-10-22T02:16:37.361Z"
+}

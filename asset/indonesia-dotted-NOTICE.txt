@@ -1,0 +1,4 @@
+Indonesia dot map generated with dotted-map 3.1.0 (MIT), https://github.com/NTag/dotted-map.
+Country geometry source acknowledged by dotted-map: https://github.com/johan/world.geo.json.
+Marker positions indicate approximate city locations, not verified office coordinates.
+Banten–Jakarta map generated with dotted-map 3.1.0 using the same geometry source. Nearby pins are offset for clarity and are approximate.

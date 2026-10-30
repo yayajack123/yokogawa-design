@@ -1,0 +1,671 @@
+{
+  "schema": "figma-taste/design-system@1",
+  "fileKey": "Dy5CHxzaYc40en39cFvdah",
+  "brand": "Yokogawa Indonesia",
+  "updatedAt": "2026-10-29T05:15:41.015Z",
+  "boards": {
+    "foundations": null,
+    "components": "2526:1728",
+    "pages": [
+      "2526:2128",
+      "2526:2359"
+    ]
+  },
+  "collections": {
+    "Essential": {
+      "id": "VariableCollectionId:283:3",
+      "name": "Essential",
+      "modes": {
+        "Value": "283:0"
+      },
+      "defaultMode": "Value",
+      "variables": [
+        "Border Radius/rounded",
+        "Border Radius/rounded-2xl",
+        "Border Radius/rounded-3xl",
+        "Border Radius/rounded-full",
+        "Border Radius/rounded-lg",
+        "Border Radius/rounded-md",
+        "Border Radius/rounded-none",
+        "Border Radius/rounded-sm",
+        "Border Radius/rounded-xl",
+        "FAQ/spacing-72",
+        "Font Family/font-family",
+        "Spacing/0",
+        "Spacing/0․5",
+        "Spacing/1",
+        "Spacing/10",
+        "Spacing/11",
+        "Spacing/12",
+        "Spacing/14",
+        "Spacing/16",
+        "Spacing/1․5",
+        "Spacing/2",
+        "Spacing/20",
+        "Spacing/24",
+        "Spacing/28",
+        "Spacing/2․5",
+        "Spacing/3",
+        "Spacing/32",
+        "Spacing/36",
+        "Spacing/3․5",
+        "Spacing/4",
+        "Spacing/40",
+        "Spacing/44",
+        "Spacing/48",
+        "Spacing/5",
+        "Spacing/52",
+        "Spacing/56",
+        "Spacing/6",
+        "Spacing/60",
+        "Spacing/64",
+        "Spacing/7",
+        "Spacing/72",
+        "Spacing/8",
+        "Spacing/80",
+        "Spacing/9",
+        "Spacing/96",
+        "Spacing/rem"
+      ]
+    },
+    "Typography": {
+      "id": "VariableCollectionId:722:103",
+      "name": "Typography",
+      "modes": {
+        "Desktop": "722:0",
+        "Mobile": "722:1"
+      },
+      "defaultMode": "Desktop",
+      "variables": [
+        "Font/Font Family/Body",
+        "Font/Font Family/Title",
+        "Font/Font Size/H1",
+        "Font/Font Size/H2",
+        "Font/Font Size/H3",
+        "Font/Font Size/H4",
+        "Font/Font Size/lg",
+        "Font/Font Size/md",
+        "Font/Font Size/sm",
+        "Font/Font Size/xl",
+        "Font/Font Size/xs",
+        "Font/Font Size/xxs",
+        "Font/Font Weight/Bold",
+        "Font/Font Weight/Italic",
+        "Font/Font Weight/Regular",
+        "Font/Font Weight/Semibold",
+        "Font/Line Height/H1",
+        "Font/Line Height/H2",
+        "Font/Line Height/H3",
+        "Font/Line Height/H4",
+        "Font/Line Height/lg",
+        "Font/Line Height/md",
+        "Font/Line Height/sm",
+        "Font/Line Height/xl",
+        "Font/Line Height/xs",
+        "Font/Line Height/xxs"
+      ]
+    },
+    "Yokogawa Colors": {
+      "id": "VariableCollectionId:2432:3",
+      "name": "Yokogawa Colors",
+      "modes": {
+        "Default": "2432:0"
+      },
+      "defaultMode": "Default",
+      "variables": [
+        "yg-blue",
+        "yg-blue-action",
+        "yg-blue-deep",
+        "yg-blue-soft",
+        "yg-border",
+        "yg-canvas",
+        "yg-error",
+        "yg-info",
+        "yg-ink",
+        "yg-muted",
+        "yg-success",
+        "yg-surface",
+        "yg-warning",
+        "yg-yellow"
+      ]
+    },
+    "Color System": {
+      "id": "VariableCollectionId:2443:267",
+      "name": "Color System",
+      "modes": {
+        "Default": "2443:0"
+      },
+      "defaultMode": "Default",
+      "variables": [
+        "background/disabled",
+        "background/inverse",
+        "background/muted",
+        "background/primary",
+        "background/secondary",
+        "background/tertiary",
+        "border/disabled",
+        "border/inverse",
+        "border/primary",
+        "border/secondary",
+        "border/strong",
+        "border/subtle",
+        "primary/border",
+        "primary/content",
+        "primary/focus",
+        "primary/hover",
+        "primary/main",
+        "primary/pressed",
+        "primary/surface",
+        "secondary/border",
+        "secondary/content",
+        "secondary/focus",
+        "secondary/main",
+        "text/disabled",
+        "text/helper",
+        "text/inverse",
+        "text/on-disabled",
+        "text/on-primary",
+        "text/placeholder",
+        "text/primary",
+        "text/secondary",
+        "text/tertiary"
+      ]
+    }
+  },
+  "textStyles": [
+    {
+      "name": "hero-title/t1",
+      "id": "S:d2ca65526ab9201c41ec5c72ca159d79140bddc5,",
+      "key": "d2ca65526ab9201c41ec5c72ca159d79140bddc5"
+    },
+    {
+      "name": "hero-title/t2",
+      "id": "S:dcde95168759050130db0da2cd029808cf61a817,",
+      "key": "dcde95168759050130db0da2cd029808cf61a817"
+    },
+    {
+      "name": "hero-title/t3",
+      "id": "S:4f2e3bc901139b57b9e4a13110dac765d67f42bc,",
+      "key": "4f2e3bc901139b57b9e4a13110dac765d67f42bc"
+    },
+    {
+      "name": "hero-title/t4",
+      "id": "S:54cbbe82001bed5d9b55b78921a403cd336d427d,",
+      "key": "54cbbe82001bed5d9b55b78921a403cd336d427d"
+    },
+    {
+      "name": "header-web/h1",
+      "id": "S:76dc689d9f6fdb18e6b62d34ae85f656b40c850b,",
+      "key": "76dc689d9f6fdb18e6b62d34ae85f656b40c850b"
+    },
+    {
+      "name": "header-web/h2",
+      "id": "S:d075b114d54de821504d35095d544e92b6eb0c27,",
+      "key": "d075b114d54de821504d35095d544e92b6eb0c27"
+    },
+    {
+      "name": "header-web/h3",
+      "id": "S:4402fdd7177be0c34a7226a242e50fa757210398,",
+      "key": "4402fdd7177be0c34a7226a242e50fa757210398"
+    },
+    {
+      "name": "header-web/h4",
+      "id": "S:792551750158c800dda87c461e20e28aad79f49c,",
+      "key": "792551750158c800dda87c461e20e28aad79f49c"
+    },
+    {
+      "name": "header-mobile/h1",
+      "id": "S:e3385f9c14ef911faa2c8e9d13d7892432699b19,",
+      "key": "e3385f9c14ef911faa2c8e9d13d7892432699b19"
+    },
+    {
+      "name": "header-mobile/h2",
+      "id": "S:f5e4ceb2130ee05eccb0a75ffc076e8505e40356,",
+      "key": "f5e4ceb2130ee05eccb0a75ffc076e8505e40356"
+    },
+    {
+      "name": "header-mobile/h3",
+      "id": "S:c124c67109fecb6d80d4b50453e95f735548c53b,",
+      "key": "c124c67109fecb6d80d4b50453e95f735548c53b"
+    },
+    {
+      "name": "header-mobile/h4",
+      "id": "S:dd74c25ad2e4364e8d5cf7bc8ef3a48af31d730d,",
+      "key": "dd74c25ad2e4364e8d5cf7bc8ef3a48af31d730d"
+    },
+    {
+      "name": "paragraph-xl/default",
+      "id": "S:e9f60b0d4b7525faeedfdb3c5d41fadf95523b93,",
+      "key": "e9f60b0d4b7525faeedfdb3c5d41fadf95523b93"
+    },
+    {
+      "name": "paragraph-xl/italic",
+      "id": "S:1eb030c56591691bf9fe37c0c8c0092e7763ed21,",
+      "key": "1eb030c56591691bf9fe37c0c8c0092e7763ed21"
+    },
+    {
+      "name": "paragraph-xl/semibold",
+      "id": "S:f2f13e1102273eb4009c8668f8f91112879811fe,",
+      "key": "f2f13e1102273eb4009c8668f8f91112879811fe"
+    },
+    {
+      "name": "paragraph-xl/bold",
+      "id": "S:b6fa4015a0a35ccd7c00aba23906b0751bf5d759,",
+      "key": "b6fa4015a0a35ccd7c00aba23906b0751bf5d759"
+    },
+    {
+      "name": "paragraph-lg/default",
+      "id": "S:a2dc730f2fc1e9e1af9736c64d32be5d2231d55a,",
+      "key": "a2dc730f2fc1e9e1af9736c64d32be5d2231d55a"
+    },
+    {
+      "name": "paragraph-lg/italic",
+      "id": "S:050d5a9b392c14e3a5828806d758f86383c0e3bf,",
+      "key": "050d5a9b392c14e3a5828806d758f86383c0e3bf"
+    },
+    {
+      "name": "paragraph-lg/semibold",
+      "id": "S:52697889f28f6b632760d1290bd4e879c4cd2fcb,",
+      "key": "52697889f28f6b632760d1290bd4e879c4cd2fcb"
+    },
+    {
+      "name": "paragraph-lg/bold",
+      "id": "S:be6dba71069134841cfc14dde349956a341c17a1,",
+      "key": "be6dba71069134841cfc14dde349956a341c17a1"
+    },
+    {
+      "name": "paragraph-md/default",
+      "id": "S:c6b5380e273eaaf953a08d7cdd56dce6df29f4e0,",
+      "key": "c6b5380e273eaaf953a08d7cdd56dce6df29f4e0"
+    },
+    {
+      "name": "paragraph-md/italic",
+      "id": "S:9fd56db9e6daeae62af2637915d5f7d2eaef2631,",
+      "key": "9fd56db9e6daeae62af2637915d5f7d2eaef2631"
+    },
+    {
+      "name": "paragraph-md/semibold",
+      "id": "S:271f2c5ebe1aea56ab2f53ad879767135a54a771,",
+      "key": "271f2c5ebe1aea56ab2f53ad879767135a54a771"
+    },
+    {
+      "name": "paragraph-md/bold",
+      "id": "S:664949bc4bd8f088aa008f041535a0f5854da084,",
+      "key": "664949bc4bd8f088aa008f041535a0f5854da084"
+    },
+    {
+      "name": "paragraph-sm/default",
+      "id": "S:d9c686c2e9277d8889e363db4894b8a659afad2a,",
+      "key": "d9c686c2e9277d8889e363db4894b8a659afad2a"
+    },
+    {
+      "name": "paragraph-sm/italic",
+      "id": "S:981dd8e4e756d6035799e6cdf676f2c7c0182ae0,",
+      "key": "981dd8e4e756d6035799e6cdf676f2c7c0182ae0"
+    },
+    {
+      "name": "paragraph-sm/semibold",
+      "id": "S:889031cf093988866046eb1ce2ad4c24599ec7ac,",
+      "key": "889031cf093988866046eb1ce2ad4c24599ec7ac"
+    },
+    {
+      "name": "paragraph-sm/bold",
+      "id": "S:25c18c33a48ab240a4e4a68b1e63a04f7fffe7cf,",
+      "key": "25c18c33a48ab240a4e4a68b1e63a04f7fffe7cf"
+    },
+    {
+      "name": "paragraph-xs/default",
+      "id": "S:4a0df295ebe78b3ccaeb8ee5a6a7a79523aa20ed,",
+      "key": "4a0df295ebe78b3ccaeb8ee5a6a7a79523aa20ed"
+    },
+    {
+      "name": "paragraph-xs/italic",
+      "id": "S:ef35a12107fe272ed1a24bab7e4d1bc21ef1628f,",
+      "key": "ef35a12107fe272ed1a24bab7e4d1bc21ef1628f"
+    },
+    {
+      "name": "paragraph-xs/semibold",
+      "id": "S:1d5ffa55db0c2c0868b5b2ffea761a350929440e,",
+      "key": "1d5ffa55db0c2c0868b5b2ffea761a350929440e"
+    },
+    {
+      "name": "paragraph-xs/bold",
+      "id": "S:9768d742f58a4011d50ff9b3354b16829a23937c,",
+      "key": "9768d742f58a4011d50ff9b3354b16829a23937c"
+    },
+    {
+      "name": "paragraph-xxs/default",
+      "id": "S:b01fd20ed35a56b42db08e78615851a33884429f,",
+      "key": "b01fd20ed35a56b42db08e78615851a33884429f"
+    },
+    {
+      "name": "paragraph-xxs/semibold",
+      "id": "S:b25b13a2b89adc1e74c281ee321081ba03aa60c1,",
+      "key": "b25b13a2b89adc1e74c281ee321081ba03aa60c1"
+    },
+    {
+      "name": "paragraph-xxs/italic",
+      "id": "S:cc0c7cceaa985c20f1dac410e83f539df02b5bce,",
+      "key": "cc0c7cceaa985c20f1dac410e83f539df02b5bce"
+    },
+    {
+      "name": "paragraph-xxs/bold",
+      "id": "S:f91320d7ee0612b18819daf006643cbea9bccecc,",
+      "key": "f91320d7ee0612b18819daf006643cbea9bccecc"
+    },
+    {
+      "name": "label-xl/default",
+      "id": "S:441055cc79f09ffdf6c1746d155770c9a65ce2c5,",
+      "key": "441055cc79f09ffdf6c1746d155770c9a65ce2c5"
+    },
+    {
+      "name": "label-xl/italic",
+      "id": "S:4ae978ee32eef294d52d8030e98ad5716f8b7dc5,",
+      "key": "4ae978ee32eef294d52d8030e98ad5716f8b7dc5"
+    },
+    {
+      "name": "label-xl/semibold",
+      "id": "S:01996579d58ce6bcc427e31f44f22edc5ddd3a1b,",
+      "key": "01996579d58ce6bcc427e31f44f22edc5ddd3a1b"
+    },
+    {
+      "name": "label-xl/bold",
+      "id": "S:60e6d6633c3b0f8b3f1f30d52daf90c0c9b53e2c,",
+      "key": "60e6d6633c3b0f8b3f1f30d52daf90c0c9b53e2c"
+    },
+    {
+      "name": "label-lg/default",
+      "id": "S:290eb08717a492c522e01c355752029a2942101e,",
+      "key": "290eb08717a492c522e01c355752029a2942101e"
+    },
+    {
+      "name": "label-lg/italic",
+      "id": "S:bdba5ee1d8bda764fbcf06f9e3a97c56ae800914,",
+      "key": "bdba5ee1d8bda764fbcf06f9e3a97c56ae800914"
+    },
+    {
+      "name": "label-lg/semibold",
+      "id": "S:0b39f19a0b5b26c3eb32439bc755013fa6b953fa,",
+      "key": "0b39f19a0b5b26c3eb32439bc755013fa6b953fa"
+    },
+    {
+      "name": "label-lg/bold",
+      "id": "S:0f5a0048d287a6c92dc1dcced4f5192a47bbeed2,",
+      "key": "0f5a0048d287a6c92dc1dcced4f5192a47bbeed2"
+    },
+    {
+      "name": "label-md/default",
+      "id": "S:dda65b3349d5488419b38aaa6fd2bc8b2a3682fa,",
+      "key": "dda65b3349d5488419b38aaa6fd2bc8b2a3682fa"
+    },
+    {
+      "name": "label-md/italic",
+      "id": "S:6dd24916b610b60a11bb3eb08202560ddb518247,",
+      "key": "6dd24916b610b60a11bb3eb08202560ddb518247"
+    },
+    {
+      "name": "label-md/semibold",
+      "id": "S:1f9e86c9ce20fd5e1e2f7275d38b551fe17369be,",
+      "key": "1f9e86c9ce20fd5e1e2f7275d38b551fe17369be"
+    },
+    {
+      "name": "label-md/bold",
+      "id": "S:557f77741cd21c9d20a734429ca0d4cbc2734df3,",
+      "key": "557f77741cd21c9d20a734429ca0d4cbc2734df3"
+    },
+    {
+      "name": "label-sm/italic",
+      "id": "S:d0b7cab649a47a65f3f1be7fa9e81736b19115fb,",
+      "key": "d0b7cab649a47a65f3f1be7fa9e81736b19115fb"
+    },
+    {
+      "name": "label-sm/default",
+      "id": "S:fd296cd86ddd2c097b4d7bdf0df4fc98b8b34c89,",
+      "key": "fd296cd86ddd2c097b4d7bdf0df4fc98b8b34c89"
+    },
+    {
+      "name": "label-sm/semibold",
+      "id": "S:9d70d04d55e41ea1d2ac883a1ea638e336d51276,",
+      "key": "9d70d04d55e41ea1d2ac883a1ea638e336d51276"
+    },
+    {
+      "name": "label-sm/bold",
+      "id": "S:96d99f03eb833d61de508b5c9bf1c9bc39a14a0a,",
+      "key": "96d99f03eb833d61de508b5c9bf1c9bc39a14a0a"
+    },
+    {
+      "name": "label-xs/default",
+      "id": "S:df58dfff8f7a11ed50bfcac6eb646e26b36eea89,",
+      "key": "df58dfff8f7a11ed50bfcac6eb646e26b36eea89"
+    },
+    {
+      "name": "label-xs/italic",
+      "id": "S:687aeb20f423166c8472224840f185b57953c9dd,",
+      "key": "687aeb20f423166c8472224840f185b57953c9dd"
+    },
+    {
+      "name": "label-xs/semibold",
+      "id": "S:a836e29f4902cceb3d6ee401b00b7e50cb11aefd,",
+      "key": "a836e29f4902cceb3d6ee401b00b7e50cb11aefd"
+    },
+    {
+      "name": "label-xs/bold",
+      "id": "S:bbc4a9713e23d2b6c60b83a08270484b61475b6e,",
+      "key": "bbc4a9713e23d2b6c60b83a08270484b61475b6e"
+    },
+    {
+      "name": "label-xxs/default",
+      "id": "S:45c451e138fb8ab691176b5a77a63c7db705a31f,",
+      "key": "45c451e138fb8ab691176b5a77a63c7db705a31f"
+    },
+    {
+      "name": "label-xxs/italic",
+      "id": "S:3f8c6c9d1e3477872aa18d78ad1c84c010164c4e,",
+      "key": "3f8c6c9d1e3477872aa18d78ad1c84c010164c4e"
+    },
+    {
+      "name": "label-xxs/semibold",
+      "id": "S:e63ec6b3c26e896bee6644a564fe186c7269a411,",
+      "key": "e63ec6b3c26e896bee6644a564fe186c7269a411"
+    },
+    {
+      "name": "label-xxs/bold",
+      "id": "S:0351f55bdf89802752c6a0196b0fde073d357979,",
+      "key": "0351f55bdf89802752c6a0196b0fde073d357979"
+    },
+    {
+      "name": "button-md/default",
+      "id": "S:3080887c4f29dfb15c4aaa43377967cd921ad949,",
+      "key": "3080887c4f29dfb15c4aaa43377967cd921ad949"
+    },
+    {
+      "name": "button-md/semibold",
+      "id": "S:8a76d0f04df4391021987f59e5b0c8a5bffb8c28,",
+      "key": "8a76d0f04df4391021987f59e5b0c8a5bffb8c28"
+    },
+    {
+      "name": "button-md/bold",
+      "id": "S:ba4978d1d87a32a1e8f881003c9af675ef7ec898,",
+      "key": "ba4978d1d87a32a1e8f881003c9af675ef7ec898"
+    },
+    {
+      "name": "button-lg/default",
+      "id": "S:c0fb4a3ab632c3c63cab9f451c3cdfeb8b9fb568,",
+      "key": "c0fb4a3ab632c3c63cab9f451c3cdfeb8b9fb568"
+    },
+    {
+      "name": "button-lg/semibold",
+      "id": "S:6f6df496141641ae8f2b9901febbfce9734bc766,",
+      "key": "6f6df496141641ae8f2b9901febbfce9734bc766"
+    },
+    {
+      "name": "button-lg/bold",
+      "id": "S:ab3693dcda114ef03972e1da2e9a0bed46ea51a4,",
+      "key": "ab3693dcda114ef03972e1da2e9a0bed46ea51a4"
+    },
+    {
+      "name": "Yokogawa/FAQ/Mobile title",
+      "id": "S:3e27e39467822683291619d0ab3fcc89519567f4,",
+      "key": "3e27e39467822683291619d0ab3fcc89519567f4"
+    }
+  ],
+  "effectStyles": [
+    {
+      "name": "shadow-sm",
+      "id": "S:55a7dd74c090225491fe4f87693f8708398a987b,",
+      "key": "55a7dd74c090225491fe4f87693f8708398a987b"
+    },
+    {
+      "name": "shadow",
+      "id": "S:9799513b7fb5c13bfcc28726fec069a6625ef314,",
+      "key": "9799513b7fb5c13bfcc28726fec069a6625ef314"
+    },
+    {
+      "name": "shadow-md",
+      "id": "S:aeefa40b039c9867ef95cea8a96243621f893496,",
+      "key": "aeefa40b039c9867ef95cea8a96243621f893496"
+    },
+    {
+      "name": "shadow-lg",
+      "id": "S:4e5d6ff4647ce7a42c64c66cecc6fbb14a6e19a5,",
+      "key": "4e5d6ff4647ce7a42c64c66cecc6fbb14a6e19a5"
+    },
+    {
+      "name": "shadow-inner",
+      "id": "S:e2c622c54bdca74856925aa4ae6bb9b6063ef137,",
+      "key": "e2c622c54bdca74856925aa4ae6bb9b6063ef137"
+    },
+    {
+      "name": "shadow-2xl",
+      "id": "S:009f7bc781188b2711eaddf3d83a9b15af8d4bf6,",
+      "key": "009f7bc781188b2711eaddf3d83a9b15af8d4bf6"
+    },
+    {
+      "name": "shadow-xl",
+      "id": "S:7d92f0054fe559027d2555f55bda771fb9c58607,",
+      "key": "7d92f0054fe559027d2555f55bda771fb9c58607"
+    }
+  ],
+  "gridStyles": [
+    {
+      "name": "grid layout",
+      "id": "S:c91ccbd75be0f0210d6eec856d92bc3dd467ca6d,",
+      "key": "c91ccbd75be0f0210d6eec856d92bc3dd467ca6d"
+    }
+  ],
+  "components": [
+    {
+      "name": "Yokogawa/Navbar/Desktop",
+      "id": "2526:1790",
+      "key": "064e4450a92932b841725fcb746def773c064806",
+      "type": "COMPONENT",
+      "variants": {},
+      "textProps": {},
+      "boolProps": [],
+      "swapProps": [],
+      "description": "Derived from homepage navbar 2415:234. Indonesian PRD navigation, FAQ active. Source homepage preserved."
+    },
+    {
+      "name": "Yokogawa/Navbar/Mobile",
+      "id": "2526:1848",
+      "key": "846d486c01f0c7f2f0a620af38becb92efe65753",
+      "type": "COMPONENT",
+      "variants": {},
+      "textProps": {},
+      "boolProps": [],
+      "swapProps": [],
+      "description": ""
+    },
+    {
+      "name": "Yokogawa/Footer/Desktop",
+      "id": "2526:1914",
+      "key": "8e2ecddcf5ace06fd5e34c88fe4d4b07081066d8",
+      "type": "COMPONENT",
+      "variants": {},
+      "textProps": {},
+      "boolProps": [],
+      "swapProps": [],
+      "description": ""
+    },
+    {
+      "name": "Yokogawa/Footer/Mobile",
+      "id": "2526:1980",
+      "key": "30600aec3373942ba0c07bc1b9cf11190415ede5",
+      "type": "COMPONENT",
+      "variants": {},
+      "textProps": {},
+      "boolProps": [],
+      "swapProps": [],
+      "description": ""
+    },
+    {
+      "name": "Yokogawa/CTA FAQ/Desktop",
+      "id": "2526:1981",
+      "key": "3cba63afd42bd6ca468f61dde9edae0d56e34c28",
+      "type": "COMPONENT",
+      "variants": {},
+      "textProps": {},
+      "boolProps": [],
+      "swapProps": [],
+      "description": "FAQ adaptation of existing CTA main component 2460:958. Homepage image and contact details retained; auto-layout responsive composition. Draft introductory copy."
+    },
+    {
+      "name": "Yokogawa/CTA FAQ/Mobile",
+      "id": "2526:2025",
+      "key": "884fe9e651625461a87fde4a588c0e6de2d04468",
+      "type": "COMPONENT",
+      "variants": {},
+      "textProps": {},
+      "boolProps": [],
+      "swapProps": [],
+      "description": "FAQ adaptation of existing CTA main component 2460:958. Homepage image and contact details retained; auto-layout responsive composition. Draft introductory copy."
+    },
+    {
+      "name": "Yokogawa/FAQ Accordion",
+      "id": "2526:2127",
+      "key": "5c70f41b134c8b0987d82750f0b5a5a0e28c56a6",
+      "type": "COMPONENT_SET",
+      "variants": {
+        "Viewport": [
+          "Desktop",
+          "Mobile"
+        ],
+        "State": [
+          "Closed",
+          "Open",
+          "Focus"
+        ]
+      },
+      "textProps": {
+        "Question": "Question#2526:12",
+        "Answer": "Answer#2526:13"
+      },
+      "boolProps": [],
+      "swapProps": [],
+      "description": ""
+    },
+    {
+      "name": "Yokogawa/Navbar/Mobile menu open",
+      "id": "2527:2460",
+      "key": "5127165c6c5f367f99cd8a808ba4e51cd0193e36",
+      "type": "COMPONENT",
+      "variants": {},
+      "textProps": {},
+      "boolProps": [],
+      "swapProps": [],
+      "description": "Mobile navigation expanded specimen. Tab/Shift+Tab through links; Escape closes; restore focus to toggle. Toggle button aria-expanded=true and aria-controls=mobile-navigation."
+    }
+  ],
+  "decisions": {
+    "direction": "Extend homepage 2415:233",
+    "fonts": {
+      "display": "Open Sans SemiBold",
+      "text": "Open Sans Regular"
+    },
+    "contentMode": "draft FAQ copy",
+    "desktopWidth": 1440,
+    "mobileWidth": 360,
+    "sourceCta": "2460:958",
+    "plan": "plan.md"
+  }
+}

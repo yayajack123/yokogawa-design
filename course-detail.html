@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Course details | Yokogawa Industrial Training</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=course-detail-6">
+  <script defer src="components.js"></script>
+  <script defer src="asset/vendor/gsap/gsap.min.js"></script>
+  <script defer src="course-detail.js?v=3"></script>
+</head>
+<body class="course-detail-page">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div data-component="navbar"></div>
+<main id="main-content">
+  <div class="course-detail-layout">
+    <aside class="course-sidebar" aria-label="Find a course">
+      <label class="course-search"><span class="visually-hidden">Search category or course</span><img src="asset/icon-search.svg" alt=""><input id="course-search" type="search" placeholder="Search category or course..." autocomplete="off"></label>
+      <nav id="course-list" aria-label="Courses"><p>Loading courses...</p></nav>
+    </aside>
+    <article class="course-detail-content" id="course-content" aria-live="polite"><p>Loading course details...</p></article>
+  </div>
+  <div data-component="cta"></div>
+</main>
+<div data-component="footer"></div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+GSAP 3.13.0
+Files in this directory are distributed under the GreenSock Standard "No Charge" License.
+License: https://gsap.com/standard-license/
+Package: https://www.npmjs.com/package/gsap/v/3.13.0

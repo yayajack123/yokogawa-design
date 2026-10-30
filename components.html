@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Components | Yokogawa Industrial Training</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="components.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div data-component="navbar"></div>
+  <main id="main-content">
+    <section class="catalog">
+      <h1>Shared components</h1>
+      <section><h2>Color tokens</h2><p>Brand colors: --yg-blue, --yg-blue-action, --yg-blue-deep, --yg-blue-soft, --yg-yellow. Neutral colors: --yg-border, --yg-canvas, --yg-ink, --yg-muted, --yg-surface. Status colors: --yg-error, --yg-info, --yg-success, --yg-warning.</p></section>
+      <section><h2>Typography</h2><h3>Heading level 3</h3><h4>Heading level 4</h4><h5>Heading level 5</h5><h6>Heading level 6</h6><p>Body text uses Open Sans.</p></section>
+      <section><h2>Buttons</h2><a class="button button-primary" href="#main-content">Primary</a> <a class="button button-secondary" href="#main-content">Secondary</a> <a class="button button-outlined" href="#main-content">Outlined</a></section>
+      <section><h2>Form controls</h2><div class="course-search"><div class="search-field"><label for="components_search_input">Course name</label><input id="components_search_input" type="search"></div><div class="category-field"><label for="components_category_dropdown">Category</label><select id="components_category_dropdown"><option>Category</option></select></div></div></section>
+      <section><h2>Cards</h2><ul class="catalog-grid"><li class="catalog-card"><div><h3>Course card</h3><p>Course description</p></div></li></ul></section>
+      <section><h2>Interactive components</h2><details class="faq-item"><summary>Frequently asked question</summary><p>Answer</p></details><p>The navigation above and footer below use the shared components.</p></section>
+    </section>
+    <div data-component="cta"></div>
+  </main>
+  <div data-component="footer"></div>
+</body>
+</html>
