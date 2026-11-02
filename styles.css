@@ -2060,3 +2060,14 @@ summary:focus-visible {
   .primary-nav { justify-self: center; }
   .header-actions { justify-self: end; width: auto; }
 }
+
+@media (max-width: 640px) {
+  .why-us-watermark {
+    width: 506px;
+    height: 507px;
+    max-width: none;
+    top: -2px;
+    right: -233px;
+    bottom: auto;
+  }
+}
