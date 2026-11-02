@@ -12,15 +12,9 @@ ICON['add']='<svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true
 for name in ['course', 'banner']:
  icon=(ROOT/f'templates/icon-{name}.svg').read_text()
  ICON[name]=icon.replace('<svg ', '<svg aria-hidden="true" ',1)
-# Navigation retains the original template's sidebar containers and SVG slots.
+# Render the shared sidebar before app-shell initialization on every generated page.
 shell=(ROOT/'templates/shell.html').read_text()
-a=shell.index('<nav class="sidebar__menu">');b=shell.index('</nav>',a)+6
-nav='<nav class="sidebar__menu" aria-label="Admin navigation"><div class="sidebar__group"><span class="sidebar__group-title">Content management</span><ul class="sidebar__list">'
-for url,label,icon in [('index.html','Courses','course'),('categories.html','Course categories','category'),('banner.html','Home banner','banner')]:
- nav+=f'<li class="sidebar__item"><a class="sidebar__button" href="{url}">{ICON[icon]}<span>{label}</span></a></li>'
-nav+='</ul></div></nav>'
-shell=shell[:a]+nav+shell[b:]
-a=shell.index('<div class="sidebar__search">');b=shell.index('<div class="sidebar__content">',a);shell=shell[:a]+shell[b:]
+shell=re.sub(r'<aside class="sidebar sidebar--lg sidebar--app".*?</aside>', '<script src="assets/js/sidebar.js"></script>', shell, count=1, flags=re.S)
 a=shell.index('<header class="navbar">')
 shell=shell[:a]+f'''<header class="navbar"><button type="button" class="button button--ghost button--neutral button--icon-only button--flush-start" data-stisla-app-shell-toggle="auto" aria-label="Toggle navigation">{ICON['menu']}</button><span class="text-sm text-muted-foreground">Industrial Training</span><div class="flex items-center gap-2 ms-auto"><a class="button button--ghost button--neutral button--sm hidden lg:flex" href="../index.html">View website</a><button type="button" class="button button--ghost button--neutral button--icon-only" data-theme-toggle aria-label="Switch theme">{ICON['category']}</button><div class="menu"><button type="button" class="button button--ghost button--neutral" data-stisla-menu-trigger="adminAccount" aria-label="Open admin account menu" aria-haspopup="menu" aria-expanded="false" aria-controls="adminAccount">Admin</button><div class="menu__popup w-48" id="adminAccount" data-stisla-menu data-state="closed" role="menu"><a class="menu__item" role="menuitem" href="password.html">Change password</a><a class="menu__item" href="login.html" role="menuitem">Sign out</a></div></div></div></header>'''
 shell=shell.replace('/meridian/','/admin/').replace('Meridian','Yokogawa')
@@ -46,8 +40,6 @@ def button(url,label):return f'<a class="button button--primary" href="{url}">{I
 def dialog():return f'''<div class="dialog dialog--sm" id="deleteRecord" data-stisla-dialog data-state="closed" role="alertdialog" aria-modal="true" aria-labelledby="deleteTitle" aria-describedby="deleteDescription" aria-hidden="true" tabindex="-1"><div class="dialog__backdrop" data-stisla-dialog-dismiss></div><div class="dialog__panel"><div class="dialog__content"><div class="dialog__body text-center pt-6"><span class="icon-box icon-box--danger icon-box--circle icon-box--lg mb-3">{ICON['delete']}</span><h2 class="dialog__title" id="deleteTitle">Delete this item?</h2><p class="text-muted-foreground" id="deleteDescription">Delete <span data-slot="name"></span> from this preview? This cannot be undone during this session.</p></div><div class="dialog__footer justify-center"><button type="button" class="button button--ghost button--neutral" data-stisla-dialog-dismiss>Cancel</button><button type="button" class="button button--danger" data-confirm-delete data-stisla-dialog-dismiss>Delete item</button></div></div></div></div>'''
 def write(name,title,description,body,action='',mode=''):
  s=shell
- active='categories.html' if 'categor' in name else 'banner.html' if name=='banner.html' else 'index.html'
- s=s.replace(f'href="{active}"',f'href="{active}" aria-current="page"')
  html=f'''<!doctype html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{title} · Yokogawa Admin</title><script>(function(){{var t=localStorage.getItem('stisla-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}})();</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/style.css"></head><body data-admin-page="{mode}">{s}<div class="page content"><div class="content__container"><header class="page__header"><div class="page__headline"><h1 class="page__title" data-page-title>{title}</h1><p class="page__description">{description}</p></div><div class="page__action">{action}</div></header><div class="page__body"><p class="text-sm" role="status" id="feedback"></p>{body}</div></div></div>{dialog()}</main></div><script type="module" src="https://cdn.jsdelivr.net/npm/@stisla/vanilla@3/dist/stisla.js"></script><script src="assets/js/app-shell.js"></script><script src="assets/js/theme.js"></script><script src="assets/js/table-select.js"></script><script src="assets/js/admin-demo.js"></script></body></html>'''
  (ROOT/name).write_text(html)
 def table(mode):

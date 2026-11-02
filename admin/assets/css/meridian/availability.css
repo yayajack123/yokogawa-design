@@ -1,0 +1,25 @@
+/* FullCalendar adapter uses the Meridian semantic theme in both modes. */
+#admin-availability-calendar { --fc-border-color: var(--color-border-strong); --fc-page-bg-color: var(--color-surface); --fc-neutral-bg-color: var(--color-surface-2); --fc-today-bg-color: var(--color-accent); font-size: var(--text-sm); color: var(--color-foreground); }
+#admin-availability-calendar .fc-toolbar { flex-wrap: wrap; gap: calc(var(--spacing) * 3); }
+#admin-availability-calendar .fc-toolbar-title { font-size: var(--text-lg); font-weight: 600; }
+#admin-availability-calendar .fc-button { background: var(--color-neutral); border-color: var(--color-border-strong); color: var(--color-neutral-foreground); border-radius: var(--radius-sm); }
+#admin-availability-calendar .fc-daygrid-day-frame { min-height: 5rem; }
+#admin-availability-calendar .fc-event { background: color-mix(in srgb, var(--color-success) 12%, var(--color-surface)); border-color: color-mix(in srgb, var(--color-success) 30%, var(--color-surface)); }
+#admin-availability-calendar .fc-event-main { color: var(--color-foreground); font-weight: 600; }
+#admin-availability-calendar .fc-button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+#availability-form[hidden] { display: none; }
+@media (max-width: 480px) { #admin-availability-calendar { font-size: var(--text-xs); } }
+.availability-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: calc(var(--spacing) * 4); margin-block-end: calc(var(--spacing) * 5); }
+.availability-navigation { display: flex; align-items: center; gap: calc(var(--spacing) * 2); }
+#availability-add { margin-inline-start: auto; }
+#availability-prev, #availability-next { color: var(--color-foreground); background: var(--color-surface); border-color: var(--color-border-strong); font-size: var(--text-xl); }
+#availability-editor .dialog__body { display: grid; gap: calc(var(--spacing) * 4); }
+#availability-editor-error, #availability-detail-error { color: var(--color-danger-emphasis); }
+#availability-editor .dialog__panel, #availability-details .dialog__panel { max-height: calc(100dvh - 2rem); overflow-y: auto; overscroll-behavior: contain; }
+#admin-availability-calendar .fc-h-event { background-color: color-mix(in srgb, var(--color-success) 12%, var(--color-surface)); border-color: color-mix(in srgb, var(--color-success) 30%, var(--color-surface)); }
+#availability-list { overflow-x: auto; }
+#availability-list .table { width: 100%; }
+#availability-list th[scope="row"] { font-weight: 500; }
+#availability-list th:last-child, #availability-list td:last-child { text-align: end; }
+.availability-view-header { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--spacing) * 4); flex-wrap: wrap; margin-block-end: calc(var(--spacing) * 4); }
+.availability-view-header .tabs__list { align-self: center; }

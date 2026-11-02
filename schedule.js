@@ -3,24 +3,70 @@
   const status = document.getElementById('schedule-status');
   const available = document.getElementById('schedule-available');
   const title = document.getElementById('schedule-month');
-  const dates = ['2025-01-03', '2025-01-11', '2025-01-12', '2025-01-13', '2025-01-14'];
+  let dates;
+  try { dates = window.YokogawaAvailability.read(); } catch (error) {
+    status.textContent = 'Unable to load availability. Please contact us for available dates.';
+    return;
+  }
   if (!calendarElement || !window.FullCalendar) return;
+
+  const nextDate = value => {
+    const date = new Date(`${value}T00:00:00Z`);
+    date.setUTCDate(date.getUTCDate() + 1);
+    return date.toISOString().slice(0, 10);
+  };
+  const ranges = [];
+  [...new Set(dates)].sort().forEach(date => {
+    const previous = ranges[ranges.length - 1];
+    if (previous && previous.end === date) {
+      previous.end = nextDate(date);
+    } else {
+      // FullCalendar uses an exclusive end date for all-day ranges.
+      ranges.push({ start: date, end: nextDate(date), title: 'Available', allDay: true,
+        classNames: ['schedule-example-day'] });
+    }
+  });
 
   try {
     const calendar = new FullCalendar.Calendar(calendarElement, {
       initialView: 'dayGridMonth',
-      initialDate: '2025-01-01',
       headerToolbar: false,
       fixedWeekCount: true,
       showNonCurrentDates: true,
+      firstDay: 1,
       height: 'auto',
       dayHeaderFormat: { weekday: 'short' },
-      events: dates.map(date => ({ start: date, display: 'background', classNames: ['schedule-example-day'] })),
+      events: ranges,
       datesSet(info) {
         title.textContent = info.view.title;
         const month = info.view.currentStart;
         const matching = dates.filter(date => date.slice(0, 7) === `${month.getFullYear()}-${String(month.getMonth() + 1).padStart(2, '0')}`);
-        available.textContent = matching.length ? `Example available dates: ${matching.map(date => Number(date.slice(-2))).join(', ')} ${new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric' }).format(month)}.` : 'No example availability for this month.';
+        document.getElementById('availability-month').textContent = info.view.title;
+        available.replaceChildren();
+        if (!matching.length) {
+          const empty = document.createElement('p');
+          empty.className = 'schedule-empty';
+          empty.textContent = 'No available dates listed for this month.';
+          available.append(empty);
+          return;
+        }
+        const list = document.createElement('ul');
+        matching.sort().forEach(date => {
+          const day = new Date(`${date}T00:00:00`);
+          const item = document.createElement('li');
+          const number = document.createElement('time');
+          number.dateTime = date;
+          number.textContent = day.getDate();
+          const description = document.createElement('div');
+          const weekday = document.createElement('strong');
+          weekday.textContent = new Intl.DateTimeFormat('en', { weekday: 'long' }).format(day);
+          const label = document.createElement('span');
+          label.textContent = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric' }).format(day);
+          description.append(weekday, label);
+          item.append(number, description);
+          list.append(item);
+        });
+        available.append(list);
       }
     });
     calendar.render();

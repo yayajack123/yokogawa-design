@@ -465,3 +465,18 @@ sesi browser dan tidak mengklaim akun atau website live sudah berubah.
 Gunakan `Intl.NumberFormat`, `Intl.PluralRules`, dan `Intl.ListFormat` untuk angka,
 jumlah, dan daftar dinamis. Nama serta deskripsi course dari sumber bukan copy
 UI dan tidak diterjemahkan ulang secara otomatis.
+
+## Availability calendar
+
+`availability.html` uses the original Meridian shell, card, field and button
+classes. FullCalendar is loaded from the existing local vendor bundle; the
+calendar adapter `assets/css/meridian/availability.css` uses only admin semantic
+tokens and does not import the public stylesheet. The Add availability button
+or selecting a calendar date opens the inline date-range form. Calendar navigation
+and the monthly list stay synchronized. Sidebar calendar artwork inherits
+currentColor. Availability remains a browser-local preview via localStorage.
+
+
+## Sidebar admin bersama
+
+Halaman admin aktif memakai `admin/assets/js/sidebar.js` sebagai sumber tunggal markup sidebar. Urutan menu: Courses, Course categories, Home banner, Availability. Status aktif ditentukan dari `data-admin-page`; halaman akun tidak memilih menu konten. Skrip dimuat sebelum `app-shell.js` agar perilaku collapse dan drawer tetap bekerja. Generator `admin/build-pages.py` menghasilkan referensi komponen yang sama.

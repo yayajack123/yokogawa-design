@@ -40,3 +40,16 @@ preview Course, Kategori, Home Banner, dan menu akun. Login contoh berada di
 di `/`. Admin merupakan prototipe statis dengan data sesi browser, tanpa
 backend atau autentikasi nyata. Struktur komponen dan cara memperbarui halaman
 bersama dijelaskan di `admin/README.md` dan `admin-design.md`.
+
+## Production preview
+
+- Website: https://yokogawa-design.vercel.app
+- Admin template: https://yokogawa-design.vercel.app/admin/
+
+The current production deployment was uploaded from the local workspace with Vercel CLI. It is not configured to automatically deploy Git pushes. `vercel.json` redirects `/admin` to `/admin/` so relative admin asset paths resolve correctly.
+
+### Availability admin preview
+
+Open `admin/availability.html` to add a single available date or an inclusive date range, filter dates by month, and remove dates. Data is persisted in localStorage (`yokogawa-availability-v1`) and read by `schedule.html` after reload on the same browser and origin. The initial dataset contains 41 dates across nine months of 2026. This static preview does not provide shared server storage or authentication; production publishing requires a backend.
+
+Sidebar admin bersama dirender oleh `admin/assets/js/sidebar.js` pada seluruh halaman admin aktif; urutan menu dan ikon dikelola di file tersebut. `admin/build-pages.py` mempertahankan pemakaian komponen ini saat halaman dibuat ulang.

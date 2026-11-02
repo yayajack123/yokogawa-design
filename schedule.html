@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="styles.css">
   <script defer src="components.js"></script>
   <script defer src="asset/vendor/fullcalendar/index.global.min.js"></script>
+  <script defer src="availability-data.js"></script>
   <script defer src="schedule.js"></script>
   
 <script defer src="asset/vendor/gsap/gsap.min.js"></script><script defer src="asset/vendor/gsap/ScrollTrigger.min.js"></script><script defer src="asset/vendor/gsap/ScrollSmoother.min.js"></script><script defer src="motion.js"></script><script defer src="cta-motion.js"></script></head>
@@ -24,13 +25,15 @@
       <nav class="catalog-breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Schedule</span></nav>
     </section>
     <section class="schedule-section" aria-labelledby="calendar-heading">
-      <div class="schedule-intro"><h2 id="calendar-heading">Our Company Calendar</h2><p>You can see the available day of our service here.</p></div>
+      <div class="schedule-intro"><h2 id="calendar-heading">Plan your technical training</h2><p>View available dates and plan technical training for your team.</p></div>
+      <div class="schedule-layout">
       <div class="schedule-calendar-shell">
-        <div class="schedule-toolbar"><div class="schedule-controls"><button type="button" id="schedule-prev" aria-label="Previous month"><img src="asset/schedule/arrow-left.svg" alt=""></button><button type="button" id="schedule-next" aria-label="Next month"><img src="asset/schedule/arrow-right.svg" alt=""></button></div><h3 id="schedule-month" aria-live="polite"></h3><span class="schedule-legend"><span aria-hidden="true"></span>Schedule</span></div>
+        <div class="schedule-toolbar"><div class="schedule-controls"><button type="button" id="schedule-prev" aria-label="Previous month"><img src="asset/schedule/arrow-left.svg" alt=""></button><button type="button" id="schedule-next" aria-label="Next month"><img src="asset/schedule/arrow-right.svg" alt=""></button></div><h3 id="schedule-month" aria-live="polite"></h3><span class="schedule-legend"><span aria-hidden="true"></span>Available</span></div>
         <div id="schedule-calendar" aria-label="Company calendar"></div>
         <p id="schedule-status" class="schedule-status" role="status">The calendar could not be loaded. Please contact us for availability.</p>
       </div>
-      <p id="schedule-available" class="schedule-available" aria-live="polite"></p>
+      <aside class="schedule-sidebar" aria-labelledby="availability-heading"><h3 id="availability-heading">Available dates</h3><p id="availability-month"></p><div id="schedule-available" class="schedule-available" aria-live="polite"></div></aside>
+      </div>
       <noscript><p class="schedule-status">JavaScript is required to display the calendar. Please contact us for availability.</p></noscript>
     </section>
     <div data-component="cta"></div>
