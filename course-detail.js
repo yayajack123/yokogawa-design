@@ -3,6 +3,7 @@ const content = document.querySelector('#course-content');
 const search = document.querySelector('#course-search');
 const sidebar = document.querySelector('.course-sidebar');
 function updateScrollHint() {
+  sidebar.classList.toggle('has-scrolled-courses', list.scrollTop > 1);
   sidebar.classList.toggle('has-more-courses', list.scrollTop + list.clientHeight < list.scrollHeight - 1);
 }
 list.addEventListener('scroll', updateScrollHint, { passive: true });
@@ -59,7 +60,9 @@ function selectCourse(id, push = false) {
   breadcrumb.setAttribute('aria-label', 'Breadcrumb');
   const home = element('a', 'Home'); home.href = 'index.html';
   const catalog = element('a', 'Courses'); catalog.href = 'courses.html';
-  breadcrumb.append(home, document.createTextNode(' / '), catalog, document.createTextNode(' / '), element('span', course.title));
+  const currentPage = element('span', course.title);
+  currentPage.setAttribute('aria-current', 'page');
+  breadcrumb.append(home, document.createTextNode(' / '), catalog, document.createTextNode(' / '), currentPage);
   const hero = element('header', '', 'course-detail-hero');
   hero.append(element('h1', course.title));
   const description = course.description || course.fields.OBJECTIVE;
@@ -108,3 +111,61 @@ function selectCourse(id, push = false) {
 search.addEventListener('input', renderList);
 window.addEventListener('popstate', () => selectCourse(new URLSearchParams(location.search).get('course')));
 fetch('course-data.json').then(response => { if (!response.ok) throw new Error('Unable to load courses'); return response.json(); }).then(data => { courses = data; selectCourse(activeId); }).catch(() => { list.replaceChildren(element('p', 'Unable to load courses. Please reload the page.')); content.replaceChildren(element('p', 'Course details could not be loaded.')); });
+
+// Reuse the desktop course finder inside the mobile search dialog.
+const finderBreakpoint = window.matchMedia('(max-width: 640px)');
+const finderHome = sidebar.parentElement;
+const finderTrigger = element('button', '', 'course-finder-trigger');
+finderTrigger.type = 'button';
+finderTrigger.innerHTML = '<img src="asset/icon-search.svg" alt=""><span>Search by course name</span>';
+finderTrigger.setAttribute('aria-haspopup', 'dialog');
+finderHome.before(finderTrigger);
+const finderDialog = element('dialog', '', 'course-finder-dialog');
+finderDialog.setAttribute('aria-label', 'Search courses');
+const finderClose = element('button', '×', 'course-finder-close');
+finderClose.type = 'button';
+finderClose.setAttribute('aria-label', 'Close course search');
+finderDialog.append(finderClose);
+document.body.append(finderDialog);
+let finderTween;
+let finderClosing = false;
+function closeFinder(immediate = false) {
+  if (!finderDialog.open) return;
+  finderTween?.kill();
+  const finish = () => {
+    finderClosing = false;
+    finderDialog.close();
+    finderDialog.style.removeProperty('transform');
+    finderDialog.style.removeProperty('opacity');
+  };
+  finderClosing = true;
+  if (immediate || reducedMotion.matches || !window.gsap) { finish(); return; }
+  finderTween = gsap.to(finderDialog, { y: 24, opacity: 0, duration: 0.18,
+    ease: 'power2.out', overwrite: true, onComplete: finish });
+}
+finderTrigger.addEventListener('click', () => {
+  finderTween?.kill();
+  finderClosing = false;
+  if (!finderDialog.open) finderDialog.showModal();
+  search.focus({ preventScroll: true });
+  updateScrollHint();
+  if (window.gsap && !reducedMotion.matches) {
+    finderTween = gsap.fromTo(finderDialog, { y: 32, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.28, ease: 'power2.out', overwrite: true });
+  }
+});
+finderClose.addEventListener('click', () => closeFinder());
+finderDialog.addEventListener('cancel', event => { event.preventDefault(); closeFinder(); });
+list.addEventListener('click', event => { if (event.target.closest('a')) closeFinder(); });
+reducedMotion.addEventListener('change', () => {
+  if (!reducedMotion.matches) return;
+  if (finderClosing) closeFinder(true);
+  else { finderTween?.kill(); finderDialog.style.removeProperty('transform'); finderDialog.style.removeProperty('opacity'); }
+});
+function positionFinder() {
+  if (finderBreakpoint.matches) finderDialog.append(sidebar);
+  else { closeFinder(true); finderHome.prepend(sidebar); }
+  updateScrollHint();
+}
+finderBreakpoint.addEventListener('change', positionFinder);
+positionFinder();

@@ -17,6 +17,15 @@
         ],
         "createdAt": "2026-10-28T07:33:04.164Z",
         "reason": "False positive on quick-search: styles.css applies 64px vertical padding and the shared desktop-page-gutter (75px at 1440px), with explicit 32px tablet and 20px phone insets; responsive previews confirmed text and controls are inset."
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "components.html"
+        ],
+        "createdAt": "2026-11-02T01:59:50.452Z",
+        "reason": "Agent verified browser computed styles: h1 32px, h2 24px, h3 18.72px, body 16px. Detector reports all roles as 16px; false positive for this component reference page."
       }
     ]
   }

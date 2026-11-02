@@ -7,15 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=course-detail-6">
+  <link rel="stylesheet" href="styles.css?v=course-detail-7">
   <script defer src="components.js"></script>
-  <script defer src="asset/vendor/gsap/gsap.min.js"></script>
-  <script defer src="course-detail.js?v=3"></script>
-</head>
+
+
+<script defer src="asset/vendor/gsap/gsap.min.js"></script><script defer src="asset/vendor/gsap/ScrollTrigger.min.js"></script><script defer src="asset/vendor/gsap/ScrollSmoother.min.js"></script><script defer src="motion.js"></script><script defer src="course-detail.js?v=4"></script><script defer src="cta-motion.js"></script></head>
 <body class="course-detail-page">
 <a class="skip-link" href="#main-content">Skip to content</a>
 <div data-component="navbar"></div>
-<main id="main-content">
+<div id="smooth-wrapper"><div id="smooth-content"><main id="main-content">
   <div class="course-detail-layout">
     <aside class="course-sidebar" aria-label="Find a course">
       <label class="course-search"><span class="visually-hidden">Search category or course</span><img src="asset/icon-search.svg" alt=""><input id="course-search" type="search" placeholder="Search category or course..." autocomplete="off"></label>
@@ -25,6 +25,6 @@
   </div>
   <div data-component="cta"></div>
 </main>
-<div data-component="footer"></div>
+<div data-component="footer"></div></div></div>
 </body>
 </html>

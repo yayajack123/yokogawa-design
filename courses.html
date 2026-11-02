@@ -10,11 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script defer src="components.js"></script>
-</head>
+<script defer src="asset/vendor/gsap/gsap.min.js"></script><script defer src="asset/vendor/gsap/ScrollTrigger.min.js"></script><script defer src="asset/vendor/gsap/ScrollSmoother.min.js"></script><script defer src="motion.js"></script><script defer src="cta-motion.js"></script></head>
 <body class="courses-page">
 <a class="skip-link" href="#main-content">Skip to content</a>
 <div data-component="navbar"></div>
-<main id="main-content">
+<div id="smooth-wrapper"><div id="smooth-content"><main id="main-content">
   <section class="catalog-hero" aria-labelledby="catalog-title">
     <img class="catalog-hero-image" src="asset/course-figma/d5949.png" alt="">
     <img class="catalog-hero-mark" src="asset/course-figma/67a39.svg" alt="">
@@ -23,6 +23,22 @@
   </section>
   <nav id="courses_page_category_nav" class="catalog-nav" aria-label="Course categories"><a href="#all-courses" aria-current="location">All Course</a><a href="#centum-vp">Centum VP</a><a href="#advanced-solution">Advanced Solution</a><a href="#safety">Safety</a><a href="#rapid">Rapid</a><a href="#online">Online</a><a href="#academic">Academic</a><a href="#others">Others</a></nav>
   <div class="catalog" id="all-courses">
+    <!-- Figma: search + count, node 2516:4296. -->
+    <div class="catalog-tools" hidden>
+      <form id="courses_page_search_form" class="catalog-search" role="search" aria-label="Search courses">
+        <label class="visually-hidden" for="courses_page_search_input">Search courses</label>
+        <div class="catalog-search__field">
+          <img src="asset/course-search/search-normal.svg" width="24" height="24" alt="">
+          <input id="courses_page_search_input" type="search" placeholder="Search by course name" aria-controls="courses_page_results" autocomplete="off">
+          <button id="courses_page_clear_button" class="catalog-search__clear" type="button" hidden>Clear</button>
+        </div>
+      </form>
+      <p id="courses_page_results" class="catalog-search__status" role="status" aria-live="polite" aria-atomic="true"><img src="asset/course-search/availability-dot.svg" width="12" height="12" alt=""><span id="courses_page_results_label"></span></p>
+    </div>
+    <div id="courses_page_empty" class="catalog-empty" hidden>
+      <h2>No courses found</h2>
+      <p>Try another course name, code, or keyword.</p>
+    </div>
     <p class="catalog-note" hidden>Course descriptions and availability are subject to confirmation with the Yokogawa team.</p>
     <section class="catalog-group" id="centum-vp" aria-labelledby="centum-vp-title">
       <h2 id="centum-vp-title">CENTUM VP Courses</h2>
@@ -314,7 +330,7 @@
   </div>
   <div data-component="cta"></div>
 </main>
-<div data-component="footer"></div>
+<div data-component="footer"></div></div></div>
 <script src="courses.js"></script>
 </body>
 </html>

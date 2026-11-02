@@ -1,6 +1,6 @@
 # Course detail — Yokogawa Malaysia
 
-Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR dan jadwal dapat berubah; jangan menganggapnya sebagai harga atau jadwal Yokogawa Indonesia. Teks mempertahankan bahasa sumber. Tautan PDF berasal dari masing-masing halaman; isi PDF belum diekstrak secara terpisah.
+Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam IDR adalah estimasi konversi dari MYR menggunakan kurs tengah [XE](https://www.xe.com/en-us/currencyconverter/convert/?Amount=1&From=MYR&To=IDR) pada 30 Oktober 2026, 1 MYR = IDR 4.482,38, dibulatkan ke rupiah terdekat. Kurs dan jadwal dapat berubah; jangan menganggapnya sebagai harga atau jadwal Yokogawa Indonesia. Teks mempertahankan bahasa sumber. Tautan PDF berasal dari masing-masing halaman; isi PDF belum diekstrak secara terpisah.
 
 ## CENTUM VP OPERATION
 
@@ -15,7 +15,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For Centum VP operators, plant operation specialists and engineers who need to operate the Centum VP system. |
 | PREREQUISITE | Participants should preferably have some basic knowledge on process measurement and control. |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 4119.00 |
+| COURSE FEE | Approx. IDR 18,462,923 (MYR 4119.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -60,7 +60,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For engineers involved in software generation or modification on the Centum VP system. |
 | PREREQUISITE | Participants should have attended Centum VP Operation course |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 6590.00 |
+| COURSE FEE | Approx. IDR 29,538,884 (MYR 6590.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -113,7 +113,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For engineers and technician who need to perform maintenance on the Centum VP system. |
 | PREREQUISITE | Participants should preferably be familiar with Centum VP operation and engineering. |
 | MAX. CLASS SIZE | 9 |
-| COURSE FEE | MYR 4531.00 |
+| COURSE FEE | Approx. IDR 20,309,664 (MYR 4531.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -153,7 +153,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For operators, plant operation specialists and engineers who need to operate the Centum VP system and want to gain a general understanding of the engineering features of the system for future improvements. |
 | PREREQUISITE | Participants should preferably have some basic knowledge on process measurement and control. |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 6720.00 |
+| COURSE FEE | Approx. IDR 30,121,594 (MYR 6720.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -211,7 +211,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For operators, plant operation specialists, technicians and engineers who need to operate and perform maintenance on CENTUM VP system. |
 | PREREQUISITE | Participants should preferably have some basic knowledge on process measurement and control. |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 6857.00 |
+| COURSE FEE | Approx. IDR 30,735,680 (MYR 6857.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -265,7 +265,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For engineers involved in module-based engineering or modification on the CENTUM VP R6 AD Suite system. |
 | PREREQUISITE | Participants should have attended Centum VP Engineering course. |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 7875.00 |
+| COURSE FEE | Approx. IDR 35,298,743 (MYR 7875.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -318,7 +318,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For engineers and technicians who need to perform operation engineering and maintenance work on CENTUM VP system. |
 | PREREQUISITE | None |
 | MAX. CLASS SIZE | 10 |
-| COURSE FEE | MYR 6565.00 |
+| COURSE FEE | Approx. IDR 29,426,825 (MYR 6565.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -378,7 +378,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For an organization who needs access to data stored in Exaquantum, people who needs to understand where the Exaquantum/Explorer product could be used within their organization and who needs to generate simple one-off graphical reports. |
 | PREREQUISITE | Participants should be familiar with basic Microsoft Windows terminology and have a working knowledge of Microsoft Office applications such as Microsoft Excel. |
 | MAX. CLASS SIZE | 8 |
-| COURSE FEE | MYR 5492.00 |
+| COURSE FEE | Approx. IDR 24,617,231 (MYR 5492.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -409,7 +409,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | Persons who will be responsible for the day to day maintenance and administration of the Exaquantum system. Yokogawa recommends that at least two people from each site attend this course. |
 | PREREQUISITE | Participants should have a working knowledge of Microsoft applications and attended the Exaquantum User (EXQ1). |
 | MAX. CLASS SIZE | 8 |
-| COURSE FEE | MYR 7452.00 |
+| COURSE FEE | Approx. IDR 33,402,696 (MYR 7452.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -445,7 +445,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For operators, supervisors, instrument engineers, alarm processing system engineers and process / mechanical / maintenance engineers who are part of an alarm system team. |
 | PREREQUISITE | Participants should know plant processes and plant operation in a DCS environment. |
 | MAX. CLASS SIZE | 7 |
-| COURSE FEE | MYR 4315.00 |
+| COURSE FEE | Approx. IDR 19,341,470 (MYR 4315.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -475,7 +475,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | Process, Operations, Maintenance, Control Engineers who are responsible for plant operation efficiency and safety improvement, plant operational procedure optimization, operational cost reduction, plant operation quality control and optimized plant maintenance. |
 | PREREQUISITE | Participants should know plant processes and plant operation in a DCS environment. |
 | MAX. CLASS SIZE | 8 |
-| COURSE FEE | MYR 4315.00 |
+| COURSE FEE | Approx. IDR 19,341,470 (MYR 4315.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -522,7 +522,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For instrument engineers or managers in charge of managing and maintaining the plant assets. |
 | PREREQUISITE | Participants should have basic knowledge on DCS, Foundation Fieldbus and instrumentation. |
 | MAX. CLASS SIZE | 8 |
-| COURSE FEE | MYR 3845.00 |
+| COURSE FEE | Approx. IDR 17,234,751 (MYR 3845.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -557,7 +557,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For plant operation specialists and engineers who need to operate and configure CAMS for the Centum VP system. |
 | PREREQUISITE | Participants should preferably have some basic knowledge on Centum VP Operation and Engineering |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 1722.00 |
+| COURSE FEE | Approx. IDR 7,718,658 (MYR 1722.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -640,7 +640,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For instrument engineers, application engineers, site engineers, project managers, operation engineers, maintenance engineers and all those who are involved in the design, realization, maintenance and operation of safety systems. |
 | PREREQUISITE | The test consist of 15 Multiple Choices and 5 Open Questions. Total score is maximum 50 points. The Multiple Choice has a maximum score of 30 points and Open Questions of 20 points. |
 | MAX. CLASS SIZE | 5 |
-| COURSE FEE | MYR 8498.00 |
+| COURSE FEE | Approx. IDR 38,091,265 (MYR 8498.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -675,7 +675,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For process engineers, process control engineers, maintenance and technical support personnel involved with the ProSafe-SLS system. |
 | PREREQUISITE | Participants should preferably have a basic knowledge of electronics and Boolean logic. |
 | MAX. CLASS SIZE | 8 |
-| COURSE FEE | MYR 8498.00 |
+| COURSE FEE | Approx. IDR 38,091,265 (MYR 8498.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -710,7 +710,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For process engineers, process control engineers, maintenance and technical the ProSafe-COM system. |
 | PREREQUISITE | Participants should preferably have a basic knowledge of electronics and Boolean logic. |
 | MAX. CLASS SIZE | 8 |
-| COURSE FEE | MYR 5000.00 |
+| COURSE FEE | Approx. IDR 22,411,900 (MYR 5000.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -737,7 +737,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For process engineers, process control engineers, maintenance and technical support personnel involved with the ProSafe-RS system. |
 | PREREQUISITE | Participants should preferably have a basic knowledge of computers, MS Windows, electronics and Boolean logic. |
 | MAX. CLASS SIZE | 8 |
-| COURSE FEE | MYR 8888.00 |
+| COURSE FEE | Approx. IDR 39,839,393 (MYR 8888.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -847,7 +847,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | Architectural and/or Basic Designers, Lead Engineers, Project Engineers, System Engineers, Application Engineers, Site Engineers and Project Managers involved in safety projects. |
 | PREREQUISITE | Participants should have an affinity with industrial safety. |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 0.00 |
+| COURSE FEE | Approx. IDR 0 (MYR 0.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1105,7 +1105,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For Centum VP operators, plant operation specialists and engineers who need to operate the Centum VP system. |
 | PREREQUISITE | Participants should preferably have some basic knowledge on process measurement and control. |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 4119.00 |
+| COURSE FEE | Approx. IDR 18,462,923 (MYR 4119.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1150,7 +1150,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For engineers involved in software generation or modification on the Centum VP system. |
 | PREREQUISITE | Participants should have attended Centum VP Operation course |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 6590.00 |
+| COURSE FEE | Approx. IDR 29,538,884 (MYR 6590.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1203,7 +1203,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For engineers and technician who need to perform maintenance on the Centum VP system. |
 | PREREQUISITE | Participants should preferably be familiar with Centum VP operation and engineering. |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 4531.00 |
+| COURSE FEE | Approx. IDR 20,309,664 (MYR 4531.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1244,7 +1244,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For instrument engineers or managers in charge of managing and maintaining the plant assets. |
 | PREREQUISITE | Participants should have basic knowledge on DCS, Foundation Fieldbus and instrumentation. |
 | MAX. CLASS SIZE | 8 |
-| COURSE FEE | MYR 6884.00 |
+| COURSE FEE | Approx. IDR 30,856,704 (MYR 6884.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1276,7 +1276,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For engineers involved in module-based engineering or modification on the CENTUM VP R6 AD Suite system. |
 | PREREQUISITE | Participants should have attended Centum VP Engineering course. |
 | MAX. CLASS SIZE | 12 |
-| COURSE FEE | MYR 7875.00 |
+| COURSE FEE | Approx. IDR 35,298,743 (MYR 7875.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1380,7 +1380,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For Centum VP operators, plant operation specialists and engineers who need to operate the Centum VP system. |
 | PREREQUISITE | Participants should preferably have some basic knowledge on process measurement and control. |
 | MAX. CLASS SIZE | 10 |
-| COURSE FEE | MYR 3707.00 |
+| COURSE FEE | Approx. IDR 16,616,183 (MYR 3707.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1425,7 +1425,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For process engineers, process control engineers, maintenance and technical support personnel involved with the ProSafe-RS system. |
 | PREREQUISITE | Participants should preferably have a basic knowledge of computers, MS Windows, electronics and Boolean logic |
 | MAX. CLASS SIZE | 10 |
-| COURSE FEE | MYR 5999.00 |
+| COURSE FEE | Approx. IDR 26,889,798 (MYR 5999.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1474,7 +1474,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For operators, technicians and new engineers who want to learn the principles of process measurement and control. |
 | PREREQUISITE | None |
 | MAX. CLASS SIZE | 20 |
-| COURSE FEE | MYR 1616.00 |
+| COURSE FEE | Approx. IDR 7,243,526 (MYR 1616.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1538,7 +1538,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For engineers involved in software generation or modification on the Centum VP system. |
 | PREREQUISITE | Participants should have attended Centum VP Operation course |
 | MAX. CLASS SIZE | 8 |
-| COURSE FEE | MYR 5931.00 |
+| COURSE FEE | Approx. IDR 26,584,996 (MYR 5931.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1591,7 +1591,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For operators, plant operation specialists and engineers who need to operate the Centum VP system and want to gain a general understanding of the engineering features of the system for future improvements. |
 | PREREQUISITE | Participants should preferably have some basic knowledge on process measurement and control |
 | MAX. CLASS SIZE | 10 |
-| COURSE FEE | MYR 6048.00 |
+| COURSE FEE | Approx. IDR 27,109,434 (MYR 6048.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1713,7 +1713,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | For operators, technicians and new engineers who want to learn the principles of PID controller and tuning. |
 | PREREQUISITE | None |
 | MAX. CLASS SIZE | 15 |
-| COURSE FEE | MYR 1418.00 |
+| COURSE FEE | Approx. IDR 6,356,015 (MYR 1418.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 
@@ -1871,7 +1871,7 @@ Data dibaca dari situs Yokogawa Malaysia pada 30 Oktober 2026. Biaya dalam MYR d
 | PARTICIPANTS | Academic students from engineering background |
 | PREREQUISITE | None |
 | MAX. CLASS SIZE | 50 |
-| COURSE FEE | MYR 1200.00 |
+| COURSE FEE | Approx. IDR 5,378,856 (MYR 1200.00; rate: 1 MYR = IDR 4,482.38, 30 Oct 2026) |
 
 ### Course contents
 

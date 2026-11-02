@@ -69,6 +69,19 @@ The source collection mixes local brand aliases with published TDS aliases. Exte
 
 ## Tokens — Typography
 
+### Course search and count — Figma `2516:4296`
+
+The search uses `background/primary` (`--yg-surface`, `#FFFFFF`),
+`border/secondary` (`--border-secondary`, `#E0E0E0`), and
+`text/placeholder` (`--text-placeholder`, `#757575`). Its width is 600px,
+padding 16px, icon 24px, gap 12px, and corner radius 8px.
+The count chip uses the same background, border and radius, padding 12px
+vertically and 16px horizontally, a 10px gap, and a 12px yellow marker
+(`secondary/main`, `--yg-yellow`, `#F9E300`). Text uses `text/secondary`
+(`--text-secondary`, `#404040`). Both use paragraph-sm (18px/26px at the
+1920px baseline), with regular search text and semibold chip text. Keep
+the responsive typography scaling below; on narrow screens the row wraps.
+
 **Primary font:** Open Sans
 
 All 66 local Figma text styles use Open Sans. The style hierarchy is grouped as `hero-title`, `header-web`, `header-mobile`, `paragraph`, `label`, and `button`. Text styles bind to the Figma Typography variables where available, so the Desktop/Mobile values below follow the collection modes.
