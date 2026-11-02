@@ -1,55 +1,91 @@
 # Yokogawa Industrial Training
 
-Situs statis untuk Yokogawa Indonesia Training Center, dengan halaman utama, daftar kursus, dan informasi tentang pusat pelatihan.
+Website statis Yokogawa Indonesia Training Center dan template admin pengelolaan konten. Dibangun dengan HTML, CSS, dan JavaScript tanpa framework frontend atau backend.
 
-## Menjalankan preview lokal
+## Preview lokal
 
-Proyek ini tidak memerlukan instalasi dependensi atau proses build. Pastikan Python 3 tersedia, lalu jalankan dari folder proyek:
+Jalankan dari root proyek dengan Python 3:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Buka [http://localhost:8000](http://localhost:8000) di browser. Tekan `Ctrl+C` di terminal untuk menghentikan server. Jika port 8000 sudah digunakan, pilih port lain, misalnya `python3 -m http.server 8001`, lalu buka `http://localhost:8001`.
+Buka [website lokal](http://localhost:8000/) atau [template admin](http://localhost:8000/admin/). Jika port digunakan, jalankan `python3 -m http.server 8001` dan sesuaikan URL. Hentikan server dengan `Ctrl+C`.
 
-## Halaman
+Preview tidak membutuhkan instalasi dependensi atau build. Gunakan HTTP server agar pemuatan data JSON berjalan. Google Fonts dan beberapa pustaka admin dari CDN memerlukan internet.
 
-- `index.html` — halaman utama.
-- `courses.html` — daftar kursus.
-- `course-detail.html` — detail kursus dengan navigasi berdasarkan kategori.
-- `schedule.html` — kalender contoh jadwal pelatihan.
+## Halaman publik
+
+| File | Fungsi |
+| --- | --- |
+| `index.html` | Home: pengantar, kategori, course populer, FAQ, lokasi, dan CTA |
+| `courses.html` | Katalog, pencarian, dan navigasi kategori course |
+| `course-detail.html?course=VPOP` | Detail berdasarkan kode course, informasi, silabus, dan tautan PDF jika tersedia |
+| `schedule.html` | Kalender tanggal ketersediaan pelatihan |
+| `faq.html` | Pertanyaan dan jawaban pelatihan |
+| `contact-us.html` | Kontak, kantor utama, dan peta lokasi |
+| `components.html` | Halaman pemeriksaan komponen bersama |
 
 ## Struktur proyek
 
-- `styles.css` — gaya bersama untuk halaman situs.
-- `components.js` — komponen bersama.
-- `course-detail.js` dan `course-data.json` — navigasi dan data detail kursus dari `course-detail.md`.
-- `schedule.js` dan `asset/vendor/fullcalendar/` — kalender dan FullCalendar 6.1.19 (MIT).
-- `motion.js` dan `cta-motion.js` — animasi halaman dan CTA.
-- `locations.js` — interaksi bagian lokasi.
-- `asset/` dan `assets/` — gambar, ikon, dan aset pendukung; pustaka GSAP tersedia di `asset/vendor/gsap/`.
-- `design.md` dan `spec/` — referensi desain dan spesifikasi.
+```text
+.
+├── *.html                  # Halaman publik di root
+├── styles.css              # Token, komponen, dan aturan responsif publik
+├── components.js           # Navbar, CTA, dan footer bersama
+├── courses.js              # Filter katalog dan navigasi kategori aktif
+├── course-detail.js        # Render detail dan panel pencarian course mobile
+├── course-data.json        # Data course yang dimuat detail halaman
+├── course-detail.md        # Referensi sumber detail course
+├── availability-data.js    # Data awal dan penyimpanan ketersediaan lokal
+├── schedule.js             # Integrasi kalender
+├── locations.js            # Interaksi peta dan detail kantor
+├── motion.js               # Motion halaman dan menu navbar dengan GSAP
+├── cta-motion.js           # Motion CTA bersama
+├── asset/                  # Foto, SVG, ikon, dan aset per halaman
+│   └── vendor/             # GSAP, FullCalendar, dan Leaflet
+├── assets/                 # Aset pendukung yang sudah ada
+├── admin/
+│   ├── *.html              # Halaman template admin
+│   ├── assets/css/         # CSS terkompilasi dan sumber styling admin
+│   ├── assets/js/          # Sidebar, tema, demo, availability, dan interaksi
+│   ├── templates/          # Template shell, login, dan ikon
+│   ├── build-pages.py      # Generator halaman admin
+│   ├── package.json        # Dependensi dan perintah build CSS admin
+│   ├── README.md           # Panduan template admin
+│   └── NOTICE              # Atribusi dependensi dan ikon
+├── spec/                   # PRD dan spesifikasi konten
+├── design.md               # Sistem desain dan mapping token Figma
+├── motion.md               # Panduan serta inventaris motion
+├── admin-design.md         # Referensi desain admin
+├── AGENTS.md               # Panduan pengerjaan proyek
+└── vercel.json             # Konfigurasi hosting statis dan redirect /admin
+```
 
-Font Open Sans dimuat dari Google Fonts dan memerlukan koneksi internet.
+Gunakan komponen publik di `components.js` untuk perubahan navbar, CTA, dan footer. Sidebar admin bersama dikelola di `admin/assets/js/sidebar.js`. Pertahankan token di `styles.css` sesuai `design.md`; perubahan motion mengacu pada `motion.md` dan mendukung reduced motion.
 
 ## Template admin
 
-Jalankan server dari root, lalu buka `http://localhost:8000/admin/` untuk
-preview Course, Kategori, Home Banner, dan menu akun. Login contoh berada di
-`/admin/login.html` (`admin@example.com` / `demo1234`). Website publik tetap
-di `/`. Admin merupakan prototipe statis dengan data sesi browser, tanpa
-backend atau autentikasi nyata. Struktur komponen dan cara memperbarui halaman
-bersama dijelaskan di `admin/README.md` dan `admin-design.md`.
+Akses melalui `/admin/`. Halaman utama pengelolaan mencakup course (`index.html`, `course-form.html`), kategori (`categories.html`, `category-form.html`), banner (`banner.html`), dan tanggal tersedia (`availability.html`). Template juga menyertakan halaman akun, autentikasi, error, serta contoh orders, products, customers, dan reports.
 
-## Production preview
+Login demo: `/admin/login.html`, email `admin@example.com`, password `demo1234`. Admin merupakan prototipe statis dengan penyimpanan browser, tanpa backend atau autentikasi nyata.
 
-- Website: https://yokogawa-design.vercel.app
-- Admin template: https://yokogawa-design.vercel.app/admin/
+Tanggal tersedia disimpan di `localStorage` dengan key `yokogawa-availability-v1` dan dibaca kalender publik setelah reload pada browser serta origin yang sama. Data awal berisi 41 tanggal dalam sembilan bulan tahun 2026. Data ini tidak tersinkron antarperangkat atau antara localhost dan Vercel.
 
-The current production deployment was uploaded from the local workspace with Vercel CLI. It is not configured to automatically deploy Git pushes. `vercel.json` redirects `/admin` to `/admin/` so relative admin asset paths resolve correctly.
+CSS admin sudah tersedia untuk preview. Jika mengubah sumber CSS admin, jalankan:
 
-### Availability admin preview
+```bash
+cd admin
+npm install
+npm run build:css
+```
 
-Open `admin/availability.html` to add a single available date or an inclusive date range, filter dates by month, and remove dates. Data is persisted in localStorage (`yokogawa-availability-v1`) and read by `schedule.html` after reload on the same browser and origin. The initial dataset contains 41 dates across nine months of 2026. This static preview does not provide shared server storage or authentication; production publishing requires a backend.
+Lihat `admin/README.md`, `admin/NOTICE`, dan `admin-design.md` untuk panduan lanjutan. Tidak diperlukan build CSS admin ketika hanya mengubah JavaScript.
 
-Sidebar admin bersama dirender oleh `admin/assets/js/sidebar.js` pada seluruh halaman admin aktif; urutan menu dan ikon dikelola di file tersebut. `admin/build-pages.py` mempertahankan pemakaian komponen ini saat halaman dibuat ulang.
+## Deployment
+
+- [Website production](https://yokogawa-design.vercel.app/)
+- [Template admin production](https://yokogawa-design.vercel.app/admin/)
+- [Repository GitHub](https://github.com/yayajack123/yokogawa-design)
+
+Deployment production dibuat melalui Vercel CLI dari snapshot workspace lokal. Auto-deploy dari GitHub belum dikonfigurasi; perubahan lokal tidak otomatis tampil di production. `vercel.json` mengarahkan `/admin` ke `/admin/` agar path relatif aset dan navigasi admin tetap benar.
