@@ -2,6 +2,16 @@
 
 Dokumen ini mencatat motion yang dipakai di seluruh halaman situs dan menjadi acuan untuk pengembangan selanjutnya. Angka pada bagian inventaris berasal dari implementasi saat ini, bukan spesifikasi Figma. Ikuti desain dan instruksi pengguna jika keduanya menentukan perilaku yang berbeda. Jangan menambahkan animasi hanya demi menyamakan jumlah efek antarseksi.
 
+## Pengurutan popular pada admin
+
+Tabel Popular courses memakai drag handle pointer serta Arrow Up/Down. Posisi
+baris diperbarui langsung setelah drop; tidak ada tween pemindahan. Selama drag,
+baris asal mendapat penanda dan garis menunjukkan posisi drop. Escape atau
+pointer cancel mempertahankan urutan sebelumnya. Keberhasilan reorder memakai
+toast bawaan Stisla, tanpa pesan saat mulai/batal drag. Toast hilang setelah 4,5
+detik dan menunda penutupan selama hover/fokus. Transisi toast mengikuti CSS
+framework yang sudah menonaktifkan transisi pada `prefers-reduced-motion`.
+
 ## Prinsip penggunaan
 
 - Gunakan motion untuk menjelaskan perubahan state, arah navigasi, atau memberi umpan balik. Konten harus tetap terbaca dan interaksi tidak boleh menunggu animasi dekoratif.

@@ -473,10 +473,39 @@ classes. FullCalendar is loaded from the existing local vendor bundle; the
 calendar adapter `assets/css/meridian/availability.css` uses only admin semantic
 tokens and does not import the public stylesheet. The Add availability button
 or selecting a calendar date opens the inline date-range form. Calendar navigation
-and the monthly list stay synchronized. Sidebar calendar artwork inherits
+and the date list stay synchronized. The list follows the full visible calendar
+grid, including available dates from adjacent months, and shows the matching
+date range. Changing the month in either view updates both views. Sidebar calendar artwork inherits
 currentColor. Availability remains a browser-local preview via localStorage.
 
 
 ## Sidebar admin bersama
 
 Halaman admin aktif memakai `admin/assets/js/sidebar.js` sebagai sumber tunggal markup sidebar. Urutan menu: Courses, Course categories, Home banner, Availability. Status aktif ditentukan dari `data-admin-page`; halaman akun tidak memilih menu konten. Skrip dimuat sebelum `app-shell.js` agar perilaku collapse dan drawer tetap bekerja. Generator `admin/build-pages.py` menghasilkan referensi komponen yang sama.
+
+### Ikon dan urutan popular — 3 November 2026
+
+Category icon dan Course icon menerima SVG/PNG maksimal 2 MB dan terpisah dari
+Thumbnail foto. Preview memakai `<img>`, nama file, dan Remove icon; tanpa unggahan
+gunakan ikon aset bawaan. Course count hanya-baca dan menghitung semua course
+dalam kategori, termasuk Draft.
+
+Courses memakai tab All courses dan Popular courses. Pengurutan popular memakai
+`.table.table--hover.table--align-middle` dengan header `.table__head--alt` dalam
+`.table-responsive`, bukan daftar kartu. Kolom: handle, Position, Course, Category,
+Status, Homepage visibility. Handle minimal 44 × 44 px mendukung pointer dan
+Arrow Up/Down; Escape membatalkan drag. Penanda garis menunjukkan posisi drop.
+Reorder langsung disimpan dalam sessionStorage; hanya keberhasilan menampilkan
+`.toast.toast--success` pada `.toast-region--bottom-end`, tanpa pesan drag/sukses
+di atas konten. Tidak ada animasi tambahan pada pemindahan baris.
+
+Jumlah ideal popular minimal 4 dan kelipatan 2 merupakan rekomendasi, bukan
+validasi yang memblokir. Hitung course Published dalam kategori Published;
+course lain tetap terlihat dengan alasan belum tampil di Home. Statistik hero
+tetap statis; tidak ada field Source URL atau poster baru.
+
+Ringkasan jumlah dan petunjuk pengurutan berada dalam `.alert.alert--info` memakai
+`.alert__title` dan `.alert__description`, dengan ikon info. Copy ringkas: minimal 4
+course dalam kelipatan 2,
+drag/Arrow Up–Down, dan penyimpanan otomatis. Petunjuk Escape serta keyboard
+lengkap tersedia melalui deskripsi aksesibel handle.

@@ -119,3 +119,51 @@ course, sedangkan admin mempertahankan semua record detail. Deskripsi kategori
 awal berupa jumlah course karena sumber tidak menyediakan narasi kategori.
 Perubahan snapshot sumber memulai data sesi preview baru agar data lama tidak
 menutupi pembaruan sumber.
+
+Form course menyediakan section Course content untuk menambah/menghapus hari
+dan mengisi satu topik per baris. Data hari yang sudah ada dimuat saat edit dan
+perubahannya disimpan dalam sesi preview. Slug dibuat otomatis dari course name
+dan dapat diedit manual; slug manual tidak ditimpa saat nama berubah. Media dan
+PDF berada di kolom kanan pada desktop. Thumbnail digunakan untuk popular course
+di homepage; upload masih mengikuti batasan preview di atas.
+
+## Ikon dan popular courses
+
+Form Category dan Course memiliki input ikon opsional SVG/PNG maksimal 2 MB,
+preview, nama file, dan aksi Remove icon untuk kembali ke ikon bawaan. Course
+icon terpisah dari Thumbnail foto. Ikon ditampilkan melalui elemen gambar;
+markup SVG unggahan tidak disisipkan ke halaman. Khusus ikon, gambar dan nama
+file disimpan dalam sessionStorage agar dapat ditinjau lagi saat edit pada sesi
+yang sama. Jika penyimpanan penuh, form menampilkan pesan gagal dan tetap terbuka.
+Thumbnail, PDF, dan media banner tetap mengikuti batasan preview sebelumnya.
+
+Course count adalah hitungan hanya-baca seluruh course dalam kategori tersebut,
+termasuk Draft; kategori baru menampilkan 0 courses.
+
+Halaman Courses memiliki tab All courses dan Popular courses. Tab Popular courses
+memakai tabel Stisla/Meridian dengan handle drag & drop. Tarik handle menggunakan
+mouse atau sentuhan; alternatif keyboard: fokuskan handle dan tekan Arrow Up atau
+Arrow Down. Escape membatalkan drag. Urutan disimpan otomatis dalam sesi preview,
+dan hanya reorder yang berhasil menampilkan toast sukses. Toast dapat ditutup,
+hilang setelah 4,5 detik, serta menunda penutupan saat diarahkan pointer/difokuskan.
+
+Tombol bintang pada All courses memilih course popular; pilihan baru masuk urutan
+terakhir. Urutan awal adalah VPEG, PMCE-ONL, SPRS, VPMN. Popular order disimpan
+sebagai daftar ID terpisah dari penanda popular. Course Draft atau kategori
+Unpublished tetap terlihat dalam tabel pengaturan dengan alasan belum tampil di
+Home. Panduan minimal 4 dan kelipatan 2 dihitung dari course yang memenuhi syarat
+publikasi; jumlah lain tetap diperbolehkan. Tidak ada pagination di tab pengurutan.
+
+Perubahan ini hanya untuk interaksi admin; tidak menambah sinkronisasi ke halaman
+publik. Statistik hero tetap statis dan View source tetap menjadi referensi materi.
+
+Untuk menghasilkan ulang hanya halaman yang sedang diubah:
+
+```bash
+python3 admin/build-pages.py index.html course-form.html category-form.html
+```
+
+CSS `assets/css/meridian/course-management.css` dimuat langsung oleh tiga halaman
+tersebut untuk handle drag, penanda posisi drop, dan pembungkusan preview ikon.
+Tabel, tab, field, dan toast tetap memakai komponen bawaan framework; tidak perlu
+build CSS untuk mengubah adapter interaksi ini.

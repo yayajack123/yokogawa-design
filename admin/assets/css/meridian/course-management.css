@@ -1,0 +1,17 @@
+/* Interaction affordances; table, tabs and fields retain the framework styling. */
+.popular-drag-handle {
+  min-width: 44px;
+  min-height: 44px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.popular-drag-handle:active { cursor: grabbing; }
+#popular-records tr[data-dragging] { background: var(--color-surface-2); }
+#popular-records tr[data-drop-edge="before"] > * { box-shadow: inset 0 2px var(--color-primary); }
+#popular-records tr[data-drop-edge="after"] > * { box-shadow: inset 0 -2px var(--color-primary); }
+#popular-warning { color: var(--color-warning-emphasis); }
+#icon-filename { min-width: 0; overflow-wrap: anywhere; }
+#icon-preview { flex-shrink: 0; object-fit: contain; }
+#reorder-toast { min-width: 0; }
+#reorder-toast .toast__close { min-width: 44px; min-height: 44px; }

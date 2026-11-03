@@ -33,6 +33,22 @@
     viewTabs[next].focus(); viewTabs[next].click();
   }));
   let selectedDate;
+  let visibleRange;
+  const selectedDates = new Set();
+  const bulkDialog = document.createElement('dialog');
+  bulkDialog.setAttribute('aria-labelledby', 'availability-bulk-title');
+  bulkDialog.setAttribute('aria-describedby', 'availability-bulk-description');
+  bulkDialog.style.cssText = 'width: min(28rem, calc(100% - 2rem)); margin: auto; padding: 0; border: 0; border-radius: var(--radius); background: transparent;';
+  bulkDialog.innerHTML = '<div class="card"><div class="card__body"><h2 class="dialog__title" id="availability-bulk-title">Remove selected dates?</h2><p class="text-sm text-muted-foreground" id="availability-bulk-description"></p><p class="text-sm text-danger" id="availability-bulk-error" role="alert"></p></div><div class="dialog__footer justify-center"><button type="button" class="button button--ghost button--neutral" data-bulk-cancel>Cancel</button><button type="button" class="button button--danger" data-bulk-confirm>Remove dates</button></div></div>';
+  document.body.append(bulkDialog);
+  bulkDialog.querySelector('[data-bulk-cancel]').addEventListener('click', () => bulkDialog.close());
+  bulkDialog.querySelector('[data-bulk-confirm]').addEventListener('click', () => {
+    const amount = selectedDates.size;
+    if (!amount) { bulkDialog.close(); return; }
+    if (persist(dates.filter(date => !selectedDates.has(date)), `${amount} ${amount === 1 ? 'date' : 'dates'} removed from availability.`)) {
+      bulkDialog.close(); month.focus();
+    } else bulkDialog.querySelector('#availability-bulk-error').textContent = feedback.textContent;
+  });
   function prepareForm(date) {
     form.reset(); editorError.textContent = '';
     start.value = date || `${month.value}-01`; end.min = start.value;
@@ -57,19 +73,39 @@
     eventClick(info) { openDate(info.event.startStr); },
     datesSet(info) {
       const date = info.view.currentStart;
+      const nextRange = { start: info.startStr.slice(0, 10), end: info.endStr.slice(0, 10) };
+      if (visibleRange && (visibleRange.start !== nextRange.start || visibleRange.end !== nextRange.end)) selectedDates.clear();
+      visibleRange = nextRange;
       month.value = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
       document.getElementById('availability-calendar-title').textContent = info.view.title;
       render();
     }
   });
   function render() {
+    if (!visibleRange) return;
     list.replaceChildren();
-    const matching = dates.filter(date => date.startsWith(month.value));
+    const rangeDescription = document.getElementById('availability-list-range');
+    const summary = rangeDescription.parentElement;
+    summary.classList.add('availability-list-summary');
+    summary.querySelector('.availability-selection')?.remove();
+    const matching = dates.filter(date => date >= visibleRange.start && date < visibleRange.end);
+    for (const date of selectedDates) if (!matching.includes(date)) selectedDates.delete(date);
+    const lastVisibleDay = new Date(`${visibleRange.end}T00:00:00`);
+    lastVisibleDay.setDate(lastVisibleDay.getDate() - 1);
+    const rangeLabel = new Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' }).formatRange(new Date(`${visibleRange.start}T00:00:00`), lastVisibleDay);
+    rangeDescription.textContent = `Matches Calendar view: ${rangeLabel}. Includes dates from adjacent months shown in the calendar.`;
     const table = document.createElement('table');
     table.className = 'table table--hover table--align-middle';
     const head = document.createElement('thead');
     head.className = 'table__head--alt';
     const header = document.createElement('tr');
+    const selectCell = document.createElement('th');
+    selectCell.scope = 'col';
+    const selectAll = document.createElement('input');
+    selectAll.type = 'checkbox'; selectAll.className = 'checkbox';
+    selectAll.setAttribute('aria-label', 'Select all dates in this calendar view');
+    selectAll.disabled = !matching.length;
+    selectCell.append(selectAll); header.append(selectCell);
     ['Date', 'Day', 'Action'].forEach(text => {
       const cell = document.createElement('th');
       cell.scope = 'col'; cell.textContent = text;
@@ -81,19 +117,29 @@
     if (!matching.length) {
       const row = document.createElement('tr');
       const cell = document.createElement('td');
-      cell.colSpan = 3;
-      cell.textContent = 'No available dates for this month. Choose Add availability to add dates.';
+      cell.colSpan = 4;
+      cell.textContent = 'No available dates in this calendar view. Choose Add availability to add dates.';
       row.append(cell); body.append(row);
     }
     matching.forEach(date => {
       const day = new Date(`${date}T00:00:00`);
       const row = document.createElement('tr');
+      const checkboxCell = document.createElement('td');
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox'; checkbox.className = 'checkbox'; checkbox.value = date;
+      checkbox.checked = selectedDates.has(date);
       const dateCell = document.createElement('th');
       dateCell.scope = 'row';
       dateCell.className = 'font-medium';
       const label = document.createElement('time');
       label.dateTime = date;
       label.textContent = new Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' }).format(day);
+      checkbox.setAttribute('aria-label', `Select ${label.textContent}`);
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) selectedDates.add(date); else selectedDates.delete(date);
+        syncSelection();
+      });
+      checkboxCell.append(checkbox);
       dateCell.append(label);
       const weekday = document.createElement('td');
       weekday.textContent = new Intl.DateTimeFormat('en', { weekday: 'long' }).format(day);
@@ -108,9 +154,45 @@
       remove.title = 'Remove availability';
       remove.setAttribute('aria-label', `Remove availability for ${label.textContent}`);
       remove.addEventListener('click', () => persist(dates.filter(value => value !== date), 'Availability removed.'));
-      actions.append(remove); action.append(actions); row.append(dateCell, weekday, action); body.append(row);
+      actions.append(remove); action.append(actions); row.append(checkboxCell, dateCell, weekday, action); body.append(row);
     });
-    table.append(head, body); list.append(table);
+    const toolbar = document.createElement('div');
+    toolbar.className = 'availability-selection';
+    const count = document.createElement('span');
+    count.className = 'text-sm'; count.setAttribute('role', 'status');
+    const bulkDelete = document.createElement('button');
+    bulkDelete.type = 'button'; bulkDelete.className = 'button button--danger button--sm';
+    bulkDelete.textContent = 'Remove selected dates';
+    const toolbarActions = document.createElement('div');
+    toolbarActions.className = 'flex flex-wrap items-center gap-3';
+    toolbarActions.append(count, bulkDelete); toolbar.append(toolbarActions);
+    const syncSelection = () => {
+      const size = selectedDates.size;
+      count.textContent = `${new Intl.NumberFormat('en').format(size)} ${size === 1 ? 'date' : 'dates'} selected`;
+      bulkDelete.disabled = size === 0;
+      toolbar.hidden = size === 0;
+      selectAll.checked = matching.length > 0 && size === matching.length;
+      selectAll.indeterminate = size > 0 && size < matching.length;
+      body.querySelectorAll('input[type="checkbox"]').forEach(box => {
+        box.checked = selectedDates.has(box.value);
+        if (box.checked) box.closest('tr').setAttribute('data-state', 'active');
+        else box.closest('tr').removeAttribute('data-state');
+      });
+    };
+    selectAll.addEventListener('change', () => {
+      if (selectAll.checked) matching.forEach(date => selectedDates.add(date));
+      else matching.forEach(date => selectedDates.delete(date));
+      syncSelection();
+    });
+    bulkDelete.addEventListener('click', () => {
+      const amount = selectedDates.size;
+      if (!amount) return;
+      bulkDialog.querySelector('#availability-bulk-description').textContent = `Remove ${amount} selected ${amount === 1 ? 'date' : 'dates'} from availability?`;
+      bulkDialog.querySelector('#availability-bulk-error').textContent = '';
+      bulkDialog.showModal();
+      bulkDialog.querySelector('[data-bulk-cancel]').focus();
+    });
+    table.append(head, body); summary.append(toolbar); list.append(table); syncSelection();
   }
 
   function persist(next, message) {

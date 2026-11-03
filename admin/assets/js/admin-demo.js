@@ -15,6 +15,11 @@
   for (const char of sourceText) sourceHash = Math.imul(sourceHash ^ char.charCodeAt(0), 16777619);
   const STORE = `yokogawa-admin-preview-en-${sourceHash >>> 0}`;
   const defaultPopular = ['VPEG', 'PMCE-ONL', 'SPRS', 'VPMN'];
+  const categoryIcons = {
+    'CENTUM VP Courses': 'category-settings.svg', 'Advanced Solution Courses': 'category-cpu-setting.svg',
+    'Safety Courses': 'category-shield.svg', 'Others': 'category-other.svg', 'RAPID': 'category-rapid.svg',
+    'Online Courses': 'category-monitor.svg', 'Academic': 'category-book.svg'
+  };
   const seed = {
     categories: categoryNames.map(name => ({
       id: categoryId(name), name,
@@ -39,9 +44,14 @@
   let data;
   try { data = JSON.parse(sessionStorage.getItem(STORE)) || seed; } catch (_) { data = seed; }
   data.courses.forEach(course => { if (typeof course.popular !== 'boolean') course.popular = defaultPopular.includes(course.id); });
+  const normalizePopularOrder = () => {
+    const selected = data.courses.filter(course => course.popular).map(course => course.id);
+    data.popularOrder = [...new Set([...(Array.isArray(data.popularOrder) ? data.popularOrder : defaultPopular), ...selected])].filter(id => selected.includes(id));
+  };
+  normalizePopularOrder();
   const categoryCourseCount = category => data.courses.filter(course => course.category === category).length;
   const courseCountLabel = count => countMessage(count, { one: '{count} course', other: '{count} courses' });
-  const save = () => { try { sessionStorage.setItem(STORE, JSON.stringify(data)); } catch (_) { /* Preview remains usable without storage. */ } };
+  const save = () => { try { sessionStorage.setItem(STORE, JSON.stringify(data)); return true; } catch (_) { return false; } };
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const page = document.body.dataset.adminPage;
   const params = new URLSearchParams(location.search);
@@ -64,8 +74,151 @@
     const search = document.getElementById('search');
     const status = document.getElementById('statusFilter');
     const category = document.getElementById('categoryFilter');
+    const favorites = document.getElementById('course_favorites_filter_switch');
     let pendingPopular;
     let popularTrigger;
+    const reorderToast = document.getElementById('reorder-toast');
+    let toastTimer;
+    const hideReorderToast = () => { clearTimeout(toastTimer); reorderToast.dataset.state = 'closed'; };
+    const scheduleToastDismiss = () => {
+      clearTimeout(toastTimer);
+      if (reorderToast?.dataset.state === 'open') toastTimer = setTimeout(hideReorderToast, 4500);
+    };
+    const showReorderToast = message => {
+      document.getElementById('reorder-toast-message').textContent = message;
+      reorderToast.dataset.state = 'open';
+      scheduleToastDismiss();
+    };
+    document.getElementById('reorder-toast-close')?.addEventListener('click', hideReorderToast);
+    reorderToast?.addEventListener('mouseenter', () => clearTimeout(toastTimer));
+    reorderToast?.addEventListener('mouseleave', scheduleToastDismiss);
+    reorderToast?.addEventListener('focusin', () => clearTimeout(toastTimer));
+    reorderToast?.addEventListener('focusout', scheduleToastDismiss);
+    const tabs = [...document.querySelectorAll('#course-tabs [role="tab"]')];
+    const selectTab = tab => {
+      tabs.forEach(button => {
+        const active = button === tab;
+        button.setAttribute('aria-selected', String(active));
+        button.tabIndex = active ? 0 : -1;
+        button.dataset.state = active ? 'active' : 'inactive';
+        const panel = document.getElementById(button.getAttribute('aria-controls'));
+        panel.hidden = !active;
+        panel.dataset.state = button.dataset.state;
+      });
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        selectTab(tabs[next]); tabs[next].focus();
+      });
+    });
+    document.getElementById('popular-browse')?.addEventListener('click', () => { selectTab(tabs[0]); tabs[0].focus(); });
+    const drawPopular = () => {
+      if (!course) return;
+      normalizePopularOrder();
+      const selected = data.popularOrder.map(id => data.courses.find(row => row.id === id));
+      const eligible = selected.filter(row => row.status === 'Published' && data.categories.some(cat => cat.id === row.category && cat.status === 'Published')).length;
+      document.getElementById('popular-count').textContent = `${courseCountLabel(eligible)} ready for Home · ${formatNumber(selected.length)} selected.`;
+      const warning = document.getElementById('popular-warning');
+      warning.hidden = eligible >= 4 && eligible % 2 === 0;
+      warning.textContent = 'This count is outside the recommendation. You can still keep this selection.';
+      document.getElementById('popular-empty').hidden = selected.length > 0;
+      document.getElementById('popular-table').hidden = selected.length === 0;
+      document.getElementById('popular-records').innerHTML = selected.map((row, index) => {
+        const cat = data.categories.find(cat => cat.id === row.category);
+        const hiddenReason = row.status !== 'Published' ? 'Not shown on Home: course is Draft.' : cat?.status !== 'Published' ? 'Not shown on Home: category is not Published.' : 'Eligible to appear on Home';
+        const handle = `<button type="button" class="button button--ghost button--neutral button--icon-only popular-drag-handle" data-drag-id="${esc(row.id)}" aria-label="Reorder ${esc(row.name)}, position ${index + 1} of ${selected.length}" aria-describedby="popular-drag-help"><span aria-hidden="true">⠿</span></button>`;
+        return `<tr data-popular-row="${esc(row.id)}"><td>${handle}</td><td>${index + 1}</td><th scope="row"><a class="font-medium" href="course-form.html?id=${encodeURIComponent(row.id)}">${esc(row.name)}</a></th><td>${esc(cat?.name || 'No category')}</td><td>${badge(row.status)}</td><td><span class="text-sm text-muted-foreground">${hiddenReason}</span></td></tr>`;
+      }).join('');
+    };
+    const movePopular = (id, next) => {
+      const previous = [...data.popularOrder];
+      const index = previous.indexOf(id);
+      if (index < 0 || next < 0 || next >= previous.length) return;
+      if (index === next) return;
+      data.popularOrder.splice(index, 1);
+      data.popularOrder.splice(next, 0, id);
+      const saved = save();
+      if (!saved) data.popularOrder = previous;
+      drawPopular();
+      const row = data.courses.find(row => row.id === id);
+      if (saved) {
+        feedback('');
+        showReorderToast(`${row.name} moved to position ${next + 1}. Order saved for this preview session.`);
+      } else feedback('Unable to save the order. Enable browser storage and try again.');
+      [...document.querySelectorAll('[data-drag-id]')].find(control => control.dataset.dragId === id)?.focus({ preventScroll: true });
+    };
+    const popularRecords = document.getElementById('popular-records');
+    let drag;
+    let scrollFrame;
+    const clearDropTarget = () => popularRecords?.querySelectorAll('[data-drop-edge]').forEach(row => row.removeAttribute('data-drop-edge'));
+    const finishDrag = (commit = false) => {
+      if (!drag) return;
+      const current = drag;
+      drag = null;
+      cancelAnimationFrame(scrollFrame);
+      clearDropTarget();
+      current.handle.closest('tr').removeAttribute('data-dragging');
+      if (current.handle.hasPointerCapture(current.pointerId)) current.handle.releasePointerCapture(current.pointerId);
+      if (commit && current.active && current.target) {
+        const index = data.popularOrder.indexOf(current.id);
+        let next = data.popularOrder.indexOf(current.target) + (current.after ? 1 : 0);
+        if (next > index) next--;
+        movePopular(current.id, next);
+      }
+    };
+    const updateDropTarget = () => {
+      if (!drag?.active) return;
+      clearDropTarget();
+      drag.target = null;
+      const hit = document.elementFromPoint(drag.x, drag.y)?.closest('[data-popular-row]');
+      if (!hit || !popularRecords.contains(hit) || hit.dataset.popularRow === drag.id) return;
+      drag.target = hit.dataset.popularRow;
+      const bounds = hit.getBoundingClientRect();
+      drag.after = drag.y > bounds.top + bounds.height / 2;
+      hit.dataset.dropEdge = drag.after ? 'after' : 'before';
+    };
+    const scrollWhileDragging = () => {
+      if (!drag) return;
+      if (drag.active) {
+        const step = drag.y < 64 ? -12 : drag.y > window.innerHeight - 64 ? 12 : 0;
+        if (step) { window.scrollBy(0, step); updateDropTarget(); }
+      }
+      scrollFrame = requestAnimationFrame(scrollWhileDragging);
+    };
+    popularRecords?.addEventListener('pointerdown', event => {
+      const handle = event.target.closest('[data-drag-id]');
+      if (!handle || !event.isPrimary || event.button !== 0 || drag) return;
+      handle.focus({ preventScroll: true });
+      drag = { id: handle.dataset.dragId, handle, pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, x: event.clientX, y: event.clientY, active: false };
+      handle.setPointerCapture(event.pointerId);
+      scrollFrame = requestAnimationFrame(scrollWhileDragging);
+    });
+    popularRecords?.addEventListener('pointermove', event => {
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      drag.x = event.clientX; drag.y = event.clientY;
+      if (!drag.active && Math.hypot(drag.x - drag.startX, drag.y - drag.startY) >= 6) {
+        drag.active = true; drag.handle.closest('tr').setAttribute('data-dragging', '');
+      }
+      updateDropTarget();
+    });
+    popularRecords?.addEventListener('pointerup', event => { if (drag?.pointerId === event.pointerId) finishDrag(true); });
+    popularRecords?.addEventListener('pointercancel', () => finishDrag());
+    popularRecords?.addEventListener('lostpointercapture', () => finishDrag());
+    window.addEventListener('blur', () => finishDrag());
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && drag) { event.preventDefault(); finishDrag(); }
+    });
+    popularRecords?.addEventListener('keydown', event => {
+      const handle = event.target.closest('[data-drag-id]');
+      if (!handle || !['ArrowUp', 'ArrowDown'].includes(event.key)) return;
+      event.preventDefault();
+      if (drag) return;
+      movePopular(handle.dataset.dragId, data.popularOrder.indexOf(handle.dataset.dragId) + (event.key === 'ArrowUp' ? -1 : 1));
+    });
     const popularDialog = document.createElement('dialog');
     if (course) {
       popularDialog.style.cssText = 'width: min(28rem, calc(100% - 2rem)); margin: auto; padding: 0; border: 0; border-radius: var(--radius); background: transparent;';
@@ -76,18 +229,23 @@
       popularDialog.addEventListener('close', () => {
         if (popularDialog.returnValue === 'confirm' && pendingPopular) {
           pendingPopular.popular = !pendingPopular.popular;
-          save(); draw();
-          feedback(`${pendingPopular.name}: popular ${pendingPopular.popular ? 'on' : 'off'} for this preview session.`);
+          const previousOrder = [...data.popularOrder];
+          normalizePopularOrder();
+          const saved = save();
+          if (!saved) { pendingPopular.popular = !pendingPopular.popular; data.popularOrder = previousOrder; }
+          draw();
+          feedback(saved ? `${pendingPopular.name}: popular ${pendingPopular.popular ? 'on' : 'off'} for this preview session.` : 'Unable to save the selection. Enable browser storage and try again.');
           popularTrigger = [...document.querySelectorAll('[data-popular-id]')].find(button => button.dataset.popularId === pendingPopular.id);
         }
-        popularTrigger?.focus();
+        (popularTrigger || favorites)?.focus();
         pendingPopular = null;
       });
     }
     const pageSize = 10;
     let currentPage = 1;
     draw = () => {
-      const rows = data[page].filter(row => row.name.toLowerCase().includes(search.value.trim().toLowerCase()) && (!status.value || status.value === row.status) && (!category?.value || category.value === row.category));
+      drawPopular();
+      const rows = data[page].filter(row => row.name.toLowerCase().includes(search.value.trim().toLowerCase()) && (!status.value || status.value === row.status) && (!category?.value || category.value === row.category) && (!favorites?.checked || row.popular));
       const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
       currentPage = Math.min(currentPage, totalPages);
       const start = course ? (currentPage - 1) * pageSize : 0;
@@ -115,7 +273,8 @@
       }
     };
     [search, status, category].filter(Boolean).forEach(el => el.addEventListener('input', () => { currentPage = 1; draw(); }));
-    const clearFilters = () => { search.value = status.value = ''; if (category) category.value = ''; currentPage = 1; draw(); search.focus(); };
+    favorites?.addEventListener('change', () => { currentPage = 1; draw(); });
+    const clearFilters = () => { search.value = status.value = ''; if (category) category.value = ''; if (favorites) favorites.checked = false; currentPage = 1; draw(); search.focus(); };
     document.getElementById('resetFilters').addEventListener('click', clearFilters);
     document.getElementById('emptyReset').addEventListener('click', clearFilters);
     document.getElementById('records').addEventListener('click', event => {
@@ -145,7 +304,12 @@
     });
     document.querySelector('[data-confirm-delete]').addEventListener('click', () => {
       if (!pendingDelete || (page === 'categories' && data.courses.some(c => c.category === pendingDelete))) return;
-      data[page] = data[page].filter(row => row.id !== pendingDelete); save(); draw(); feedback('Item deleted from this preview session.');
+      const previous = data[page];
+      const previousOrder = [...data.popularOrder];
+      data[page] = data[page].filter(row => row.id !== pendingDelete); normalizePopularOrder();
+      const saved = save();
+      if (!saved) { data[page] = previous; data.popularOrder = previousOrder; }
+      draw(); feedback(saved ? 'Item deleted from this preview session.' : 'Unable to delete the item. Enable browser storage and try again.');
     });
     document.getElementById('paginationButtons')?.addEventListener('click', event => {
       const button = event.target.closest('button[data-page]');
@@ -181,6 +345,58 @@
   });
   if (type === 'password') { form.elements.oldPassword.autocomplete = 'current-password'; form.elements.newPassword.minLength = 8; }
   if (type === 'course') {
+    const nameInput = form.elements.name;
+    const slugInput = form.elements.slug;
+    const slugify = value => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    let automaticSlug = !slugInput.value || slugInput.value === slugify(nameInput.value);
+    nameInput.addEventListener('input', () => {
+      if (automaticSlug) slugInput.value = slugify(nameInput.value);
+    });
+    slugInput.addEventListener('input', () => { automaticSlug = !slugInput.value; });
+    const days = document.getElementById('course_content_days');
+    const addDay = document.getElementById('course_content_add_button');
+    const status = document.getElementById('course_content_status');
+    const renumberDays = () => {
+      [...days.children].forEach((row, index) => {
+        const label = `Day ${index + 1}`;
+        row.querySelector('[data-day-heading]').textContent = label;
+        row.querySelector('[data-day-label]').textContent = `${label} topics *`;
+        row.querySelector('[data-remove-day]').setAttribute('aria-label', `Remove ${label.toLowerCase()}`);
+      });
+      document.getElementById('course_content_empty').hidden = days.children.length > 0;
+      document.getElementById('days-error').textContent = '';
+    };
+    let nextDayId = 0;
+    const appendDay = (day = { items: [] }) => {
+      const row = document.getElementById('course_content_day_template').content.firstElementChild.cloneNode(true);
+      const key = `course_content_day_${++nextDayId}`;
+      const topics = row.querySelector('[data-day-topics]');
+      topics.id = `${key}_input`;
+      topics.name = `${key}_topics`;
+      topics.value = day.items.join('\n');
+      row.querySelector('[data-day-label]').htmlFor = topics.id;
+      row.querySelector('[data-remove-day]').id = `${key}_remove_button`;
+      days.append(row);
+      renumberDays();
+      return topics;
+    };
+    (item?.days || []).forEach(appendDay);
+    renumberDays();
+    addDay.addEventListener('click', () => {
+      appendDay().focus();
+      status.textContent = `Day ${days.children.length} added.`;
+    });
+    days.addEventListener('click', event => {
+      const button = event.target.closest('[data-remove-day]');
+      if (!button) return;
+      const row = button.closest('[data-course-day]');
+      const label = row.querySelector('[data-day-heading]').textContent;
+      const next = row.nextElementSibling || row.previousElementSibling;
+      row.remove();
+      renumberDays();
+      (next?.querySelector('[data-day-topics]') || addDay).focus();
+      status.textContent = `${label} removed. Remaining days have been renumbered.`;
+    });
     const note = () => { const category = data.categories.find(c => c.id === form.elements.category.value); document.getElementById('visibilityNote').textContent = category?.status === 'Unpublished' ? 'This category is Unpublished. You can save the course, but it will stay hidden from the website.' : 'A course appears on the website only when both the course and its category are Published.'; };
     form.elements.category.addEventListener('change', note); note();
   }
@@ -197,6 +413,64 @@
     const image = ['image/jpeg', 'image/png', 'image/webp'].includes(file.type) && file.size <= 2 * 1024 * 1024;
     const video = kind === 'media' && file.type === 'video/mp4' && file.size <= 20 * 1024 * 1024;
     return image || video || error(name, kind === 'media' ? 'Choose a JPG, PNG, or WebP image up to 2 MB, or an MP4 up to 20 MB.' : 'Choose a JPG, PNG, or WebP image up to 2 MB.');
+  }
+  let iconValue = item?.iconData || '';
+  let iconName = item?.iconName || '';
+  let iconTask = Promise.resolve(true);
+  let iconRevision = 0;
+  if (type === 'course' || type === 'category') {
+    const input = form.elements.icon;
+    const preview = document.getElementById('icon-preview');
+    const filename = document.getElementById('icon-filename');
+    const remove = document.getElementById('icon-remove');
+    const status = document.getElementById('icon-status');
+    const defaultIcon = type === 'course' ? '../asset/course-figma/94876.svg' : `../asset/${categoryIcons[item?.name] || 'category-settings.svg'}`;
+    const renderIcon = () => {
+      preview.src = iconValue || defaultIcon;
+      filename.textContent = iconName || 'Default icon';
+      remove.hidden = !iconValue;
+    };
+    renderIcon();
+    input.addEventListener('change', () => {
+      const revision = ++iconRevision;
+      const file = input.files[0];
+      if (!file) { iconTask = Promise.resolve(true); return; }
+      const validType = (file.type === 'image/png' && /\.png$/i.test(file.name)) || (file.type === 'image/svg+xml' && /\.svg$/i.test(file.name));
+      const message = 'Choose an SVG or PNG image up to 2 MB.';
+      if (!validType || file.size === 0 || file.size > 2 * 1024 * 1024) {
+        error('icon', message); remove.hidden = false;
+        iconTask = Promise.resolve(false); return;
+      }
+      document.getElementById('icon-error').textContent = ''; input.removeAttribute('aria-invalid');
+      status.textContent = 'Loading icon preview.';
+      remove.hidden = false;
+      iconTask = new Promise(resolve => {
+        const reader = new FileReader();
+        const fail = () => {
+          if (revision === iconRevision) { error('icon', 'This image could not be opened. Choose another SVG or PNG.'); status.textContent = ''; }
+          resolve(false);
+        };
+        reader.onerror = fail;
+        reader.onload = () => {
+          const image = new Image();
+          image.onerror = fail;
+          image.onload = () => {
+            if (revision === iconRevision) {
+              iconValue = reader.result; iconName = file.name; renderIcon();
+              status.textContent = `${file.name} ready for preview. Save the form to keep it for this session.`;
+            }
+            resolve(true);
+          };
+          image.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+    remove.addEventListener('click', () => {
+      ++iconRevision; input.value = ''; iconValue = ''; iconName = ''; iconTask = Promise.resolve(true);
+      document.getElementById('icon-error').textContent = ''; input.removeAttribute('aria-invalid');
+      renderIcon(); status.textContent = 'Default icon restored. Save the form to keep this change.'; input.focus();
+    });
   }
   const safeUrl = value => { try { const parsed = new URL(value, location.origin); return ['https:', 'http:'].includes(parsed.protocol) && (/^https?:\/\//i.test(value) || value.startsWith('/') && !value.startsWith('//')); } catch (_) { return false; } };
   let objectUrl;
@@ -226,7 +500,7 @@
     });
     window.addEventListener('pagehide', () => { if (objectUrl) URL.revokeObjectURL(objectUrl); });
   }
-  form.addEventListener('submit', event => {
+  form.addEventListener('submit', async event => {
     event.preventDefault();
     form.querySelectorAll('[data-error]').forEach(el => { el.textContent = ''; });
     form.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
@@ -248,18 +522,38 @@
       data.banner = Object.fromEntries(['title', 'description', 'button', 'url', 'secondaryButton', 'secondaryUrl'].map(key => [key, String(f.get(key)).trim()]));
       save(); feedback('Banner text saved for this preview session. Selected media is available until you leave this page.'); return;
     }
+    if (!(await iconTask)) return error('icon', 'Choose a valid SVG or PNG up to 2 MB, or remove the selection.');
     const value = Object.fromEntries(queryKeys.filter(key => f.has(key)).map(key => [key, String(f.get(key)).trim()]));
     if (!value.name) return error('name', 'Enter a name.');
     if (type === 'course') {
       if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value.slug)) return error('slug', 'Use lowercase letters, numbers, and hyphens.');
       if (data.courses.some(row => row.slug === value.slug && row.id !== id)) return error('slug', 'This slug is already in use. Choose a unique slug.');
       if (!data.categories.some(cat => cat.id === value.category)) return error('category', 'Select an available category.');
+      const topicInputs = [...form.querySelectorAll('[data-day-topics]')];
+      const emptyDay = topicInputs.find(control => !control.value.trim());
+      if (emptyDay) {
+        error('days', 'Enter at least one topic for each day, or remove the empty day.');
+        emptyDay.setAttribute('aria-invalid', 'true');
+        emptyDay.focus();
+        return;
+      }
+      value.days = topicInputs.map((control, index) => ({
+        title: `Day ${index + 1}`,
+        items: control.value.split(/\r?\n/).map(topic => topic.trim()).filter(Boolean)
+      }));
       if (!validateFile(f.get('thumbnail'), 'thumbnail', 'image') || !validateFile(f.get('pdf'), 'pdf', 'pdf')) return;
       value.thumbnailName = f.get('thumbnail')?.name || item?.thumbnailName || '';
       value.pdfName = f.get('pdf')?.name || item?.pdfName || '';
     }
+    value.iconData = iconValue; value.iconName = iconName;
+    const previous = item ? { ...item } : null;
     if (item) Object.assign(item, value); else data[collection].push({ id: `${type}-${Date.now()}`, ...value });
-    save(); location.href = `${type === 'course' ? 'index' : 'categories'}.html?saved=1`;
+    if (!save()) {
+      if (item) Object.assign(item, previous); else data[collection].pop();
+      feedback('Unable to save this preview. Browser storage may be full or unavailable. Try a smaller icon or remove it, then save again.');
+      return;
+    }
+    location.href = `${type === 'course' ? 'index' : 'categories'}.html?saved=1`;
   });
 })().catch(() => {
   const feedback = document.getElementById('feedback');
