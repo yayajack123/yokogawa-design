@@ -1528,6 +1528,7 @@ summary:focus-visible {
   width: 100%;
   height: 100%;
   background: #111 url("asset/hero-photo.jpg") center / cover;
+  background-image: image-set(url("asset/optimized/v1/home-hero-poster-800.webp") type("image/webp"), url("asset/hero-photo.jpg") type("image/jpeg"));
 }
 
 .hero-media::after {
@@ -1757,7 +1758,7 @@ summary:focus-visible {
 
 .contact-page-section { display: grid; grid-template-columns: minmax(0, 705fr) minmax(0, 848fr); align-items: center; gap: 8.7%; padding: var(--desktop-page-gutter); }
 .contact-page-office { grid-template-columns: minmax(0, 848fr) minmax(0, 705fr); background: #fafafa; }
-.contact-page-image { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.contact-page-image { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
 .contact-page-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; min-width: 0; }
 .contact-page-copy h2 { margin: 0; font-size: var(--font-size-h2); line-height: 1.1429; letter-spacing: -.02em; font-weight: 600; }
 .contact-page-copy p { margin: 0; color: #404040; font-size: var(--font-size-md); line-height: 1.4; }
@@ -2087,3 +2088,7 @@ summary:focus-visible {
   .schedule-page .fc .fc-daygrid-day-events { display: none; }
   .schedule-page .fc .schedule-day-available .fc-daygrid-day-frame::after { content: ''; display: block; width: 7px; height: 7px; margin: 2px auto 0; border-radius: 50%; background: var(--yg-success); }
 }
+
+/* Keep responsive image wrappers transparent to the existing layouts. */
+.optimized-picture { display: contents; }
+.optimized-picture > source { display: none; }

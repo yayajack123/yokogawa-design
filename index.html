@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Yokogawa Industrial Training Indonesia</title>
+    <link rel="preload" as="image" href="asset/optimized/v1/home-hero-poster-800.webp" fetchpriority="high" />
     <meta name="description" content="Explore technical training for industrial operations, including courses, schedules, and training locations in Indonesia.">
     <link rel="canonical" href="https://yokogawa-design.vercel.app/">
     <meta property="og:type" content="website">
@@ -28,7 +29,7 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=responsive-images-1" />
     <script defer src="components.js"></script>
     <script defer src="popular-courses.js"></script>
 </head>
@@ -74,7 +75,7 @@
         </div>
 
         <div class="hero-media" aria-hidden="true">
-          <video autoplay muted loop playsinline preload="metadata" poster="asset/hero-photo.jpg">
+          <video autoplay muted loop playsinline preload="metadata" poster="asset/optimized/v1/home-hero-poster-800.webp">
             <source src="asset/hero-background.mp4" type="video/mp4" />
           </video>
         </div>
@@ -108,7 +109,7 @@
 
       <section class="about-section" id="about-us" aria-labelledby="about-title">
         <div class="about-media">
-          <img src="asset/about-industrial-training.png" alt="An instructor guiding engineers through hands-on process instrumentation and control system training" loading="lazy" data-speed="0.96" />
+          <picture class="optimized-picture"><source type="image/webp" srcset="asset/optimized/v1/about-training-480.webp 480w, asset/optimized/v1/about-training-800.webp 800w, asset/optimized/v1/about-training-1254.webp 1254w" sizes="(max-width: 640px) 100vw, 50vw"><img src="asset/about-industrial-training.png" alt="An instructor guiding engineers through hands-on process instrumentation and control system training" loading="lazy" data-speed="0.96" width="1254" height="1254" /></picture>
         </div>
         <div class="about-content">
           <div class="about-intro">
@@ -124,7 +125,7 @@
         </div>
       </section>
       <section class="why-us" id="why-us" aria-labelledby="why-us-title">
-        <div class="why-us-background" aria-hidden="true"><img src="asset/why-us-background.jpg" alt="" loading="lazy" data-speed="0.96" /></div>
+        <div class="why-us-background" aria-hidden="true"><picture class="optimized-picture"><source type="image/webp" srcset="asset/optimized/v1/why-us-background-480.webp 480w, asset/optimized/v1/why-us-background-800.webp 800w, asset/optimized/v1/why-us-background-1280.webp 1280w" sizes="100vw"><img src="asset/why-us-background.jpg" alt="" loading="lazy" data-speed="0.96" width="2000" height="1333" /></picture></div>
         <img class="why-us-watermark" src="asset/why-us-watermark.svg" alt="" />
         <div class="why-us-intro">
           <h2 id="why-us-title">Training that makes a difference<br class="why-us-break" /> in your everyday work</h2>
@@ -207,25 +208,25 @@
         <div class="courses-heading"><h2 id="courses-title">Popular courses for<br />industrial teams</h2><p>Structured programs with skills you can apply right away.</p></div>
         <div class="course-grid">
           <article class="course-card">
-            <div class="course-photo-frame"><img class="course-photo" src="asset/popular-courses/centum-vp-engineering.png" alt="" loading="lazy" /></div>
+            <div class="course-photo-frame"><picture class="optimized-picture"><source type="image/webp" srcset="asset/optimized/v1/course-centum-vp-engineering-480.webp 480w, asset/optimized/v1/course-centum-vp-engineering-800.webp 800w, asset/optimized/v1/course-centum-vp-engineering-1024.webp 1024w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"><img class="course-photo" src="asset/popular-courses/centum-vp-engineering.png" alt="" loading="lazy" width="1024" height="1536" /></picture></div>
             <div class="course-details"><p class="course-category"><img src="asset/course-mark.svg" alt="" /> CENTUM VP</p><h3>CENTUM VP Engineering</h3>
               <div class="course-meta"><span><img src="asset/icon-calendar.svg" alt="" /> 5 days</span><span class="course-price"><img src="asset/icon-money.svg" alt="" /> Rp 29.538.884</span></div>
             </div><a class="button button-outlined" href="course-detail.html?course=VPEG">View Details</a>
           </article>
           <article class="course-card">
-            <div class="course-photo-frame"><img class="course-photo" src="asset/popular-courses/process-measurement-online.png" alt="" loading="lazy" /></div>
+            <div class="course-photo-frame"><picture class="optimized-picture"><source type="image/webp" srcset="asset/optimized/v1/course-process-measurement-480.webp 480w, asset/optimized/v1/course-process-measurement-800.webp 800w, asset/optimized/v1/course-process-measurement-1024.webp 1024w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"><img class="course-photo" src="asset/popular-courses/process-measurement-online.png" alt="" loading="lazy" width="1024" height="1536" /></picture></div>
             <div class="course-details"><p class="course-category"><img src="asset/course-mark.svg" alt="" /> ONLINE</p><h3>Process Measurement and Control Essentials - Online</h3>
               <div class="course-meta"><span><img src="asset/icon-calendar.svg" alt="" /> 2 days</span><span class="course-price"><img src="asset/icon-money.svg" alt="" /> Rp 7.243.526</span></div>
             </div><a class="button button-outlined" href="course-detail.html?course=PMCE-ONL">View Details</a>
           </article>
           <article class="course-card">
-            <div class="course-photo-frame"><img class="course-photo" src="asset/popular-courses/prosafe-rs.png" alt="" loading="lazy" /></div>
+            <div class="course-photo-frame"><picture class="optimized-picture"><source type="image/webp" srcset="asset/optimized/v1/course-prosafe-rs-480.webp 480w, asset/optimized/v1/course-prosafe-rs-800.webp 800w, asset/optimized/v1/course-prosafe-rs-1024.webp 1024w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"><img class="course-photo" src="asset/popular-courses/prosafe-rs.png" alt="" loading="lazy" width="1024" height="1536" /></picture></div>
             <div class="course-details"><p class="course-category"><img src="asset/course-mark.svg" alt="" /> SAFETY</p><h3>Prosafe-RS</h3>
               <div class="course-meta"><span><img src="asset/icon-calendar.svg" alt="" /> 4 days</span><span class="course-price"><img src="asset/icon-money.svg" alt="" /> Rp 39.839.393</span></div>
             </div><a class="button button-outlined" href="course-detail.html?course=SPRS">View Details</a>
           </article>
           <article class="course-card">
-            <div class="course-photo-frame"><img class="course-photo" src="asset/popular-courses/centum-vp-maintenance.png" alt="" loading="lazy" /></div>
+            <div class="course-photo-frame"><picture class="optimized-picture"><source type="image/webp" srcset="asset/optimized/v1/course-centum-vp-maintenance-480.webp 480w, asset/optimized/v1/course-centum-vp-maintenance-800.webp 800w, asset/optimized/v1/course-centum-vp-maintenance-1024.webp 1024w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"><img class="course-photo" src="asset/popular-courses/centum-vp-maintenance.png" alt="" loading="lazy" width="1024" height="1536" /></picture></div>
             <div class="course-details"><p class="course-category"><img src="asset/course-mark.svg" alt="" /> CENTUM VP</p><h3>CENTUM VP Maintenance</h3>
               <div class="course-meta"><span><img src="asset/icon-calendar.svg" alt="" /> 3 days</span><span class="course-price"><img src="asset/icon-money.svg" alt="" /> Rp 20.309.664</span></div>
             </div><a class="button button-outlined" href="course-detail.html?course=VPMN">View Details</a>

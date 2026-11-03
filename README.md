@@ -95,3 +95,9 @@ Deployment production dibuat melalui Vercel CLI dari snapshot workspace lokal. A
 Metadata, canonical, dan `sitemap.xml` menggunakan URL production `https://yokogawa-design.vercel.app`. Jika domain production berubah, perbarui URL tersebut di HTML publik, `course-detail.js`, `robots.txt`, dan `sitemap.xml`. Perbarui sitemap saat daftar course berubah. Gambar pratinjau sosial menggunakan `asset/seo-training.jpg`, turunan dari foto pelatihan yang sudah ada di proyek.
 
 Detail course dirender di browser dari `course-data.json`; judul, deskripsi, dan canonical diperbarui dengan JavaScript. Crawler yang tidak menjalankan JavaScript akan melihat metadata umum, sehingga pratinjau sosial per course memerlukan rendering di server atau halaman statis per course. Header `X-Robots-Tag` untuk admin berlaku pada deployment Vercel.
+
+## Gambar responsif
+
+Gambar asli tetap disimpan di `asset/`. Varian WebP yang digunakan situs berada di `asset/optimized/v1/` dan memakai cache satu tahun di Vercel. Untuk memperbarui gambar, buat folder versi baru, misalnya `asset/optimized/v2/`, lalu buat varian dengan `cwebp -q 80 -resize LEBAR 0 sumber -o tujuan.webp` tanpa memperbesar gambar asli. Gunakan lebar 768, 1280, dan 1920 piksel untuk hero; gunakan 480, 800, dan 1280 piksel untuk gambar lain, dibatasi lebar sumber.
+
+Perbarui `srcset` dan `sizes` pada elemen `<picture>` yang memakai gambar tersebut, serta referensi poster dan CSS jika gambar hero homepage berubah. Pertahankan gambar asli sebagai fallback. Tambahkan aturan cache untuk folder versi baru di `vercel.json`; jangan menimpa aset dalam folder versi lama karena browser dapat menyimpannya dalam cache.

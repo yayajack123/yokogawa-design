@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=responsive-images-1">
   <script defer src="components.js"></script>
   <script defer src="asset/vendor/fullcalendar/index.global.min.js"></script>
   <script defer src="availability-data.js"></script>
@@ -36,7 +36,7 @@
   <div data-component="navbar"></div>
   <div id="smooth-wrapper"><div id="smooth-content"><main id="main-content">
     <section class="catalog-hero" aria-labelledby="schedule-page-title">
-      <img class="catalog-hero-image" src="asset/schedule/hero.png" alt="">
+      <picture class="optimized-picture"><source type="image/webp" srcset="asset/optimized/v1/schedule-hero-768.webp 768w, asset/optimized/v1/schedule-hero-1280.webp 1280w, asset/optimized/v1/schedule-hero-1920.webp 1920w" sizes="(max-width: 1200px) 1200px, 100vw"><img fetchpriority="high" class="catalog-hero-image" src="asset/schedule/hero.png" alt="" width="2048" height="768" /></picture>
       <img class="catalog-hero-mark" src="asset/course-figma/67a39.svg" alt="">
       <div class="catalog-hero-copy"><h1 id="schedule-page-title">Schedule</h1><p>Explore upcoming training schedules and find the right course for you.</p></div>
       <nav class="catalog-breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Schedule</span></nav>
