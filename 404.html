@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <base href="/">
+    <title>Page not found | Yokogawa Industrial Training</title>
+    <meta name="description" content="This page could not be found. Return home, explore training courses, or contact Yokogawa Industrial Training.">
+    <link rel="icon" href="asset/yokogawa-favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=not-found-1">
+    <script defer src="components.js"></script>
+    <script defer src="asset/vendor/gsap/gsap.min.js"></script>
+    <script defer src="motion.js"></script>
+  </head>
+  <body class="not-found-page">
+    <a class="skip-link" href="/404.html#main-content">Skip to content</a>
+    <div data-component="navbar"></div>
+    <main class="not-found" id="main-content">
+      <!-- Layout estimated from the supplied screenshot; type and controls reuse project tokens. -->
+      <section class="not-found__copy" aria-labelledby="not_found_page_title">
+        <p class="not-found__eyebrow" id="not_found_page_status_label">Error 404</p>
+        <h1 class="not-found__message" id="not_found_page_title"><strong>This page is off the grid.</strong> <span>The page you’re looking for may have moved or is no longer available. Let’s get your training back on track.</span></h1>
+        <nav class="not-found__actions" id="not_found_page_recovery_nav" aria-label="Find your way back">
+          <a class="button button-primary" id="not_found_page_home_button" href="index.html">Back to home</a>
+          <a class="button button-outlined" id="not_found_page_courses_button" href="courses.html">Explore course</a>
+        </nav>
+      </section>
+      <picture class="not-found__artwork">
+        <source type="image/webp" srcset="asset/not-found/industrial-watercolor-landscape-960.webp 960w, asset/not-found/industrial-watercolor-landscape.webp 2172w" sizes="(max-width: 640px) 180vw, 100vw">
+        <img id="not_found_page_industry_image" src="asset/not-found/industrial-watercolor-landscape.png" width="2172" height="724" alt="Watercolor illustration of an industrial process plant with distillation towers, pipework, and instrumentation set in a soft landscape with a distant horizon." fetchpriority="high">
+      </picture>
+    </main>
+  </body>
+</html>

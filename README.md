@@ -24,6 +24,7 @@ Preview tidak membutuhkan instalasi dependensi atau build. Gunakan HTTP server a
 | `schedule.html` | Kalender tanggal ketersediaan pelatihan |
 | `faq.html` | Pertanyaan dan jawaban pelatihan |
 | `contact-us.html` | Kontak, kantor utama, dan peta lokasi |
+| `404.html` | Halaman tidak ditemukan dengan navbar bersama dan ilustrasi industri |
 | `components.html` | Halaman pemeriksaan komponen bersama |
 
 ## Struktur proyek
@@ -89,6 +90,8 @@ Lihat `admin/README.md`, `admin/NOTICE`, dan `admin-design.md` untuk panduan lan
 - [Repository GitHub](https://github.com/yayajack123/yokogawa-design)
 
 Deployment production dibuat melalui Vercel CLI dari snapshot workspace lokal. Auto-deploy dari GitHub belum dikonfigurasi; perubahan lokal tidak otomatis tampil di production. `vercel.json` mengarahkan `/admin` ke `/admin/` agar path relatif aset dan navigasi admin tetap benar.
+
+Halaman `404.html` menjadi halaman tidak ditemukan pada hosting statis Vercel. Untuk preview Python, buka `/404.html` secara langsung; server Python standar tetap memakai respons 404 bawaannya untuk URL yang tidak ada. Halaman ini memakai base URL `/` agar aset dan navbar tetap benar pada URL bertingkat. Ilustrasi dan prompt imagegen tersimpan di `asset/not-found/`.
 
 ## SEO
 

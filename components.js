@@ -9,4 +9,6 @@ for (const [name, markup] of Object.entries(sharedComponents)) {
   if (target) target.outerHTML = markup;
 }
 const currentPage = document.body.classList.contains("schedule-page") ? "schedule.html" : document.body.classList.contains("faq-page") ? "faq.html" : (document.body.classList.contains("courses-page") || document.body.classList.contains("course-detail-page")) ? "courses.html" : "index.html";
-document.querySelectorAll(`.site-header nav a[href="${currentPage}"]`).forEach(link => link.setAttribute("aria-current", "page"));
+if (!document.body.classList.contains("not-found-page")) {
+  document.querySelectorAll(`.site-header nav a[href="${currentPage}"]`).forEach(link => link.setAttribute("aria-current", "page"));
+}

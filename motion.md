@@ -20,6 +20,12 @@ framework yang sudah menonaktifkan transisi pada `prefers-reduced-motion`.
 - Hormati `prefers-reduced-motion: reduce`: tampilkan konten dan state akhir secara langsung, matikan motion dekoratif, dan pertahankan semua fungsi. Jangan sembunyikan konten ketika JavaScript atau GSAP tidak tersedia.
 - Pastikan animasi dapat dibalik atau dihentikan ketika pengguna mengubah pilihan. Hover hanya untuk perangkat dengan hover dan pointer halus; akses keyboard dan focus yang terlihat tetap wajib. Hindari menambahkan gerakan dekoratif baru yang dipicu focus keyboard.
 
+## Preview ikon CENTUM VP
+
+Pada `icon-preview.html`, tiga modul kabinet yang terpisah bergeser sepanjang arah isometrik secara berurutan, dengan jarak antarawal 60 ms dan transisi 550 ms. Tombol keyboard konsol bergerak bergantian selama 900 ms dan garis layar digambar dalam 750 ms. Interaksi dipicu hover atau tombol preview, dapat dibalik, dan reduced motion mempertahankan ikon diam. Ini hanya contoh pada halaman preview.
+
+Grid kategori pada halaman preview memakai hover perangkat pointer halus: tiga modul CENTUM VP bergeser berurutan, sedangkan bagian teratas enam ikon lain terangkat 9 unit SVG selama 550 ms; reduced motion menonaktifkan gerakan.
+
 ## Inventaris motion situs
 
 | Konteks | Perilaku dan nilai saat ini | Sumber |
