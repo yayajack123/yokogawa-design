@@ -89,3 +89,9 @@ Lihat `admin/README.md`, `admin/NOTICE`, dan `admin-design.md` untuk panduan lan
 - [Repository GitHub](https://github.com/yayajack123/yokogawa-design)
 
 Deployment production dibuat melalui Vercel CLI dari snapshot workspace lokal. Auto-deploy dari GitHub belum dikonfigurasi; perubahan lokal tidak otomatis tampil di production. `vercel.json` mengarahkan `/admin` ke `/admin/` agar path relatif aset dan navigasi admin tetap benar.
+
+## SEO
+
+Metadata, canonical, dan `sitemap.xml` menggunakan URL production `https://yokogawa-design.vercel.app`. Jika domain production berubah, perbarui URL tersebut di HTML publik, `course-detail.js`, `robots.txt`, dan `sitemap.xml`. Perbarui sitemap saat daftar course berubah. Gambar pratinjau sosial menggunakan `asset/seo-training.jpg`, turunan dari foto pelatihan yang sudah ada di proyek.
+
+Detail course dirender di browser dari `course-data.json`; judul, deskripsi, dan canonical diperbarui dengan JavaScript. Crawler yang tidak menjalankan JavaScript akan melihat metadata umum, sehingga pratinjau sosial per course memerlukan rendering di server atau halaman statis per course. Header `X-Robots-Tag` untuk admin berlaku pada deployment Vercel.

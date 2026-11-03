@@ -35,7 +35,25 @@
       showNonCurrentDates: true,
       firstDay: 1,
       height: 'auto',
-      dayHeaderFormat: { weekday: 'short' },
+      dayHeaderContent(info) {
+        const full = new Intl.DateTimeFormat('en', { weekday: 'long' }).format(info.date);
+        const short = new Intl.DateTimeFormat('en', { weekday: 'short' }).format(info.date);
+        const label = document.createElement('span');
+        label.setAttribute('aria-label', full);
+        const desktop = document.createElement('span');
+        desktop.className = 'schedule-weekday-full';
+        desktop.textContent = short;
+        const mobile = document.createElement('span');
+        mobile.className = 'schedule-weekday-initial';
+        mobile.setAttribute('aria-hidden', 'true');
+        mobile.textContent = full[0];
+        label.append(desktop, mobile);
+        return { domNodes: [label] };
+      },
+      dayCellClassNames(info) {
+        const localDate = `${info.date.getFullYear()}-${String(info.date.getMonth() + 1).padStart(2, '0')}-${String(info.date.getDate()).padStart(2, '0')}`;
+        return dates.includes(localDate) ? ['schedule-day-available'] : [];
+      },
       events: ranges,
       datesSet(info) {
         title.textContent = info.view.title;

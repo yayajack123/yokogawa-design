@@ -14,6 +14,7 @@
   let sourceHash = 2166136261;
   for (const char of sourceText) sourceHash = Math.imul(sourceHash ^ char.charCodeAt(0), 16777619);
   const STORE = `yokogawa-admin-preview-en-${sourceHash >>> 0}`;
+  const defaultPopular = ['VPEG', 'PMCE-ONL', 'SPRS', 'VPMN'];
   const seed = {
     categories: categoryNames.map(name => ({
       id: categoryId(name), name,
@@ -30,13 +31,14 @@
         objective: fields.OBJECTIVE || '', participants: fields.PARTICIPANTS || '',
         prerequisite: fields.PREREQUISITE || '', classSize: fields['MAX. CLASS SIZE'] || '',
         source: course.source, pdfUrl: course.pdf || '', days: course.days || [],
-        unavailable: course.unavailable, status: 'Published'
+        unavailable: course.unavailable, status: 'Published', popular: defaultPopular.includes(course.id)
       };
     }),
     banner: { title: 'Industrial Training', description: 'Build your team’s skills with Yokogawa training.', button: 'View courses', url: '/courses.html', secondaryButton: 'Ask Our Team', secondaryUrl: '/index.html#contact' }
   };
   let data;
   try { data = JSON.parse(sessionStorage.getItem(STORE)) || seed; } catch (_) { data = seed; }
+  data.courses.forEach(course => { if (typeof course.popular !== 'boolean') course.popular = defaultPopular.includes(course.id); });
   const categoryCourseCount = category => data.courses.filter(course => course.category === category).length;
   const courseCountLabel = count => countMessage(count, { one: '{count} course', other: '{count} courses' });
   const save = () => { try { sessionStorage.setItem(STORE, JSON.stringify(data)); } catch (_) { /* Preview remains usable without storage. */ } };
@@ -62,6 +64,26 @@
     const search = document.getElementById('search');
     const status = document.getElementById('statusFilter');
     const category = document.getElementById('categoryFilter');
+    let pendingPopular;
+    let popularTrigger;
+    const popularDialog = document.createElement('dialog');
+    if (course) {
+      popularDialog.style.cssText = 'width: min(28rem, calc(100% - 2rem)); margin: auto; padding: 0; border: 0; border-radius: var(--radius); background: transparent;';
+      popularDialog.setAttribute('aria-labelledby', 'popularTitle');
+      popularDialog.setAttribute('aria-describedby', 'popularDescription');
+      popularDialog.innerHTML = `<form method="dialog" class="card"><div class="card__body"><h2 class="dialog__title" id="popularTitle"></h2><p class="text-muted-foreground" id="popularDescription"></p></div><div class="dialog__footer justify-center"><button type="submit" value="cancel" class="button button--ghost button--neutral" autofocus>Cancel</button><button type="submit" value="confirm" class="button button--primary" id="confirmPopular"></button></div></form>`;
+      document.body.append(popularDialog);
+      popularDialog.addEventListener('close', () => {
+        if (popularDialog.returnValue === 'confirm' && pendingPopular) {
+          pendingPopular.popular = !pendingPopular.popular;
+          save(); draw();
+          feedback(`${pendingPopular.name}: popular ${pendingPopular.popular ? 'on' : 'off'} for this preview session.`);
+          popularTrigger = [...document.querySelectorAll('[data-popular-id]')].find(button => button.dataset.popularId === pendingPopular.id);
+        }
+        popularTrigger?.focus();
+        pendingPopular = null;
+      });
+    }
     const pageSize = 10;
     let currentPage = 1;
     draw = () => {
@@ -74,7 +96,7 @@
         const url = `${course ? 'course' : 'category'}-form.html?id=${encodeURIComponent(row.id)}`;
         const count = course ? 0 : categoryCourseCount(row.id);
         const middle = course ? `<td>${esc(data.categories.find(c => c.id === row.category)?.name || '—')}</td><td>${esc(row.duration || '—')}</td>` : `<td class="text-end">${count}</td>`;
-        return `<tr><th scope="row"><div><a href="${url}" class="font-medium">${esc(row.name)}</a><div class="text-xs text-muted-foreground" style="font-weight: var(--font-weight-normal)">${esc(course ? row.code : courseCountLabel(count))}</div></div></th>${middle}<td>${badge(row.status)}</td><td class="text-end"><div class="flex justify-end gap-1"><a href="${url}" class="button button--ghost button--neutral button--icon-only button--sm" aria-label="Edit ${esc(row.name)}">${editIcon}</a><button type="button" class="button button--ghost button--danger button--icon-only button--sm" data-stisla-dialog-trigger="deleteRecord" data-fill-name="${esc(row.name)}" data-delete-id="${esc(row.id)}" aria-label="Delete ${esc(row.name)}">${deleteIcon}</button></div></td></tr>`;
+        return `<tr><th scope="row"><div><a href="${url}" class="font-medium">${esc(row.name)}</a><div class="text-xs text-muted-foreground" style="font-weight: var(--font-weight-normal)">${esc(course ? row.code : courseCountLabel(count))}</div></div></th>${middle}<td>${badge(row.status)}</td><td class="text-end"><div class="flex justify-end gap-1">${course ? `<button type="button" class="button button--ghost ${row.popular ? 'button--primary' : 'button--neutral'} button--icon-only button--sm" data-popular-id="${esc(row.id)}" aria-pressed="${row.popular}" aria-label="Popular on homepage: ${row.popular ? 'on' : 'off'} for ${esc(row.name)}" title="Popular on homepage: ${row.popular ? 'On' : 'Off'}"><svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" fill="${row.popular ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="m12 3 2.78 5.63 6.22.91-4.5 4.38 1.06 6.19L12 17.19l-5.56 2.92 1.06-6.19L3 9.54l6.22-.91L12 3Z"/></svg></button>` : ''}<a href="${url}" class="button button--ghost button--neutral button--icon-only button--sm" aria-label="Edit ${esc(row.name)}">${editIcon}</a><button type="button" class="button button--ghost button--danger button--icon-only button--sm" data-stisla-dialog-trigger="deleteRecord" data-fill-name="${esc(row.name)}" data-delete-id="${esc(row.id)}" aria-label="Delete ${esc(row.name)}">${deleteIcon}</button></div></td></tr>`;
       }).join('');
       document.getElementById('emptyState').hidden = rows.length > 0;
       const countLabel = countMessage(rows.length, course ? { one: '{count} course', other: '{count} courses' } : { one: '{count} category', other: '{count} categories' });
@@ -97,6 +119,20 @@
     document.getElementById('resetFilters').addEventListener('click', clearFilters);
     document.getElementById('emptyReset').addEventListener('click', clearFilters);
     document.getElementById('records').addEventListener('click', event => {
+      const popularButton = event.target.closest('[data-popular-id]');
+      if (popularButton) {
+        pendingPopular = data.courses.find(row => row.id === popularButton.dataset.popularId);
+        popularTrigger = popularButton;
+        const turningOn = !pendingPopular.popular;
+        document.getElementById('popularTitle').textContent = turningOn ? 'Add to popular courses?' : 'Remove from popular courses?';
+        document.getElementById('popularDescription').textContent = turningOn
+          ? `Show “${pendingPopular.name}” in popular courses on the homepage? The course and its category must be published.`
+          : `Remove “${pendingPopular.name}” from popular courses on the homepage?`;
+        document.getElementById('confirmPopular').textContent = turningOn ? 'Add to popular' : 'Remove from popular';
+        popularDialog.returnValue = '';
+        popularDialog.showModal();
+        return;
+      }
       const trigger = event.target.closest('[data-delete-id]');
       if (!trigger) return;
       pendingDelete = trigger.dataset.deleteId;

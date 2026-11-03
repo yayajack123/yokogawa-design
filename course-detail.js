@@ -50,6 +50,25 @@ function renderList() {
 
 function selectCourse(id, push = false) {
   const course = courses.find(item => item.id === id) || courses[0];
+  const title = `${course.title} | Yokogawa Industrial Training`;
+  const seoDescription = course.description || course.fields.OBJECTIVE || `Explore ${course.title} training from Yokogawa Industrial Training.`;
+  const url = `https://yokogawa-design.vercel.app/course-detail.html?course=${encodeURIComponent(course.id)}`;
+  document.title = title;
+  for (const [selector, value] of [
+    ['meta[name="description"]', seoDescription],
+    ['meta[property="og:title"]', title],
+    ['meta[property="og:description"]', seoDescription],
+    ['meta[property="og:url"]', url],
+    ['meta[name="twitter:title"]', title],
+    ['meta[name="twitter:description"]', seoDescription]
+  ]) document.querySelector(selector)?.setAttribute('content', value);
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    document.head.append(canonical);
+  }
+  canonical.href = url;
   const changed = content.querySelector('h1') && activeId !== course.id;
   if (revealTween) { revealTween.progress(1); revealTween.kill(); }
   activeId = course.id;

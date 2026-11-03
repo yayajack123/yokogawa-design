@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yokogawa-design.vercel.app/sitemap.xml

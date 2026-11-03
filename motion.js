@@ -1,3 +1,65 @@
+(async () => {
+  const { gsap, SplitText } = window;
+  const heading = document.querySelector(".hero-intro h1, .catalog-hero-copy h1");
+  const description = document.querySelector(".hero-intro p, .catalog-hero-copy p");
+  if (!gsap || !SplitText || !heading || !description || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  // Measure words only after the final font metrics are available.
+  await document.fonts.ready;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  gsap.registerPlugin(SplitText);
+  const headingSplit = SplitText.create(heading, { type: "words" });
+  const descriptionSplit = SplitText.create(description, { type: "words" });
+  const hero = heading.closest(".hero, .catalog-hero");
+  const actions = hero.querySelectorAll(".hero-actions .button, .catalog-breadcrumb");
+  const stats = hero.querySelectorAll(".hero-stats .stat");
+  gsap.set(headingSplit.words, { y: 10, opacity: 0 });
+  gsap.set([...descriptionSplit.words, ...actions, ...stats], { y: 8, opacity: 0 });
+  const timeline = gsap.timeline({ defaults: { force3D: false } });
+  timeline.to(headingSplit.words, {
+    y: 0,
+    opacity: 1,
+    duration: 1,
+    ease: "power2.out",
+    stagger: 0.05,
+  }).to(descriptionSplit.words, {
+    y: 0,
+    opacity: 1,
+    duration: 0.85,
+    ease: "power2.out",
+    stagger: 0.02,
+  }, 0.28);
+  if (actions.length) timeline.to(actions, {
+    y: 0,
+    opacity: 1,
+    duration: 0.8,
+    ease: "power2.out",
+    stagger: 0.12,
+  }, 0.48);
+  if (stats.length) timeline.to(stats, {
+    y: 0,
+    opacity: 1,
+    duration: 0.8,
+    ease: "power2.out",
+    stagger: 0.12,
+  }, 0.62);
+  const finish = () => {
+    timeline.progress(1);
+  };
+  const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  preference.addEventListener("change", finish);
+  hero.addEventListener("focusin", finish, { once: true });
+  timeline.eventCallback("onComplete", () => {
+    headingSplit.revert();
+    descriptionSplit.revert();
+    const controls = [...actions, ...stats];
+    if (controls.length) gsap.set(controls, { clearProps: "transform,opacity" });
+    preference.removeEventListener("change", finish);
+    hero.removeEventListener("focusin", finish);
+  });
+})();
+
 (() => {
   const { gsap, ScrollTrigger, ScrollSmoother } = window;
 
