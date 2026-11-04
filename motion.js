@@ -104,6 +104,21 @@
         }
       }
 
+      const whyUs = document.querySelector("#why-us");
+      const categories = document.querySelector("#categories");
+      if (ScrollTrigger && whyUs && categories) {
+        categories.classList.add("stack-over-why-us");
+        ScrollTrigger.create({
+          trigger: whyUs,
+          start: () => whyUs.offsetHeight > window.innerHeight ? "bottom bottom" : "top top",
+          end: () => `+=${Math.min(whyUs.offsetHeight, window.innerHeight)}`,
+          pin: true,
+          pinSpacing: false,
+          invalidateOnRefresh: true,
+        });
+        cleanups.push(() => categories.classList.remove("stack-over-why-us"));
+      }
+
       if (smoother) {
         const findAnchor = (hash) => {
           try { return hash.length > 1 ? document.getElementById(decodeURIComponent(hash.slice(1))) : null; }

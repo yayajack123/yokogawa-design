@@ -7,10 +7,10 @@ Website statis Yokogawa Indonesia Training Center dan template admin pengelolaan
 Jalankan dari root proyek dengan Python 3:
 
 ```bash
-python3 -m http.server 8000
+python3 serve.py 8000
 ```
 
-Buka [website lokal](http://localhost:8000/) atau [template admin](http://localhost:8000/admin/). Jika port digunakan, jalankan `python3 -m http.server 8001` dan sesuaikan URL. Hentikan server dengan `Ctrl+C`.
+Buka [website lokal](http://localhost:8000/) atau [template admin](http://localhost:8000/admin/). Jika port digunakan, jalankan `python3 serve.py 8001` dan sesuaikan URL. Hentikan server dengan `Ctrl+C`.
 
 Preview tidak membutuhkan instalasi dependensi atau build. Gunakan HTTP server agar pemuatan data JSON berjalan. Google Fonts dan beberapa pustaka admin dari CDN memerlukan internet.
 
@@ -60,6 +60,7 @@ Preview tidak membutuhkan instalasi dependensi atau build. Gunakan HTTP server a
 ├── motion.md               # Panduan serta inventaris motion
 ├── admin-design.md         # Referensi desain admin
 ├── AGENTS.md               # Panduan pengerjaan proyek
+├── serve.py                # Preview lokal dengan halaman 404 proyek
 └── vercel.json             # Konfigurasi hosting statis dan redirect /admin
 ```
 
@@ -91,7 +92,9 @@ Lihat `admin/README.md`, `admin/NOTICE`, dan `admin-design.md` untuk panduan lan
 
 Deployment production dibuat melalui Vercel CLI dari snapshot workspace lokal. Auto-deploy dari GitHub belum dikonfigurasi; perubahan lokal tidak otomatis tampil di production. `vercel.json` mengarahkan `/admin` ke `/admin/` agar path relatif aset dan navigasi admin tetap benar.
 
-Halaman `404.html` menjadi halaman tidak ditemukan pada hosting statis Vercel. Untuk preview Python, buka `/404.html` secara langsung; server Python standar tetap memakai respons 404 bawaannya untuk URL yang tidak ada. Halaman ini memakai base URL `/` agar aset dan navbar tetap benar pada URL bertingkat. Ilustrasi dan prompt imagegen tersimpan di `asset/not-found/`.
+Halaman `404.html` otomatis ditampilkan untuk URL yang tidak ditemukan pada hosting statis Vercel dan preview lokal melalui `serve.py`, dengan status HTTP 404 dan URL asal tetap dipertahankan. Server Python standar (`python3 -m http.server 8000`) tetap dapat digunakan, tetapi memakai halaman 404 bawaannya. Halaman ini memakai base URL `/` agar aset dan navbar tetap benar pada URL bertingkat. Ilustrasi dan prompt imagegen tersimpan di `asset/not-found/`.
+
+Kode course yang tidak dikenal atau kosong pada `course-detail.html?course=...` diarahkan ke `/404.html` menggunakan `location.replace`, termasuk saat navigasi Back/Forward. Membuka `course-detail.html` tanpa parameter tetap menampilkan course pertama.
 
 ## SEO
 

@@ -1185,6 +1185,8 @@ summary:focus-visible {
   background: var(--yg-surface);
 }
 
+.categories.stack-over-why-us { position: relative; z-index: 1; }
+
 .categories-heading {
   display: flex;
   align-items: center;
@@ -1239,6 +1241,7 @@ summary:focus-visible {
   border-radius: 4px;
   background: var(--yg-blue-soft);
 }
+
 
 .category-all {
   display: flex;
@@ -1406,7 +1409,9 @@ summary:focus-visible {
 .faq-item p { margin: 12px 56px 0 0; color: var(--text-secondary); font-size: var(--font-size-sm); font-weight: 400; line-height: 1.4444; }
 .contact-section { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 929fr) minmax(0, 599fr); align-items: start; justify-content: space-between; gap: clamp(48px, 10vw, 200px); padding: 100px var(--desktop-page-gutter); color: var(--yg-surface); background: var(--yg-blue-deep); }
 .contact-background { position: absolute; z-index: -2; inset: 0; overflow: hidden; isolation: isolate; }
-.contact-background img { position: absolute; z-index: 0; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1); transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1); }
+.contact-background img { position: absolute; z-index: 0; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.has-background-parallax .contact-background img,
+.has-background-parallax .why-us-background img { top: -34%; height: 168%; }
 .contact-background::after { position: absolute; z-index: 1; inset: 0; content: ''; pointer-events: none; background: linear-gradient(90deg, transparent 15%, var(--yg-blue) 86%), rgb(0 0 0 / 40%); }
 .contact-intro p { color: var(--yg-surface); }
 .contact-card { position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: 24px; padding: 32px; color: var(--text-primary); background: var(--yg-surface); }
@@ -1474,38 +1479,15 @@ summary:focus-visible {
     transform: scale(1.05);
   }
 
-  .contact-section:hover .contact-background img {
-    transform: scale(1.04);
-  }
 }
 
 .course-card:focus-within .course-photo {
   transform: scale(1.05);
 }
 
-.contact-section:focus-within .contact-background img {
-  transform: scale(1.04);
-}
-
-.contact-section.gsap-cta-ready .contact-background img {
-  transition: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .contact-section.gsap-cta-ready:hover .contact-background img {
-    transform: none;
-  }
-}
-
-.contact-section.gsap-cta-ready:focus-within .contact-background img {
-  transform: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .course-card:hover .course-photo,
-  .course-card:focus-within .course-photo,
-  .contact-section:hover .contact-background img,
-  .contact-section:focus-within .contact-background img {
+  .course-card:focus-within .course-photo {
     transform: none;
   }
 }

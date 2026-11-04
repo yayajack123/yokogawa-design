@@ -49,7 +49,11 @@ function renderList() {
 }
 
 function selectCourse(id, push = false) {
-  const course = courses.find(item => item.id === id) || courses[0];
+  const course = id === null ? courses[0] : courses.find(item => item.id === id);
+  if (!course) {
+    window.location.replace('/404.html');
+    return;
+  }
   const title = `${course.title} | Yokogawa Industrial Training`;
   const seoDescription = course.description || course.fields.OBJECTIVE || `Explore ${course.title} training from Yokogawa Industrial Training.`;
   const url = `https://yokogawa-design.vercel.app/course-detail.html?course=${encodeURIComponent(course.id)}`;
