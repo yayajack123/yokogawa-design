@@ -8,7 +8,7 @@ Tabel Popular courses memakai drag handle pointer serta Arrow Up/Down. Posisi
 baris diperbarui langsung setelah drop; tidak ada tween pemindahan. Selama drag,
 baris asal mendapat penanda dan garis menunjukkan posisi drop. Escape atau
 pointer cancel mempertahankan urutan sebelumnya. Keberhasilan reorder memakai
-toast bawaan Stisla, tanpa pesan saat mulai/batal drag. Toast hilang setelah 4,5
+toast bawaan Stisla yang juga digunakan untuk hasil penyimpanan formulir admin, tanpa pesan saat mulai/batal drag. Toast hilang setelah 4,5
 detik dan menunda penutupan selama hover/fokus. Transisi toast mengikuti CSS
 framework yang sudah menonaktifkan transisi pada `prefers-reduced-motion`.
 
@@ -40,7 +40,8 @@ Grid kategori pada halaman preview memakai hover perangkat pointer halus: tiga m
 | Kartu katalog kursus | Hover pointer halus mengubah latar selama **300 ms** dan mengisi garis bawah dari kiri ke kanan melalui `scaleX` selama **700 ms**, keduanya dengan `cubic-bezier(0.16, 1, 0.3, 1)`; reduced motion menampilkan state langsung. Focus keyboard memakai outline pada kartu. | `styles.css` |
 | Foto kartu kursus | Hover perangkat pointer halus atau focus di dalam kartu memperbesar foto ke `1.05`, **300 ms**, `cubic-bezier(0.16, 1, 0.3, 1)`. | `styles.css` |
 | FAQ di Home dan FAQ | Jawaban membuka dengan tinggi dan opacity selama **220 ms**, `power2.out`; menutup **180 ms**, `power2.in`. Tween sebelumnya dihentikan saat arah berubah. | `motion.js` |
-| Latar Why Us dan CTA kontak | Gambar latar bergerak vertikal dari `-20%` ke `20%` mengikuti scroll melalui ScrollTrigger (`scrub`, `ease: none`); gambar dilebihkan 34% di atas dan bawah agar tetap menutup area. Reduced motion atau dependensi yang tidak tersedia menampilkan gambar statis. | `cta-motion.js`, `styles.css` |
+| Latar Why Us, CTA kontak, dan gambar Contact Us | Gambar latar bergerak vertikal dari `-20%` ke `20%` mengikuti scroll melalui ScrollTrigger (`scrub`, `ease: none`); gambar dilebihkan 34% di atas dan bawah agar tetap menutup area. Dua gambar Contact Us memakai rentang `-4%` hingga `4%` dengan kelebihan 5% di tiap sisi untuk mengurangi crop; reveal diterapkan pada bingkai. Reduced motion atau dependensi yang tidak tersedia menampilkan gambar statis. | `cta-motion.js`, `styles.css` |
+| Sidebar detail kursus | Saat pertama kali terbuka dan course terpilih berada di luar area terlihat, daftar bergerak menuju course selama **800 ms**, `power2.out`. Input pengguna menghentikan gerakan; reduced motion atau tanpa GSAP langsung menampilkan posisi tujuan. Pada mobile dan tablet hingga 1024 px, gerakan dimulai saat pencarian dibuka. | `course-detail.js` |
 | Detail kursus | Saat pilihan kursus berubah, judul, deskripsi, breadcrumb, dan isi muncul dari opacity 0.35 selama **280 ms**, `power2.out`, stagger **25 ms**; latar tetap diam dan pilihan cepat menghentikan tween sebelumnya. Reduced motion menampilkan konten langsung. | `course-detail.js` |
 | Lokasi | Detail lokasi muncul dari `y: 8` dan opacity 0 selama **220 ms**, `power2.out`. Peta nasional membesar ke `2.2` dan memudar selama **350 ms**, `power2.inOut`; peta regional muncul dari skala `0.96` selama **250 ms**, `power2.out`. Kembali ke nasional menggunakan skala awal `1.08` selama **250 ms**. | `locations.js` |
 | Penanda peta | Pulse **2,4 detik**, `ease-out`, berulang hanya ketika peta terlihat dan motion diizinkan. | `locations.js`, `styles.css` |
@@ -73,4 +74,4 @@ Pada lebar ≤640px, perubahan kategori aktif saat scroll menggeser navigasi hor
 
 Tab kategori Courses disembunyikan tanpa animasi saat CTA mencapai batas bawah posisi sticky tab, pada semua ukuran layar. Ruang layout tetap dipertahankan dan navigasi dibuat inert; tab muncul kembali saat scroll ke atas melewati batas yang sama.
 
-Panel pencarian course mobile memakai GSAP: masuk dari y 32px dan opacity 0 selama 280ms, keluar ke y 24px dan opacity 0 selama 180ms, power2.out. Tween sebelumnya dihentikan saat interaksi berubah. Escape, tombol tutup, dan pilihan course memakai alur tutup yang sama; dialog native mempertahankan focus trap hingga animasi selesai. Reduced motion, resize ke desktop, dan fallback tanpa GSAP langsung menyelesaikan state.
+Panel pencarian course mobile dan tablet hingga 1024 px memakai GSAP: masuk dari y 32px dan opacity 0 selama 280ms, keluar ke y 24px dan opacity 0 selama 180ms, power2.out. Tween sebelumnya dihentikan saat interaksi berubah. Escape, tombol tutup, dan pilihan course memakai alur tutup yang sama; dialog native mempertahankan focus trap hingga animasi selesai. Reduced motion, resize ke desktop, dan fallback tanpa GSAP langsung menyelesaikan state.

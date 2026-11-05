@@ -167,3 +167,14 @@ CSS `assets/css/meridian/course-management.css` dimuat langsung oleh tiga halama
 tersebut untuk handle drag, penanda posisi drop, dan pembungkusan preview ikon.
 Tabel, tab, field, dan toast tetap memakai komponen bawaan framework; tidak perlu
 build CSS untuk mengubah adapter interaksi ini.
+
+
+Dropdown admin menggunakan komponen Select bawaan Stisla melalui `data-stisla-select`. Komponen interaktif dimuat oleh `@stisla/vanilla` dari CDN yang juga dipakai menu dan dialog admin.
+
+## Date picker
+
+Form Add availability memakai flatpickr 4.6.13 dari `assets/vendor/flatpickr/`, dengan tema Meridian di `assets/css/meridian/flatpickr.css`. Input tanggal asli tetap tersedia jika skrip gagal dimuat.
+
+## FAQs dan CTA Contact
+
+Menu FAQs dan CTA Contact menggunakan data awal dari konten website dan menyimpan perubahan di sessionStorage. Perubahan tidak tersinkron dengan halaman publik. Halaman dibuat melalui `build-pages.py`; interaksinya berada di `assets/js/content-admin.js`.

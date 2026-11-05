@@ -1526,7 +1526,7 @@ summary:focus-visible {
 .locations-map > img { display: block; width: 100%; height: 100%; }
 .location-marker--jakarta { --marker-x: 25.0%; --marker-y: 74.6%; }
 .location-marker--pekanbaru { --marker-x: 13.5%; --marker-y: 31.3%; }
-.location-marker--cilegon { --marker-x: 23.6%; --marker-y: 72.2%; }
+.location-marker--cilegon { --marker-x: 24%; --marker-y: 75%; }
 .location-marker--balikpapan { --marker-x: 46.6%; --marker-y: 43.3%; }
 .location-marker--surabaya { --marker-x: 38.5%; --marker-y: 79.4%; }
 .location-marker--medan { --marker-x: 7.7%; --marker-y: 12.0%; }
@@ -1535,7 +1535,6 @@ summary:focus-visible {
 .location-marker span { width: 12px; height: 12px; border: 2px solid var(--yg-blue-deep); border-radius: 50%; background: var(--yg-yellow); box-shadow: 0 0 0 2px var(--yg-yellow); }
 .location-marker[aria-current] { z-index: 2; }
 .location-marker[aria-current] span { width: 16px; height: 16px; box-shadow: 0 0 0 4px var(--yg-yellow); }
-.location-marker--cilegon { transform: translate(calc(-50% - 14px), -50%); }
 .location-marker--jakarta { transform: translate(calc(-50% + 14px), -50%); }
 .locations-map-note { margin: 20px 0 0; color: var(--yg-surface); font-size: var(--font-size-sm); line-height: 1.45; }
 .locations-directory { min-width: 0; grid-column: 1; grid-row: 1; }
@@ -1557,7 +1556,7 @@ summary:focus-visible {
 .location-map-link { width: auto; min-height: 50px; margin-top: 24px; padding: 12px 24px; border-color: var(--yg-surface); color: var(--yg-surface); background: transparent; font-size: var(--font-size-sm); }
 .location-map-link:hover { color: var(--yg-blue-deep); background: var(--yg-surface); }
 @media (max-width: 1024px) { .locations-section { padding: 64px 32px; } .locations-heading { align-items: flex-start; flex-direction: column; } .locations-layout { grid-template-columns: 1fr; gap: 40px; } .locations-directory { grid-column: 1; grid-row: 2; } .locations-map-area { grid-column: 1; grid-row: 1; } }
-@media (max-width: 640px) { .locations-section { padding: 48px 20px; } .locations-heading { margin-bottom: 40px; } .locations-heading h2 { line-height: 1.2222; } .locations-heading p { margin-top: 16px; } .locations-map { margin: 12px 0; } .location-marker--cilegon { transform: translate(calc(-50% - 17px), -50%); } .location-marker--jakarta { transform: translate(calc(-50% + 17px), -50%); } }
+@media (max-width: 640px) { .locations-section { padding: 48px 20px; } .locations-heading { margin-bottom: 40px; } .locations-heading h2 { line-height: 1.2222; } .locations-heading p { margin-top: 16px; } .locations-map { margin: 12px 0; } .location-marker--jakarta { transform: translate(calc(-50% + 17px), -50%); } }
 
 .location-marker span { position: relative; }
 .location-marker span::after { position: absolute; inset: -5px; border: 1px solid var(--yg-yellow); border-radius: 50%; content: ""; opacity: 0; pointer-events: none; }
@@ -1866,7 +1865,9 @@ summary:focus-visible {
 
 .contact-page-section { display: grid; grid-template-columns: minmax(0, 705fr) minmax(0, 848fr); align-items: center; gap: 8.7%; padding: var(--desktop-page-gutter); }
 .contact-page-office { grid-template-columns: minmax(0, 848fr) minmax(0, 705fr); background: #fafafa; }
-.contact-page-image { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+.contact-page-section > picture { display: block; position: relative; width: 100%; aspect-ratio: 1; overflow: hidden; }
+.contact-page-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+.contact-page-section.has-background-parallax .contact-page-image { position: absolute; top: -5%; left: 0; height: 110%; }
 .contact-page-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; min-width: 0; }
 .contact-page-copy h2 { margin: 0; font-size: var(--font-size-h2); line-height: 1.1429; letter-spacing: -.02em; font-weight: 600; }
 .contact-page-copy p { margin: 0; color: #404040; font-size: var(--font-size-md); line-height: 1.4; }
@@ -1878,11 +1879,11 @@ summary:focus-visible {
 .contact-page-list a img { width: 24px; height: 24px; object-fit: contain; flex: none; }
 .contact-page-list a img:last-child { width: 20px; height: 20px; margin-left: auto; }
 @media (max-width: 1024px) { .contact-page-section, .contact-page-office { grid-template-columns: 1fr 1fr; gap: 32px; padding: 64px 32px; } .contact-page-copy { gap: 24px; } }
-@media (max-width: 640px) { .contact-page-section, .contact-page-office { grid-template-columns: 1fr; padding: 48px 20px; } .contact-page-office .contact-page-image { grid-row: 1; } .contact-page-list a { padding: 18px 16px; } }
+@media (max-width: 640px) { .contact-page-section, .contact-page-office { grid-template-columns: 1fr; padding: 48px 20px; } .contact-page-office > picture { grid-row: 1; } .contact-page-list a { padding: 18px 16px; } }
 
 .faq-page-content { display: flex; flex-direction: column; align-items: center; gap: 64px; padding: 120px var(--desktop-page-gutter) 140px; }
 .faq-page-intro { text-align: center; }
-.faq-page-intro h2 { margin: 0; font-size: var(--font-size-h2); line-height: 1.1429; letter-spacing: -.02em; font-weight: 600; }
+.faq-page-intro h2 { margin: 0; font-size: var(--font-size-h3); line-height: 1.2; letter-spacing: -.02em; font-weight: 600; }
 .faq-page-intro p { margin: 24px 0 0; color: var(--text-secondary); font-size: var(--font-size-md); line-height: 1.4; }
 .faq-page-content .faq-list { width: min(100%, 848px); }
 @media (max-width: 1024px) { .faq-page-content { padding: 64px 32px; gap: 48px; } }
@@ -2200,3 +2201,44 @@ summary:focus-visible {
 /* Keep responsive image wrappers transparent to the existing layouts. */
 .optimized-picture { display: contents; }
 .optimized-picture > source { display: none; }
+
+/* Tablet uses the same full-screen navigation and course finder as mobile. */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .mobile-nav { position: fixed; inset: var(--header-height) 0 0; width: 100%; height: calc(100dvh - var(--header-height)); gap: 8px; padding: 0 0 var(--space-6); border-radius: 0; background: var(--yg-blue); overflow-y: auto; }
+  .mobile-nav a:not(.mobile-contact) { padding: var(--space-4); border-bottom: 1px solid var(--yg-blue-action); border-radius: 0; font-size: 24px; font-weight: 600; line-height: 32px; letter-spacing: -.015em; }
+  .mobile-contact { flex: none; justify-content: center; margin: auto var(--space-4) 0; padding: var(--space-3) var(--space-6); min-height: 48px; font-size: var(--font-size-sm); line-height: 20px; }
+  .mobile-menu[open] .menu-toggle { background: url('asset/icon-close-circle.svg') center / 24px 24px no-repeat; }
+  .mobile-menu[open] .menu-toggle span { visibility: hidden; }
+  body:has(.mobile-menu[open]) { overflow: hidden; }
+  .course-detail-layout { display: block; }
+  .course-detail-content { border-left: 0; }
+  .course-finder-trigger { display: flex; position: sticky; top: var(--header-height); z-index: 80; align-items: center; gap: var(--space-3); width: 100%; padding: var(--space-3) var(--space-4); border: 0; background: var(--yg-blue); color: var(--text-placeholder); font: inherit; font-size: var(--font-size-sm); text-align: left; cursor: pointer; }
+  .course-finder-trigger span { flex: 1; padding: var(--space-3) var(--space-4) var(--space-3) 49px; border: 1px solid var(--border-secondary); border-radius: var(--radius-lg); background: var(--yg-surface); line-height: 20px; }
+  .course-finder-trigger img { position: absolute; left: 33px; width: 20px; height: 20px; }
+  .course-finder-dialog { width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; margin: 0; padding: var(--space-6) var(--space-4); border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+  .course-finder-dialog::backdrop { background: rgb(0 0 0 / 40%); }
+  .course-finder-close { position: absolute; right: var(--space-4); top: 35px; width: 24px; height: 24px; padding: 0; border: 1px solid currentColor; border-radius: 50%; background: transparent; font-size: 20px; line-height: 20px; cursor: pointer; }
+  .course-finder-dialog .course-sidebar { position: static; height: 100%; max-height: none; padding: 0; border: 0; }
+  .course-finder-dialog .course-search { margin-right: 40px; margin-bottom: var(--space-4); padding: var(--space-3) var(--space-4); gap: var(--space-3); }
+  .course-finder-dialog .course-search img { width: 20px; height: 20px; }
+  .course-finder-dialog .course-search input { font-size: var(--font-size-sm); line-height: 20px; }
+  .course-finder-dialog .course-sidebar-group a { padding: var(--space-4); line-height: 20px; }
+}
+
+/* Cover fractional-pixel seams between the fixed header and sticky course search. */
+@media (max-width: 1024px) {
+  .course-detail-page .site-header::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: -1px;
+    height: 1px;
+    background: var(--yg-blue);
+    pointer-events: none;
+  }
+}
+
+/* Keep the desktop course sidebar out of the tablet/mobile layout while the finder initializes. */
+@media (max-width: 1024px) {
+  .course-detail-layout > .course-sidebar { display: none; }
+}

@@ -25,7 +25,8 @@
 - **Goals:**
   - Mengelola kategori dan course.
   - Mempublikasikan course yang siap ditampilkan.
-  - Memperbarui Home banner tanpa bantuan developer.
+  - Memperbarui Home banner dan tanggal ketersediaan training tanpa bantuan developer.
+  - Mencoba form demo FAQ dan CTA Contact untuk memahami konten yang dapat diisi.
 - **Frustrations:**
   - Perubahan konten sebelumnya bergantung pada website grup atau developer.
   - Course yang belum lengkap berisiko tampil ke publik.
@@ -35,6 +36,8 @@
   - M05 Autentikasi Admin — Primary
   - M06 Kategori Course — Primary
   - M07 Home Banner — Primary
+  - M12 Availability Calendar — Primary
+  - M13 Demo FAQ & CTA Contact — Primary
   - M10 Infrastruktur, QA & Security Scan — Secondary
 
 ### Sistem
@@ -55,6 +58,7 @@
   - M05 Autentikasi Admin — Primary
   - M06 Kategori Course — Primary
   - M07 Home Banner — Primary
+  - M12 Availability Calendar — Primary
   - M08 Backend & Database — Primary
   - M09 Contact Form, SMTP & Log — Primary
   - M10 Infrastruktur, QA & Security Scan — Primary
@@ -200,14 +204,16 @@ stateDiagram-v2
 
 ### FR01 [WEB] Desain UI/UX
 
-- UI Design - Halaman publik (Home, Courses, Course Detail, FAQ, Contact Us, 404)
-- UI Design - Layar admin (login, kategori, course, Home banner, ganti password)
+- UI Design - Halaman publik (Home, Courses, Course Detail, Schedule, FAQ, Contact Us, 404)
+- UI Design - Layar admin (login, kategori, course, Home banner, Availability, demo FAQs dan CTA Contact, ganti password)
 - Desain - Revisi desain (maksimal 3 revisi mayor, revisi minor kosmetik)
 
 ### FR02 [WEB] Halaman Publik & Navigasi
 
 - Layout & Navigasi - Header dan footer (menu mobile, informasi kontak)
-- Home page (hero dinamis, About, Why Join, kategori training, CTA Contact)
+- Home page (hero dinamis, statistik hero statis, About, Why Join, kategori training, CTA Contact)
+- Schedule page (kalender bulanan dan daftar tanggal training yang tersedia)
+- Bahasa konten publik: Inggris saja. FAQ dan informasi kontak publik tetap statis; form admin FR13 hanya untuk demo dan tidak memperbarui website.
 - FAQ page (banner, accordion keyboard-accessible, CTA Contact)
 - Contact Us page (informasi kontak, Google Maps, Contact Form)
 - 404 page (pesan, tombol Home dan Courses)
@@ -216,7 +222,7 @@ stateDiagram-v2
 ### FR03 [WEB] Course
 
 - Courses page (filter kategori, search 300 ms, Course Card, empty state)
-- Course Detail page (informasi course, PDF, Contact Form, related courses)
+- Course Detail page (informasi course, PDF, Contact Form, related courses); tautan View source hanya untuk demo dan tidak ditampilkan pada production.
 - ⚠ Performa Course - Respons search dan filter (≤300 ms untuk ≤100 course)
 
 ### FR03 [ADMIN] Course
@@ -247,6 +253,19 @@ stateDiagram-v2
 - Home Banner edit page (media, judul, deskripsi, tombol, URL, preview)
 - ⚠ Upload Banner - Validasi media (MP4 ≤20MB, gambar ≤2MB)
 
+### FR12 [WEB & ADMIN] Availability Calendar
+
+- Admin mengelola tanggal ketersediaan training global melalui tampilan kalender dan daftar: menambah satu tanggal atau rentang tanggal, serta menghapus satu atau beberapa tanggal.
+- Halaman Schedule menampilkan kalender bulanan dan daftar tanggal yang tersedia. Tanggal tidak terikat pada course tertentu dan bukan jadwal sesi, kuota, atau pendaftaran.
+
+### FR13 [ADMIN DEMO] FAQs & CTA Contact
+
+- Menu **FAQs** menyediakan daftar dan form demo untuk menambah, mengubah, menghapus, mengurutkan, mengatur status Draft/Published, dan memilih **Show on Home**. Field konten berupa pertanyaan dan jawaban; jawaban dapat memuat tautan.
+- Data awal daftar dan form adalah 10 pertanyaan beserta jawaban dan tautan dari `faq.html`. Enam FAQ pertama yang juga ada di `index.html` dipilih sebagai Show on Home; data awal berstatus Published.
+- Menu **CTA Contact** menyediakan form demo untuk telepon, email, URL website, nama kantor, alamat, jam kerja, dan URL Maps. Nilai awal mengikuti CTA bersama di `components.js`.
+- Kedua menu menjelaskan bahwa perubahan disimpan selama sesi dan tidak memperbarui website, tanpa menggunakan kata “demo” pada antarmuka admin. Judul, deskripsi, dan gambar CTA tetap statis.
+- Penyimpanan demo mengikuti pola prototype admin berbasis sessionStorage; tidak menggunakan API atau database production.
+
 ### FR09 [WEB] Contact Form, SMTP & Log
 
 - Contact Form component (nama, email, telepon, perusahaan, pesan)
@@ -259,7 +278,7 @@ stateDiagram-v2
 
 ### FR10 [ADMIN] Infrastruktur, QA & Security Scan
 
-- QA ADMIN - Uji panel admin (login, session, CRUD, upload, Home banner)
+- QA ADMIN - Uji panel admin (login, session, CRUD, upload, Home banner, Availability, demo FAQs dan CTA Contact)
 
 ## 5. Acceptance Criteria
 
@@ -267,7 +286,7 @@ stateDiagram-v2
 
 - **Given** brand guideline Yokogawa tersedia  
   **When** Figma diserahkan  
-  **Then** tersedia desain 6 halaman publik dan layar admin pada 360px dan 1440px.
+  **Then** tersedia desain 7 halaman publik dan layar admin pada 360px dan 1440px.
 - **Given** tiga revisi mayor sudah digunakan  
   **When** perubahan layout mayor berikutnya diminta  
   **Then** permintaan dicatat sebagai change request.
@@ -276,10 +295,17 @@ stateDiagram-v2
 
 - **Given** visitor membuka website pada viewport 360px  
   **When** menu mobile dibuka  
-  **Then** Home, Courses, FAQ, dan Contact Us dapat dipilih menggunakan keyboard.
+  **Then** Home, Courses, Schedule, FAQ, dan Contact Us dapat dipilih menggunakan keyboard.
 - **Given** visitor membuka URL yang tidak tersedia  
   **When** server merespons halaman  
   **Then** halaman 404 tampil dengan tombol menuju Home dan Courses.
+
+- **Given** visitor membuka halaman publik  
+  **When** konten ditampilkan  
+  **Then** konten menggunakan bahasa Inggris tanpa language switcher.
+- **Given** Home dibuka  
+  **When** statistik hero ditampilkan  
+  **Then** nilainya tetap statis dan tidak dikelola melalui form admin.
 
 ### FR03 Course
 
@@ -298,6 +324,10 @@ stateDiagram-v2
 - **Given** course tidak memiliki PDF  
   **When** Course Detail dibuka  
   **Then** tombol Download Training Schedule tidak tampil.
+
+- **Given** Course Detail dibuka pada production  
+  **When** detail ditampilkan  
+  **Then** tautan View source untuk demo tidak ditampilkan.
 
 ### FR04 SEO & GEO
 
@@ -349,6 +379,48 @@ stateDiagram-v2
 - **Given** URL tombol tidak valid  
   **When** form banner disimpan  
   **Then** perubahan ditolak dengan error pada field URL.
+
+### FR12 Availability Calendar
+
+- **Given** Admin menyimpan tanggal mulai yang valid tanpa tanggal akhir  
+  **When** halaman Schedule dimuat ulang  
+  **Then** tanggal tersebut tampil sebagai Available.
+- **Given** Admin menyimpan rentang tanggal valid  
+  **When** halaman Schedule dimuat ulang  
+  **Then** setiap tanggal dari awal sampai akhir, termasuk keduanya, tampil sebagai Available tanpa duplikasi.
+- **Given** tanggal akhir sebelum tanggal mulai, tanggal tidak valid, atau rentang lebih dari 366 hari  
+  **When** Admin menyimpan  
+  **Then** penyimpanan ditolak dan pesan kesalahan ditampilkan.
+- **Given** Admin menghapus satu atau beberapa tanggal tersedia  
+  **When** halaman Schedule dimuat ulang  
+  **Then** tanggal yang dihapus tidak lagi ditampilkan sebagai Available.
+- **Given** bulan yang dipilih tidak memiliki tanggal tersedia  
+  **When** visitor membuka bulan tersebut  
+  **Then** kalender dan pesan bahwa tidak ada tanggal tersedia tetap ditampilkan.
+- **Given** data ketersediaan gagal dimuat  
+  **When** visitor membuka Schedule  
+  **Then** pesan kegagalan dan arahan untuk menghubungi tim ditampilkan.
+
+### FR13 Demo FAQs & CTA Contact
+
+- **Given** demo dibuka dengan data awal  
+  **When** Admin melihat daftar FAQs dan form edit  
+  **Then** 10 pertanyaan, jawaban, dan tautan sesuai halaman FAQ saat ini; enam FAQ yang tampil di Home terpilih sebagai Show on Home.
+- **Given** demo dibuka dengan data awal  
+  **When** Admin membuka CTA Contact  
+  **Then** nilai telepon, email, URL website, nama kantor, alamat, jam kerja, dan URL Maps sesuai CTA website saat ini.
+- **Given** Admin mencoba pengelolaan FAQ  
+  **When** Admin menambah, mengubah, menghapus, mengurutkan, mengatur status, atau memilih Show on Home  
+  **Then** perubahan terlihat pada data demo dan tersimpan dalam sesi preview.
+- **Given** Admin mengubah CTA Contact  
+  **When** data valid disimpan  
+  **Then** nilai baru terlihat pada form demo dalam sesi preview.
+- **Given** field wajib kosong atau format email atau URL tidak valid  
+  **When** Admin menyimpan  
+  **Then** penyimpanan ditolak, pesan ditampilkan pada field terkait, dan input lain dipertahankan.
+- **Given** Admin mengubah data demo  
+  **When** Home, FAQ, CTA, atau Contact Us pada website publik dibuka  
+  **Then** konten publik tidak berubah; kedua menu menyatakan batas penyimpanan sesi dan sinkronisasi tersebut.
 
 ### FR08 Backend & Database
 
@@ -456,6 +528,9 @@ stateDiagram-v2
 - **FR10 Infrastruktur, QA & Security Scan** — Temuan High belum lolos retest.  
   Expected: launch tidak memenuhi acceptance criteria pemeriksaan.
 
+- **FR12 Availability Calendar** — Penyimpanan tanggal gagal.  
+  Expected: data tersimpan sebelumnya tetap berlaku dan Admin melihat pesan kesalahan.
+
 ### Persona: Sistem
 
 - **FR02 Halaman Publik & Navigasi** — Partial htmx gagal karena koneksi terputus.  
@@ -504,6 +579,21 @@ stateDiagram-v2
 5. **Hasil:** Home menampilkan banner terbaru.
 6. **Pemulihan:** Bila upload gagal, banner lama tetap aktif.
 
+### CUJ-4 — Admin mengatur tanggal ketersediaan
+
+1. **Availability:** Admin membuka tampilan kalender atau daftar dan menavigasi bulan.
+2. **Tambah:** Admin mengisi tanggal mulai dan, bila diperlukan, tanggal akhir. Rentang mencakup kedua tanggal dan maksimal 366 hari.
+3. **Simpan:** Sistem memvalidasi dan menyimpan tanggal unik.
+4. **Hapus:** Admin dapat menghapus tanggal tertentu atau memilih beberapa tanggal pada daftar untuk dihapus.
+5. **Hasil:** Setelah halaman Schedule dimuat ulang, visitor melihat tanggal yang tersimpan sebagai Available.
+
+### CUJ-5 — Admin mencoba form demo FAQ dan CTA Contact
+
+1. **FAQs:** Admin melihat 10 FAQ awal, membuka form edit, atau mencoba menambah FAQ.
+2. **Pengaturan:** Admin mencoba status, pilihan Show on Home, urutan, dan penghapusan pada data demo.
+3. **CTA Contact:** Admin melihat nilai awal kontak pada CTA dan mencoba mengubahnya.
+4. **Hasil:** Perubahan tersimpan dalam sesi preview; keterangan demo menjelaskan bahwa website publik tidak berubah.
+
 ## 8. Tech Stack Summary
 
 ### Frontend
@@ -544,9 +634,9 @@ stateDiagram-v2
 
 ## 9. Out of Scope
 
-- Bahasa Inggris dan language switcher; situs hanya berbahasa Indonesia.
-- Pengelolaan FAQ dan Contact info melalui admin; keduanya statis.
-- Kalender event interaktif dan timeline harian pada halaman atau form admin.
+- Bahasa selain Inggris dan language switcher; situs hanya berbahasa Inggris.
+- Integrasi form demo FAQ dan CTA Contact dengan website publik, API, atau database production; konten FAQ dan informasi kontak publik tetap statis.
+- Kalender event per course, sesi dengan jam, pengajar, lokasi atau kuota, serta timeline harian. Kalender ketersediaan global termasuk scope FR12.
 - Daftar/detail Contact Form Log pada admin.
 - Penyimpanan nama, telepon, perusahaan, dan isi pesan Contact Form di database.
 - Export, edit, hapus, atau workflow status Contact Form Log melalui antarmuka pengguna.
@@ -565,6 +655,8 @@ stateDiagram-v2
 - Support berkelanjutan setelah garansi; tersedia terpisah seharga Rp2 juta/bulan.
 
 ## 10. Backend & API Scope
+
+FR13 hanya mencakup demo frontend dengan penyimpanan sesi; tidak ada endpoint atau tabel production untuk FAQ dan CTA Contact dalam scope ini.
 
 ### FR02 Halaman Publik & Navigasi
 
@@ -602,10 +694,16 @@ stateDiagram-v2
 - Home Banner - Penyimpanan media (storage lokal VPS)
 - ⚠ Home Banner - Fallback media (banner lama tetap aktif saat upload gagal)
 
+### FR12 Availability Calendar
+
+- Availability - Query publik untuk tanggal tersedia dan query admin untuk menambah serta menghapus tanggal.
+- Availability - Validasi tanggal dan rentang inklusif maksimal 366 hari; tanggal duplikat disimpan satu kali.
+- Availability - Simpan tanggal secara persisten di database agar perubahan admin tersedia bagi seluruh visitor. Prototype saat ini menggunakan localStorage dan belum menjadi integrasi backend production.
+
 ### FR08 Backend & Database
 
 - Setup - Project backend (Go, chi, html/template, sqlc, pgx, systemd)
-- Database - Skema dan migrasi (admin, session, kategori, course, banner, media, log)
+- Database - Skema dan migrasi (admin, session, kategori, course, banner, availability, media, log)
 - Security - Proteksi aplikasi (CSRF, validator, parameter binding, escaping)
 - File Service - Validasi dan penyimpanan (nama file server, MIME, ukuran)
 

@@ -55,7 +55,7 @@
       zooming = false;
       refresh();
     };
-    const originPosition = origin === cilegonPin ? '23.6% 72.2%' : '25% 74.6%';
+    const originPosition = origin === cilegonPin ? '24% 75%' : '25% 74.6%';
     if (motionAllowed()) window.gsap.to(national, { scale: 2.2, opacity: 0, transformOrigin: originPosition, duration: 0.35, ease: 'power2.inOut', onComplete: finish });
     else finish();
   };
@@ -80,8 +80,15 @@
     const activate = (event) => {
       event.preventDefault();
       if (zooming) return;
-      selectLocation(control.dataset.location, true);
-      if (regionalEntries.includes(control)) showRegion(control);
+      let target = control;
+      if (event.type === 'click' && event.detail > 0 && regionalEntries.includes(control) && regionalEntries.length === 2) {
+        target = regionalEntries.reduce((nearest, pin) => {
+          const center = (item) => { const bounds = item.getBoundingClientRect(); return bounds.left + bounds.width / 2; };
+          return Math.abs(event.clientX - center(pin)) < Math.abs(event.clientX - center(nearest)) ? pin : nearest;
+        });
+      }
+      selectLocation(target.dataset.location, true);
+      if (regionalEntries.includes(target)) showRegion(target);
     };
     control.addEventListener('click', activate);
     control.addEventListener('keydown', (event) => {

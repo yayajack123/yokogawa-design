@@ -26,9 +26,9 @@ shell=re.sub(r'<footer class="sidebar__footer">.*?</footer>','<footer class="sid
 def field(name,label,kind='text',help='',required=False):
  attrs=f'id="{name}" name="{name}"'+(' required' if required else '')
  if kind=='textarea':control=f'<textarea class="textarea" {attrs} rows="4"></textarea>'
- elif kind=='category':control=f'<select class="select" {attrs} data-category-options><option value="">Select a category</option></select>'
- elif kind=='course-status':control=f'<select class="select" {attrs}><option>Draft</option><option>Published</option></select>'
- elif kind=='category-status':control=f'<select class="select" {attrs}><option>Unpublished</option><option>Published</option></select>'
+ elif kind=='category':control=f'<select class="select" data-stisla-select data-placeholder="Select a category" {attrs} data-category-options><option value="">Select a category</option></select>'
+ elif kind=='course-status':control=f'<select class="select" data-stisla-select {attrs}><option>Draft</option><option>Published</option></select>'
+ elif kind=='category-status':control=f'<select class="select" data-stisla-select {attrs}><option>Unpublished</option><option>Published</option></select>'
  else:
   extra=''
   if kind=='image':kind='file';extra='accept="image/jpeg,image/png,image/webp"'
@@ -44,18 +44,22 @@ def dialog():return f'''<div class="dialog dialog--sm" id="deleteRecord" data-st
 def write(name,title,description,body,action='',mode=''):
  s=shell
  html=f'''<!doctype html><html lang="en" data-theme="light"><head><link rel="icon" href="../asset/yokogawa-favicon.ico" type="image/x-icon"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{title} · Yokogawa Admin</title><script>(function(){{var t=localStorage.getItem('stisla-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}})();</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/style.css"></head><body data-admin-page="{mode}">{s}<div class="page content"><div class="content__container"><header class="page__header"><div class="page__headline"><h1 class="page__title" data-page-title>{title}</h1><p class="page__description">{description}</p></div><div class="page__action">{action}</div></header><div class="page__body"><p class="text-sm" role="status" id="feedback"></p>{body}</div></div></div>{dialog()}</main></div><script type="module" src="https://cdn.jsdelivr.net/npm/@stisla/vanilla@3/dist/stisla.js"></script><script src="assets/js/app-shell.js"></script><script src="assets/js/theme.js"></script><script src="assets/js/table-select.js"></script><script src="assets/js/admin-demo.js"></script></body></html>'''
- if mode in ['courses','course-form','category-form']:
-  html=html.replace('</head>', '<link rel="stylesheet" href="assets/css/meridian/course-management.css"></head>')
- if mode=='courses':
-  toast='''<div class="toast-region toast-region--bottom-end" aria-live="polite" aria-atomic="true"><div class="toast toast--success" id="reorder-toast" data-state="closed"><span class="toast__icon" aria-hidden="true">✓</span><div class="toast__content"><p class="toast__header">Order updated</p><p class="toast__body" id="reorder-toast-message"></p></div><button class="toast__close" type="button" id="reorder-toast-close" aria-label="Dismiss notification">×</button></div></div>'''
-  html=html.replace('</body>', toast+'</body>')
+ if mode in ['courses','categories','course-form','category-form']:
+  html=html.replace('<script type="module" src="https://cdn.jsdelivr.net/npm/@stisla/vanilla@3/dist/stisla.js"></script>', '')
+ if mode in ['courses','course-form','category-form','faqs']:
+  html=html.replace('</head>', '<link rel="stylesheet" href="assets/css/meridian/course-management.css?v=2"></head>')
+ if mode in ['faqs','faq-form','cta-contact']:
+  html=html.replace('<script src="assets/js/admin-demo.js"></script>', '<script src="assets/js/content-admin.js"></script>')
+ html=html.replace('</head>', '<link rel="stylesheet" href="assets/css/meridian/admin-toast.css"></head>')
+ html=html.replace('<script src="assets/js/admin-demo.js"></script>', '<script src="assets/js/admin-toast.js"></script><script src="assets/js/admin-demo.js"></script>')
+ html=html.replace('<script src="assets/js/content-admin.js"></script>', '<script src="assets/js/admin-toast.js"></script><script src="assets/js/content-admin.js"></script>')
  if not targets or name in targets: (ROOT/name).write_text(html)
 def table(mode):
  course=mode=='courses'
  search=f'''<div class="input-group ms-auto w-full md:w-60 mb-4 md:mb-0"><span class="input-group__text">{ICON['search']}</span><input type="search" class="input" name="q" id="search" aria-label="Search {'courses' if course else 'categories'}" placeholder="{'CENTUM VP' if course else 'Safety'}"></div>'''
  filters='<div class="flex flex-wrap items-center gap-2">'
- if course:filters+='<div class="w-48"><select class="select" id="categoryFilter" aria-label="Filter by category" data-category-options><option value="">All categories</option></select></div>'
- filters+='<div class="w-48"><select class="select" id="statusFilter" aria-label="Filter by status"><option value="">All statuses</option>'+''.join(f'<option>{s}</option>' for s in (['Draft','Published'] if course else ['Unpublished','Published']))+'</select></div>'
+ if course:filters+='<div class="w-48"><select class="select" data-stisla-select data-placeholder="All categories" id="categoryFilter" aria-label="Filter by category" data-category-options><option value="">All categories</option></select></div>'
+ filters+='<div class="w-48"><select class="select" data-stisla-select data-placeholder="All statuses" id="statusFilter" aria-label="Filter by status"><option value="">All statuses</option>'+''.join(f'<option>{s}</option>' for s in (['Draft','Published'] if course else ['Unpublished','Published']))+'</select></div>'
  if course: filters+='<label class="flex items-center gap-2 text-sm" for="course_favorites_filter_switch"><input class="switch" type="checkbox" role="switch" id="course_favorites_filter_switch" aria-controls="records"><span>Popular only</span></label>'
  filters+='<button class="button button--ghost button--neutral button--sm" id="resetFilters">Clear filters</button></div>'
  pagination='<nav class="ms-auto" aria-label="Course pages" id="coursePagination"><ul class="pagination" id="paginationButtons"></ul></nav>' if course else ''
@@ -63,9 +67,9 @@ def table(mode):
  head=''.join(f'<th scope="col"'+(' class="text-end"' if h in ['Courses','Actions'] else '')+f'>{h}</th>' for h in headings)
  return f'<section class="page__section"><div class="card"><div class="card__header flex-wrap">{filters}{search}</div><div class="table-responsive"><table class="table table--hover table--align-middle"><thead class="table__head--alt"><tr>{head}</tr></thead><tbody id="records"></tbody></table></div><div class="empty-state" id="emptyState" hidden><h2 class="empty-state__title" id="emptyTitle">No matching results</h2><p class="empty-state__text">Try another search or clear the filters.</p><button type="button" class="button button--neutral" id="emptyReset">Clear filters</button></div><div class="card__footer"><span class="text-sm text-muted-foreground" id="resultCount" role="status"></span>{pagination}</div></div></section>'
 course_tabs='''<div class="tabs" id="course-tabs">
-<div class="tabs__list" role="tablist" aria-label="Course views">
-<button class="tabs__trigger" type="button" role="tab" id="all-courses-tab" aria-controls="all-courses-panel" data-state="active" aria-selected="true" tabindex="0">All courses</button>
-<button class="tabs__trigger" type="button" role="tab" id="popular-courses-tab" aria-controls="popular-courses-panel" data-state="inactive" aria-selected="false" tabindex="-1">Popular courses</button>
+<div class="toggle-group" role="tablist" aria-label="Course views">
+<button class="toggle" type="button" role="tab" id="all-courses-tab" aria-controls="all-courses-panel" data-state="active" aria-selected="true" tabindex="0">All courses</button>
+<button class="toggle" type="button" role="tab" id="popular-courses-tab" aria-controls="popular-courses-panel" data-state="inactive" aria-selected="false" tabindex="-1">Popular courses</button>
 </div>
 <section class="tabs__panel" id="all-courses-panel" role="tabpanel" aria-labelledby="all-courses-tab" data-state="active">'''+table('courses')+'''</section>
 <section class="tabs__panel" id="popular-courses-panel" role="tabpanel" aria-labelledby="popular-courses-tab" data-state="inactive" hidden>
@@ -105,20 +109,31 @@ banner=field('media','Banner media','media','Upload a JPG, PNG, or WebP image up
 preview='<img src="../asset/hero-photo.jpg" alt="Banner media preview" id="bannerImage" class="w-full rounded-sm object-cover" style="aspect-ratio: 16 / 9" hidden><video id="bannerVideo" class="w-full rounded-sm object-cover" style="aspect-ratio: 16 / 9" src="../asset/hero-background.mp4" poster="../asset/hero-photo.jpg" preload="metadata" controls muted playsinline></video><h3 class="font-semibold" id="previewTitle"></h3><p class="text-sm text-muted-foreground" id="previewDescription"></p><a class="button button--primary" id="previewLink" href="../courses.html">View courses</a>'
 preview=preview.replace('<a class="button button--primary" id="previewLink"', '<div class="flex flex-wrap gap-2"><a class="button button--primary" id="previewLink"')+'<a class="button button--neutral" id="previewSecondaryLink" href="../index.html#contact">Ask Our Team</a></div>'
 write('banner.html','Home banner','Update the media, heading, description, and buttons on the homepage banner.',f'<form class="order-form" data-demo-form="banner"><div class="grid grid-cols-12 gap-4"><div class="col-span-12 lg:col-span-8">{card("Banner content",banner)}</div><div class="col-span-12 lg:col-span-4">{card("Banner preview",preview)}</div></div>{actions("index.html","Save banner")}</form>',mode='banner')
-password=field('oldPassword','Current password','password',required=True)+field('newPassword','New password','password','Use at least 8 characters.',True)+field('confirmPassword','Confirm new password','password',required=True)+'<p class="field__description">For this preview, use demo1234 as the current password.</p>'
+notice=''
+faq_list=notice+'''<div class="card"><div class="card__body"><p class="field__description">Drag a handle or use the arrow keys to change the order.</p><p id="faq-status" role="status" class="text-sm"></p></div><div class="table-responsive"><table class="table table--hover table--align-middle"><thead class="table__head--alt"><tr><th scope="col">Order</th><th scope="col">Question</th><th scope="col">Status</th><th scope="col">Show on Home</th><th scope="col" class="text-end">Actions</th></tr></thead><tbody id="faq-records"></tbody></table></div><div id="faq-empty" class="empty-state" hidden><h2 class="empty-state__title">No FAQs yet</h2><p class="empty-state__text">Add a question to get started.</p></div></div>'''
+write('faqs.html','FAQs','Manage frequently asked questions and their order.',faq_list,button('faq-form.html','Add FAQ'),'faqs')
+answer='''<div class="field"><label class="field__label" for="answer">Answer *</label><div hidden><div class="flex flex-wrap gap-2"><button type="button" class="button button--neutral button--sm" id="add-link">Add link</button><button type="button" class="button button--ghost button--neutral button--sm" id="remove-link">Remove link</button></div></div><div id="answer" class="textarea" contenteditable="true" role="textbox" aria-label="Answer" aria-multiline="true" aria-required="true" aria-describedby="answer-error" style="min-height: 10rem; white-space: pre-wrap"></div><p class="field__description text-danger" id="answer-error" role="alert"></p></div><div id="link-fields" hidden><div class="field"><label class="field__label" for="link-label">Link text</label><input class="input" id="link-label" type="text"></div><div class="field"><label class="field__label" for="link-url">Link URL</label><input class="input" id="link-url" type="text"><p class="field__description">Use an http/https URL or a website path.</p><p id="link-error" class="field__description text-danger" role="alert"></p></div><button type="button" class="button button--neutral button--sm" id="insert-link">Insert link</button><button type="button" class="button button--ghost button--neutral button--sm" id="cancel-link">Cancel</button></div>'''
+faq_form='<form id="faq-form" class="order-form" novalidate>'+notice+'<div class="grid grid-cols-12 gap-4"><div class="col-span-12 lg:col-span-8">'+card('FAQ content',field('question','Question',required=True)+answer)+'</div><div class="col-span-12 lg:col-span-4">'+card('Publication',field('status','Status','course-status').replace(' data-stisla-select', '')+'<label class="flex items-center gap-2"><input class="switch" type="checkbox" role="switch" id="home"> Show on Home</label>')+'</div></div>'+actions('faqs.html','Save FAQ')+'</form>'
+write('faq-form.html','Add FAQ','Write a question and answer.',faq_form,mode='faq-form')
+contact_fields=''.join(field(n,l,k,required=True) for n,l,k in [('phone','Phone','text'),('email','Email','email'),('website','Website URL','url')])
+office_fields=''.join(field(n,l,k,required=True) for n,l,k in [('office','Office name','text'),('address','Address','textarea'),('hours','Opening hours','text'),('maps','Maps URL','url')])
+contact_form='<form id="contact-form" class="order-form" novalidate>'+notice+'<div class="grid grid-cols-12 gap-4"><div class="col-span-12 lg:col-span-8"><div class="flex flex-col gap-3">'+card('Contact details',contact_fields)+card('Office details',office_fields)+'</div></div></div>'+actions('index.html','Save contact')+'</form>'
+write('cta-contact.html','CTA Contact','Update the contact information shown in the contact section.',contact_form,mode='cta-contact')
+password=field('oldPassword','Current password','password',required=True)+field('newPassword','New password','password','Use at least 8 characters.',True)+field('confirmPassword','Confirm new password','password',required=True)
 write('password.html','Change password','Enter your current password and choose a new password.',f'<form class="order-form" data-demo-form="password"><div class="grid grid-cols-12 gap-4"><div class="col-span-12 lg:col-span-8">{card("Account security",password)}</div></div>{actions("index.html","Change password")}</form>',mode='password')
 # Reuse the entire original authentication layout, including input-group SVGs.
 l=(ROOT/'templates/login.html').read_text().replace('lang="en"','lang="en"').replace('/meridian/','/admin/').replace('Meridian','Yokogawa')
 l=l.replace('Welcome back','Sign in to admin').replace('Sign in to your Yokogawa dashboard.','Manage Yokogawa Industrial Training content.').replace('Sign in\n','Sign in\n')
 l=re.sub(r'<a href="/admin/forgot.html".*?</a>','',l,flags=re.S)
 l=re.sub(r'<div class="field__item">.*?</div>','',l,flags=re.S)
-l=re.sub(r'<p class="text-center text-sm text-muted-foreground">.*?</p>','<p class="text-center text-sm text-muted-foreground">Preview only. Sign in with admin@example.com and demo1234. Live accounts are created by the developer.</p>',l,flags=re.S)
+l=re.sub(r'<p class="text-center text-sm text-muted-foreground">.*?</p>','<p class="text-center text-sm text-muted-foreground">Sign in with your assigned credentials. Live accounts are created by the developer.</p>',l,flags=re.S)
 l=l.replace('<form class="flex flex-col gap-4">','<form class="flex flex-col gap-4" data-demo-form="login"><p id="feedback" role="alert" class="text-sm text-danger"></p>')
 l=re.sub(r'<a href="/admin/" class="button button--primary button--block button--lg"(.*?)</a>',r'<button type="submit" class="button button--primary button--block button--lg"\1</button>',l,flags=re.S)
 l=l.replace('id="loginEmail"','id="loginEmail" name="email" required').replace('id="loginPassword"','id="loginPassword" name="password" required')
 l=re.sub(r'<h2 class="auth__pitch-title">.*?</h2>', '<h2 class="auth__pitch-title">Training content,<span>in one place.</span></h2>', l, flags=re.S)
 l=re.sub(r'<p class="auth__pitch-lede">.*?</p>', '<p class="auth__pitch-lede">Keep course details up to date, organize training categories, and manage the homepage banner.</p>', l, flags=re.S)
 l=l.replace('you@meridian.com','name@example.com')
-l=l.replace('</body>','<script src="assets/js/admin-demo.js"></script></body>')
+l=l.replace('</head>', '<link rel="stylesheet" href="assets/css/meridian/admin-toast.css"></head>')
+l=l.replace('</body>','<script src="assets/js/admin-toast.js"></script><script src="assets/js/admin-demo.js"></script></body>')
 if not targets or 'login.html' in targets: (ROOT/'login.html').write_text(l)
 print('Generated selected admin pages using shared Stisla components.' if targets else 'Generated 7 admin pages using shared Stisla components.')

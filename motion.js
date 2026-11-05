@@ -264,7 +264,7 @@
       addReveal(".schedule-section", [".schedule-intro"]);
       addReveal(".faq-page-content", [".faq-page-intro"]);
       document.querySelectorAll(".contact-page-section").forEach((section) => {
-        const targets = section.querySelectorAll(".contact-page-image, .contact-page-copy");
+        const targets = section.querySelectorAll(":scope > picture, .contact-page-copy");
         if (!ScrollTrigger || !targets.length || section.getBoundingClientRect().bottom < 0) return;
         gsap.fromTo(targets, { autoAlpha: 0, y: 16 }, {
           autoAlpha: 1, y: 0, duration: 0.55, ease: "expo.out", stagger: 0.08,

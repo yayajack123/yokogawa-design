@@ -1044,7 +1044,7 @@
                         <div class="card__body">
                           <div class="field">
                             <label for="prodStatus" class="field__label">Status</label>
-                            <select class="select" id="prodStatus" data-stisla-select>
+                            <select class="select" data-stisla-select id="prodStatus">
                               <option value="active" selected>Active</option>
                               <option value="draft">Draft</option>
                               <option value="archived">Archived</option>
@@ -1061,12 +1061,10 @@
                           <div class="field">
                             <label for="prodCategory" class="field__label">Category</label>
                             <select
-                              class="select"
-                              id="prodCategory"
-                              data-stisla-select
-                              data-placeholder="Select category"
+                              class="select" data-stisla-select
+                              id="prodCategory" data-placeholder="Select category"
                             >
-                              <option value=""></option>
+                              <option value="">Select category</option>
                               <option value="coffee">Coffee</option>
                               <option value="equipment">Equipment</option>
                               <option value="supplies">Supplies</option>
@@ -1076,11 +1074,9 @@
                           <div class="field">
                             <label for="prodTags" class="field__label">Tags</label>
                             <select
-                              class="select"
-                              id="prodTags"
+                              class="select" data-stisla-select
+                              id="prodTags" data-placeholder="Add tags"
                               multiple
-                              data-stisla-select
-                              data-placeholder="Add tags"
                             >
                               <option value="featured">Featured</option>
                               <option value="new">New</option>

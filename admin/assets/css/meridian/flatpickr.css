@@ -1,0 +1,90 @@
+/* Let the calendar extend past the dialog only while a picker is open. */
+#availability-editor .dialog__panel:has(.flatpickr-calendar.open),
+#availability-editor .dialog__content:has(.flatpickr-calendar.open) { overflow: visible; }
+#availability-editor .dialog__footer { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+
+#availability-editor .flatpickr-calendar {
+  width: 307px;
+  max-width: calc(100vw - 3rem);
+  padding: calc(var(--spacing) * 2);
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  font-family: inherit;
+  z-index: 10;
+}
+#availability-editor .flatpickr-calendar::before,
+#availability-editor .flatpickr-calendar::after { display: none; }
+#availability-editor .flatpickr-months .flatpickr-month,
+#availability-editor .flatpickr-current-month .flatpickr-monthDropdown-months,
+#availability-editor span.flatpickr-weekday { background: transparent; color: var(--color-foreground); fill: var(--color-foreground); }
+#availability-editor .flatpickr-current-month { font-size: var(--text-sm); font-weight: 500; }
+#availability-editor .flatpickr-months .flatpickr-prev-month,
+#availability-editor .flatpickr-months .flatpickr-next-month { fill: var(--color-foreground); }
+#availability-editor .flatpickr-weekdays { margin-block: calc(var(--spacing) * 1); }
+#availability-editor span.flatpickr-weekday { color: var(--color-muted-foreground); font-size: var(--text-xs); font-weight: 500; }
+#availability-editor .flatpickr-innerContainer,
+#availability-editor .flatpickr-rContainer,
+#availability-editor .flatpickr-days,
+#availability-editor .dayContainer { width: 100%; min-width: 0; max-width: none; }
+#availability-editor .flatpickr-day { color: var(--color-foreground); border-radius: var(--radius-sm); font-size: var(--text-sm); }
+#availability-editor .flatpickr-day.prevMonthDay,
+#availability-editor .flatpickr-day.nextMonthDay,
+#availability-editor .flatpickr-day.flatpickr-disabled { color: var(--color-muted-foreground); opacity: .55; }
+@media (hover: hover) {
+  #availability-editor .flatpickr-day:hover { background: var(--color-accent); border-color: var(--color-accent); }
+}
+#availability-editor .flatpickr-day:focus { background: var(--color-accent); border-color: var(--color-accent); }
+#availability-editor .flatpickr-day.today { border-color: var(--color-primary); }
+#availability-editor .flatpickr-day.selected,
+#availability-editor .flatpickr-day.selected:hover,
+#availability-editor .flatpickr-day.selected:focus { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-primary-foreground); }
+#availability-editor .flatpickr-day:focus-visible,
+#availability-editor .flatpickr-prev-month:focus-visible,
+#availability-editor .flatpickr-next-month:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+
+.flatpickr-calendar.availability-month-picker {
+  padding: calc(var(--spacing) * 2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  box-shadow: var(--shadow-xl);
+  font-family: inherit;
+}
+.availability-month-picker::before,
+.availability-month-picker::after { display: none; }
+.availability-month-picker .flatpickr-months .flatpickr-month { background: transparent; color: var(--color-foreground); fill: var(--color-foreground); }
+.availability-month-picker .flatpickr-current-month { font-size: var(--text-sm); font-weight: 500; }
+.availability-month-picker .flatpickr-prev-month,
+.availability-month-picker .flatpickr-next-month { fill: var(--color-foreground); }
+.availability-month-picker .flatpickr-monthSelect-month { color: var(--color-foreground); border-radius: var(--radius-sm); font-size: var(--text-sm); }
+@media (hover: hover) {
+  .availability-month-picker .flatpickr-monthSelect-month:hover { background: var(--color-accent); border-color: var(--color-accent); }
+}
+.availability-month-picker .flatpickr-monthSelect-month.selected,
+.availability-month-picker .flatpickr-monthSelect-month.selected:hover { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-primary-foreground); }
+.availability-month-picker .flatpickr-monthSelect-month:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+
+.availability-month-field { position: relative; }
+.availability-month-field__icon { display: none; position: absolute; inset-inline-end: calc(var(--spacing) * 3); top: 50%; width: 1.125rem; height: 1.125rem; color: var(--color-muted-foreground); pointer-events: none; transform: translateY(-50%); }
+.availability-month-field.is-enhanced .availability-month-field__icon { display: block; }
+.availability-month-field.is-enhanced .input { padding-inline-end: calc(var(--spacing) * 10); }
+.availability-month-picker .flatpickr-monthSelect-months { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(var(--spacing) * 1); margin: calc(var(--spacing) * 2) 0 0; }
+.availability-month-picker .flatpickr-monthSelect-month { display: flex; align-items: center; justify-content: center; width: auto; min-width: 0; min-height: calc(var(--spacing) * 10); margin: 0; padding: calc(var(--spacing) * 2) calc(var(--spacing) * 1); }
+.availability-month-picker .flatpickr-monthSelect-month.today { border-color: var(--color-border-strong); }
+.availability-month-picker .flatpickr-monthSelect-month.selected.today { border-color: var(--color-primary); }
+.availability-month-picker .flatpickr-rContainer { flex: 1 1 auto; min-width: 0; width: 100%; }
+
+#availability-editor .flatpickr-current-month { display: flex; align-items: center; justify-content: center; gap: calc(var(--spacing) * 1); }
+#availability-editor .flatpickr-current-month .flatpickr-monthDropdown-months,
+#availability-editor .flatpickr-current-month input.cur-year { font-weight: var(--font-weight-medium, 500); }
+#availability-editor .flatpickr-current-month { top: 0; height: 100%; padding-top: 0; }
+#availability-editor .flatpickr-months .flatpickr-prev-month,
+#availability-editor .flatpickr-months .flatpickr-next-month { top: calc(var(--spacing) * 2); display: flex; align-items: center; justify-content: center; }
+.availability-month-picker .flatpickr-current-month { top: 0; height: 100%; padding-top: 0; display: flex; align-items: center; justify-content: center; }
+.availability-month-picker .flatpickr-current-month input.cur-year { font-weight: var(--font-weight-medium, 500); }
+.availability-month-picker .flatpickr-months .flatpickr-prev-month,
+.availability-month-picker .flatpickr-months .flatpickr-next-month { top: calc(var(--spacing) * 2); display: flex; align-items: center; justify-content: center; }

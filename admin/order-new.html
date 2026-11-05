@@ -1140,7 +1140,7 @@
                         <div class="card__body">
                           <div class="field">
                             <label for="orderStatus" class="field__label">Order status</label>
-                            <select class="select" id="orderStatus" data-stisla-select>
+                            <select class="select" data-stisla-select id="orderStatus">
                               <option value="pending" selected>Pending</option>
                               <option value="processing">Processing</option>
                               <option value="shipped">Shipped</option>
@@ -1150,7 +1150,7 @@
                           </div>
                           <div class="field">
                             <label for="paymentStatus" class="field__label">Payment status</label>
-                            <select class="select" id="paymentStatus" data-stisla-select>
+                            <select class="select" data-stisla-select id="paymentStatus">
                               <option value="unpaid" selected>Unpaid</option>
                               <option value="paid">Paid</option>
                               <option value="partial">Partially paid</option>
@@ -1180,12 +1180,10 @@
                           <div class="field">
                             <label for="customer" class="field__label">Customer</label>
                             <select
-                              class="select"
-                              id="customer"
-                              data-stisla-select
-                              data-placeholder="Search customers"
+                              class="select" data-stisla-select
+                              id="customer" data-placeholder="Search customers"
                             >
-                              <option value=""></option>
+                              <option value="">Select customer</option>
                               <option value="acme">Acme Corp</option>
                               <option value="riverway">Riverway Ltd</option>
                               <option value="northwind">Northwind Traders</option>
@@ -1234,7 +1232,7 @@
                         <div class="card__body">
                           <div class="field">
                             <label for="shipMethod" class="field__label">Method</label>
-                            <select class="select" id="shipMethod" data-stisla-select>
+                            <select class="select" data-stisla-select id="shipMethod">
                               <option value="standard" selected>Standard (3–5 days)</option>
                               <option value="express">Express (1–2 days)</option>
                               <option value="pickup">Local pickup</option>
@@ -1258,11 +1256,9 @@
                           <div class="field">
                             <label for="orderTags" class="field__label">Tags</label>
                             <select
-                              class="select"
-                              id="orderTags"
+                              class="select" data-stisla-select
+                              id="orderTags" data-placeholder="Add tags"
                               multiple
-                              data-stisla-select
-                              data-placeholder="Add tags"
                             >
                               <option value="vip">VIP</option>
                               <option value="wholesale">Wholesale</option>

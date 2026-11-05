@@ -5,13 +5,14 @@
   gsap.registerPlugin(ScrollTrigger);
   const media = gsap.matchMedia();
   media.add('(prefers-reduced-motion: no-preference)', () => {
-    const sections = document.querySelectorAll('.why-us, .contact-section');
+    const sections = document.querySelectorAll('.why-us, .contact-section, .contact-page-section');
     sections.forEach((section) => {
-      const image = section.querySelector('.why-us-background img, .contact-background img');
+      const image = section.querySelector('.why-us-background img, .contact-background img, .contact-page-image');
       if (!image) return;
+      const distance = section.classList.contains('contact-page-section') ? 4 : 20;
       section.classList.add('has-background-parallax');
-      gsap.fromTo(image, { yPercent: -20 }, {
-        yPercent: 20,
+      gsap.fromTo(image, { yPercent: -distance }, {
+        yPercent: distance,
         ease: 'none',
         scrollTrigger: {
           trigger: section,

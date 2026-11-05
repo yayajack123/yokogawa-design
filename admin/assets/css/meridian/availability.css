@@ -26,4 +26,4 @@
 .availability-list-summary > p { flex: 1 1 24rem; }
 .availability-selection[hidden] { display: none; }
 .availability-view-header { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--spacing) * 4); flex-wrap: wrap; margin-block-end: calc(var(--spacing) * 4); }
-.availability-view-header .tabs__list { align-self: center; }
+.availability-view-header .toggle-group { align-self: center; }

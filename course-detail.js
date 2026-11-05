@@ -10,8 +10,16 @@ list.addEventListener('scroll', updateScrollHint, { passive: true });
 window.addEventListener('resize', updateScrollHint);
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let revealTween;
+let sidebarScrollTween;
+let initialSidebarReveal = true;
+function stopSidebarScroll() { sidebarScrollTween?.kill(); sidebarScrollTween = null; }
+for (const eventName of ['wheel', 'touchstart', 'pointerdown', 'keydown']) {
+  list.addEventListener(eventName, stopSidebarScroll, { passive: true });
+}
+search.addEventListener('input', stopSidebarScroll);
 reducedMotion.addEventListener('change', () => {
   if (reducedMotion.matches && revealTween) { revealTween.progress(1); revealTween.kill(); }
+  if (reducedMotion.matches && sidebarScrollTween) { sidebarScrollTween.progress(1); stopSidebarScroll(); }
 });
 let courses = [];
 let activeId = new URLSearchParams(location.search).get('course');
@@ -48,6 +56,24 @@ function renderList() {
   updateScrollHint();
 }
 
+function revealSelectedCourse() {
+  const selected = list.querySelector('a[aria-current="page"]');
+  if (!selected || !list.clientHeight) return;
+  const animate = initialSidebarReveal && !reducedMotion.matches && window.gsap;
+  initialSidebarReveal = false;
+  stopSidebarScroll();
+  const listBounds = list.getBoundingClientRect();
+  const selectedBounds = selected.getBoundingClientRect();
+  const inset = Math.min(48, Math.max(0, (list.clientHeight - selectedBounds.height) / 2));
+  if (selectedBounds.top < listBounds.top + inset || selectedBounds.bottom > listBounds.bottom - inset) {
+    const destination = list.scrollTop + selectedBounds.top - listBounds.top - (list.clientHeight - selectedBounds.height) / 2;
+    if (animate) {
+      sidebarScrollTween = gsap.to(list, { scrollTop: destination, duration: 0.8, ease: 'power2.out', overwrite: true, onComplete: () => { sidebarScrollTween = null; updateScrollHint(); } });
+    } else list.scrollTop = destination;
+  }
+  updateScrollHint();
+}
+
 function selectCourse(id, push = false) {
   const course = id === null ? courses[0] : courses.find(item => item.id === id);
   if (!course) {
@@ -78,6 +104,7 @@ function selectCourse(id, push = false) {
   activeId = course.id;
   if (push) history.pushState({ course: activeId }, '', `?course=${encodeURIComponent(activeId)}`);
   renderList();
+  revealSelectedCourse();
   content.replaceChildren();
   const breadcrumb = element('nav', '', 'course-breadcrumb');
   breadcrumb.setAttribute('aria-label', 'Breadcrumb');
@@ -136,7 +163,7 @@ window.addEventListener('popstate', () => selectCourse(new URLSearchParams(locat
 fetch('course-data.json').then(response => { if (!response.ok) throw new Error('Unable to load courses'); return response.json(); }).then(data => { courses = data; selectCourse(activeId); }).catch(() => { list.replaceChildren(element('p', 'Unable to load courses. Please reload the page.')); content.replaceChildren(element('p', 'Course details could not be loaded.')); });
 
 // Reuse the desktop course finder inside the mobile search dialog.
-const finderBreakpoint = window.matchMedia('(max-width: 640px)');
+const finderBreakpoint = window.matchMedia('(max-width: 1024px)');
 const finderHome = sidebar.parentElement;
 const finderTrigger = element('button', '', 'course-finder-trigger');
 finderTrigger.type = 'button';
@@ -170,6 +197,7 @@ finderTrigger.addEventListener('click', () => {
   finderTween?.kill();
   finderClosing = false;
   if (!finderDialog.open) finderDialog.showModal();
+  revealSelectedCourse();
   search.focus({ preventScroll: true });
   updateScrollHint();
   if (window.gsap && !reducedMotion.matches) {
@@ -187,7 +215,7 @@ reducedMotion.addEventListener('change', () => {
 });
 function positionFinder() {
   if (finderBreakpoint.matches) finderDialog.append(sidebar);
-  else { closeFinder(true); finderHome.prepend(sidebar); }
+  else { closeFinder(true); finderHome.prepend(sidebar); revealSelectedCourse(); }
   updateScrollHint();
 }
 finderBreakpoint.addEventListener('change', positionFinder);

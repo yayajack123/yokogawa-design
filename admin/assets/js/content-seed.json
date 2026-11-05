@@ -1,0 +1,83 @@
+{
+  "faqs": [
+    {
+      "id": "1",
+      "question": "Who can attend Yokogawa training?",
+      "answer": "Training is designed for industry professionals, including plant managers, operators, technicians, engineers, specialists, and maintenance staff. Eligibility may vary by course topic.",
+      "status": "Published",
+      "home": true
+    },
+    {
+      "id": "2",
+      "question": "Is there a fee for Yokogawa training?",
+      "answer": "Yes. Fees vary by program and include training materials and books, a bag, a certificate, snacks, and lunch. Accommodation is not included. Contact your nearest Yokogawa office for fee information.",
+      "status": "Published",
+      "home": true
+    },
+    {
+      "id": "3",
+      "question": "How long does Yokogawa training usually last?",
+      "answer": "Duration depends on the course and its schedule. Yokogawa lists daily training hours as 9:00 a.m. to 4:30 p.m.; check your chosen course schedule for the number of days.",
+      "status": "Published",
+      "home": true
+    },
+    {
+      "id": "4",
+      "question": "Where is Yokogawa training usually held?",
+      "answer": "Scheduled training usually takes place at the PT Yokogawa Indonesia office at Plaza Oleos in South Jakarta. For unscheduled or customized training, the location can be arranged, including at the customer's site.",
+      "status": "Published",
+      "home": true
+    },
+    {
+      "id": "5",
+      "question": "Is Yokogawa training available online?",
+      "answer": "Some programs are available remotely or through e-learning, but online delivery is not available for every course. Contact Yokogawa to confirm the format of your chosen program.",
+      "status": "Published",
+      "home": true
+    },
+    {
+      "id": "6",
+      "question": "What key topics does Yokogawa training cover?",
+      "answer": "Topics include control systems and instrumentation, such as CENTUM VP, SCADA, ProSafe, Exaquantum, process measurement, field instrument calibration, and analyzers. Topic availability depends on the scheduled programs.",
+      "status": "Published",
+      "home": true
+    },
+    {
+      "id": "7",
+      "question": "How can I register for a Yokogawa training session?",
+      "answer": "Please [contact Yokogawa](contact-us.html) for registration details.",
+      "status": "Published",
+      "home": false
+    },
+    {
+      "id": "8",
+      "question": "What are the prerequisites for Yokogawa training courses?",
+      "answer": "Prerequisites depend on the course. Please [contact Yokogawa](contact-us.html) for details about your chosen course.",
+      "status": "Published",
+      "home": false
+    },
+    {
+      "id": "9",
+      "question": "Are there any certification programs offered by Yokogawa?",
+      "answer": "Please [contact Yokogawa](contact-us.html) for information about available certification programs.",
+      "status": "Published",
+      "home": false
+    },
+    {
+      "id": "10",
+      "question": "What resources are available after completing Yokogawa training?",
+      "answer": "Please [contact Yokogawa](contact-us.html) for information about resources available after training.",
+      "status": "Published",
+      "home": false
+    }
+  ],
+  "contact": {
+    "phone": "02129712600",
+    "email": "support.service@yokogawa.com.id",
+    "website": "https://www.yokogawa.com/id/",
+    "office": "PT. Yokogawa Indonesia",
+    "address": "Plaza Oleos 3rd Floor Suite A-H, Jl. TB Simatupang, RT.2/RW.1, Kebagusan, Pasar Minggu, South Jakarta City, Jakarta 12520",
+    "hours": "Monday–Friday: 08:00–17:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Plaza+Oleos+Jakarta"
+  }
+}

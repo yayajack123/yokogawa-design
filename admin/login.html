@@ -20,7 +20,7 @@
     <title>Sign in · Yokogawa</title>
 
     <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
+  <link rel="stylesheet" href="assets/css/meridian/admin-toast.css"></head>
   <body>
     <main class="auth">
       <section class="auth__panel">
@@ -66,7 +66,7 @@
             <div class="field">
               <div class="flex items-center justify-between gap-2">
                 <label for="loginPassword" class="field__label">Password</label>
-
+                
               </div>
               <div class="input-group input-group--lg">
                 <span class="input-group__text"
@@ -118,7 +118,7 @@
               </div>
             </div>
 
-
+            
 
             <button type="submit" class="button button--primary button--block button--lg"
               >Sign in
@@ -140,7 +140,7 @@
             ></button>
           </form>
 
-          <p class="text-center text-sm text-muted-foreground">Preview only. Sign in with admin@example.com and demo1234. Live accounts are created by the developer.</p>
+          <p class="text-center text-sm text-muted-foreground">Sign in with your assigned credentials. Live accounts are created by the developer.</p>
         </div>
       </section>
 
@@ -190,5 +190,5 @@
         toggle.setAttribute("aria-pressed", String(reveal));
       });
     </script>
-  <script src="assets/js/admin-demo.js"></script></body>
+  <script src="assets/js/admin-toast.js"></script><script src="assets/js/admin-demo.js"></script></body>
 </html>

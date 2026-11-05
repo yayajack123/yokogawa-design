@@ -65,7 +65,17 @@
   document.querySelectorAll('[data-category-options]').forEach(select => {
     data.categories.forEach(cat => select.add(new Option(cat.name, cat.id)));
   });
-  if (params.has('saved')) feedback('Changes saved for this preview session.');
+  if (['courses', 'categories', 'course-form', 'category-form'].includes(document.body.dataset.adminPage)) {
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = 'https://cdn.jsdelivr.net/npm/@stisla/vanilla@3/dist/stisla.js';
+    document.body.append(script);
+  }
+  if (params.get('saved') === '1' && ['courses', 'categories'].includes(page)) {
+    adminToast(page === 'courses' ? 'Course saved' : 'Category saved', 'Changes are available for this preview session.');
+    params.delete('saved');
+    history.replaceState(null, '', location.pathname + (params.size ? `?${params}` : '') + location.hash);
+  }
 
   let draw;
   let pendingDelete;
@@ -77,23 +87,6 @@
     const favorites = document.getElementById('course_favorites_filter_switch');
     let pendingPopular;
     let popularTrigger;
-    const reorderToast = document.getElementById('reorder-toast');
-    let toastTimer;
-    const hideReorderToast = () => { clearTimeout(toastTimer); reorderToast.dataset.state = 'closed'; };
-    const scheduleToastDismiss = () => {
-      clearTimeout(toastTimer);
-      if (reorderToast?.dataset.state === 'open') toastTimer = setTimeout(hideReorderToast, 4500);
-    };
-    const showReorderToast = message => {
-      document.getElementById('reorder-toast-message').textContent = message;
-      reorderToast.dataset.state = 'open';
-      scheduleToastDismiss();
-    };
-    document.getElementById('reorder-toast-close')?.addEventListener('click', hideReorderToast);
-    reorderToast?.addEventListener('mouseenter', () => clearTimeout(toastTimer));
-    reorderToast?.addEventListener('mouseleave', scheduleToastDismiss);
-    reorderToast?.addEventListener('focusin', () => clearTimeout(toastTimer));
-    reorderToast?.addEventListener('focusout', scheduleToastDismiss);
     const tabs = [...document.querySelectorAll('#course-tabs [role="tab"]')];
     const selectTab = tab => {
       tabs.forEach(button => {
@@ -147,7 +140,7 @@
       const row = data.courses.find(row => row.id === id);
       if (saved) {
         feedback('');
-        showReorderToast(`${row.name} moved to position ${next + 1}. Order saved for this preview session.`);
+        adminToast('Order updated', `${row.name} moved to position ${next + 1}. Order saved for this preview session.`);
       } else feedback('Unable to save the order. Enable browser storage and try again.');
       [...document.querySelectorAll('[data-drag-id]')].find(control => control.dataset.dragId === id)?.focus({ preventScroll: true });
     };
@@ -272,9 +265,9 @@
         document.getElementById('coursePagination').hidden = rows.length === 0;
       }
     };
-    [search, status, category].filter(Boolean).forEach(el => el.addEventListener('input', () => { currentPage = 1; draw(); }));
+    [search, status, category].filter(Boolean).forEach(el => el.addEventListener(el === search ? 'input' : 'change', () => { currentPage = 1; draw(); }));
     favorites?.addEventListener('change', () => { currentPage = 1; draw(); });
-    const clearFilters = () => { search.value = status.value = ''; if (category) category.value = ''; if (favorites) favorites.checked = false; currentPage = 1; draw(); search.focus(); };
+    const clearFilters = () => { search.value = status.value = ''; if (category) category.value = ''; [status, category].filter(Boolean).forEach(select => select.dispatchEvent(new Event('change', { bubbles: true }))); if (favorites) favorites.checked = false; currentPage = 1; draw(); search.focus(); };
     document.getElementById('resetFilters').addEventListener('click', clearFilters);
     document.getElementById('emptyReset').addEventListener('click', clearFilters);
     document.getElementById('records').addEventListener('click', event => {
@@ -309,7 +302,11 @@
       data[page] = data[page].filter(row => row.id !== pendingDelete); normalizePopularOrder();
       const saved = save();
       if (!saved) { data[page] = previous; data.popularOrder = previousOrder; }
-      draw(); feedback(saved ? 'Item deleted from this preview session.' : 'Unable to delete the item. Enable browser storage and try again.');
+      draw();
+      if (saved) {
+        feedback('');
+        requestAnimationFrame(() => adminToast(course ? 'Course deleted' : 'Category deleted', 'The item was removed from this preview session.'));
+      } else feedback('Unable to delete the item. Enable browser storage and try again.');
     });
     document.getElementById('paginationButtons')?.addEventListener('click', event => {
       const button = event.target.closest('button[data-page]');
@@ -343,6 +340,15 @@
   form.querySelectorAll('input,select,textarea').forEach(control => {
     if (control.name && document.getElementById(`${control.name}-error`)) control.setAttribute('aria-describedby', `${control.name}-help ${control.name}-error`);
   });
+  form.querySelectorAll('select[required]').forEach(select => select.addEventListener('invalid', event => {
+    const trigger = select.nextElementSibling;
+    if (!trigger?.matches('.select__trigger')) return;
+    event.preventDefault();
+    trigger.setAttribute('aria-invalid', 'true');
+    trigger.focus();
+    const output = document.getElementById(`${select.name}-error`);
+    if (output) output.textContent = 'Select an available option.';
+  }));
   if (type === 'password') { form.elements.oldPassword.autocomplete = 'current-password'; form.elements.newPassword.minLength = 8; }
   if (type === 'course') {
     const nameInput = form.elements.name;
@@ -404,7 +410,12 @@
     const output = document.getElementById(`${name}-error`);
     if (output) output.textContent = message;
     const control = form.elements[name];
-    if (control) { control.setAttribute('aria-invalid', 'true'); control.focus(); }
+    if (control) {
+      control.setAttribute('aria-invalid', 'true');
+      const selection = control.nextElementSibling?.matches('.select__trigger') ? control.nextElementSibling : null;
+      if (selection) { selection.setAttribute('aria-invalid', 'true'); selection.focus(); }
+      else control.focus();
+    }
     return false;
   }
   function validateFile(file, name, kind) {
@@ -510,17 +521,20 @@
       location.href = 'index.html'; return;
     }
     if (type === 'password') {
-      if (f.get('oldPassword') !== 'demo1234') return error('oldPassword', 'The current password does not match. For this preview, enter demo1234.');
+      if (f.get('oldPassword') !== 'demo1234') return error('oldPassword', 'The current password does not match. Check it and try again.');
       if (f.get('newPassword').length < 8) return error('newPassword', 'Choose a password with at least 8 characters.');
       if (f.get('newPassword') !== f.get('confirmPassword')) return error('confirmPassword', 'Enter the same password in both new password fields.');
-      form.reset(); feedback('Preview complete. No live account password was changed.'); return;
+      form.reset(); feedback(''); adminToast('Password preview complete', 'The account password was not changed.'); return;
     }
     if (type === 'banner') {
       if (!validateFile(f.get('media'), 'media', 'media')) return;
       if (!safeUrl(f.get('url').trim())) return error('url', 'Enter an http/https URL or a path starting with /.');
       if (!safeUrl(f.get('secondaryUrl').trim())) return error('secondaryUrl', 'Enter an http/https URL or a path starting with /.');
+      const previousBanner = data.banner;
       data.banner = Object.fromEntries(['title', 'description', 'button', 'url', 'secondaryButton', 'secondaryUrl'].map(key => [key, String(f.get(key)).trim()]));
-      save(); feedback('Banner text saved for this preview session. Selected media is available until you leave this page.'); return;
+      if (!save()) { data.banner = previousBanner; feedback('Unable to save the banner. Enable browser storage and try again.'); return; }
+      feedback('');
+      adminToast('Banner saved', 'Text is saved for this preview session. Selected media is available until you leave this page.'); return;
     }
     if (!(await iconTask)) return error('icon', 'Choose a valid SVG or PNG up to 2 MB, or remove the selection.');
     const value = Object.fromEntries(queryKeys.filter(key => f.has(key)).map(key => [key, String(f.get(key)).trim()]));

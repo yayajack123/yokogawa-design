@@ -15,3 +15,5 @@
 #icon-preview { flex-shrink: 0; object-fit: contain; }
 #reorder-toast { min-width: 0; }
 #reorder-toast .toast__close { min-width: 44px; min-height: 44px; }
+
+#course-tabs > .toggle-group { align-self: flex-start; }

@@ -3,11 +3,33 @@
   const form = document.getElementById('availability-form');
   const start = document.getElementById('availability-start');
   const end = document.getElementById('availability-end');
+  const pickerOptions = { dateFormat: 'Y-m-d', disableMobile: true, static: true, clickOpens: false };
+  const startPicker = window.flatpickr ? flatpickr(start, pickerOptions) : null;
+  const endPicker = window.flatpickr ? flatpickr(end, pickerOptions) : null;
+  [[start, startPicker], [end, endPicker]].forEach(([input, picker]) => {
+    if (!picker) return;
+    input.addEventListener('click', () => picker.open());
+    input.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowDown') {
+        event.preventDefault();
+        picker.open();
+      }
+    });
+  });
   const month = document.getElementById('availability-month-filter');
   const list = document.getElementById('availability-list');
   const feedback = document.getElementById('availability-feedback');
   const today = new Date();
   month.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+  const monthPicker = window.flatpickr && window.monthSelectPlugin ? flatpickr(month, {
+    defaultDate: month.value, altInput: true, altFormat: 'F Y', dateFormat: 'Y-m', disableMobile: true,
+    plugins: [new monthSelectPlugin({ dateFormat: 'Y-m', altFormat: 'F Y' })],
+    onReady(_, __, instance) { instance.altInput.setAttribute('aria-label', 'Calendar month and year'); instance.calendarContainer.classList.add('availability-month-picker'); month.parentElement.classList.add('is-enhanced'); }
+  }) : null;
+  function setMonth(value) {
+    if (monthPicker) monthPicker.setDate(value, false, 'Y-m');
+    else month.value = value;
+  }
   let dates;
   try { dates = store.read(); } catch (_) {
     feedback.textContent = 'Unable to read saved availability. Check browser storage and reload.';
@@ -45,13 +67,16 @@
   bulkDialog.querySelector('[data-bulk-confirm]').addEventListener('click', () => {
     const amount = selectedDates.size;
     if (!amount) { bulkDialog.close(); return; }
-    if (persist(dates.filter(date => !selectedDates.has(date)), `${amount} ${amount === 1 ? 'date' : 'dates'} removed from availability.`)) {
+    if (persist(dates.filter(date => !selectedDates.has(date)), '', false)) {
       bulkDialog.close(); month.focus();
+      requestAnimationFrame(() => adminToast('Availability removed', `${amount} ${amount === 1 ? 'date' : 'dates'} removed from availability.`));
     } else bulkDialog.querySelector('#availability-bulk-error').textContent = feedback.textContent;
   });
   function prepareForm(date) {
     form.reset(); editorError.textContent = '';
-    start.value = date || `${month.value}-01`; end.min = start.value;
+    const initialDate = date || `${month.value}-01`;
+    if (startPicker) { startPicker.setDate(initialDate); endPicker.clear(); endPicker.set('minDate', initialDate); }
+    else { start.value = initialDate; end.min = initialDate; }
   }
   function openDate(date) {
     if (dates.includes(date)) {
@@ -63,7 +88,10 @@
   }
   addButton.addEventListener('click', () => { if (!start.value) prepareForm(); });
   document.getElementById('availability-delete').addEventListener('click', () => {
-    if (persist(dates.filter(date => date !== selectedDate), 'Availability removed.')) document.getElementById('availability-detail-close').click();
+    if (persist(dates.filter(date => date !== selectedDate), '', false)) {
+      document.getElementById('availability-detail-close').click();
+      requestAnimationFrame(() => adminToast('Availability removed', 'The date was removed from the calendar.'));
+    }
     else document.getElementById('availability-detail-error').textContent = feedback.textContent;
   });
   const calendar = new FullCalendar.Calendar(document.getElementById('admin-availability-calendar'), {
@@ -76,7 +104,7 @@
       const nextRange = { start: info.startStr.slice(0, 10), end: info.endStr.slice(0, 10) };
       if (visibleRange && (visibleRange.start !== nextRange.start || visibleRange.end !== nextRange.end)) selectedDates.clear();
       visibleRange = nextRange;
-      month.value = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      setMonth(`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`);
       document.getElementById('availability-calendar-title').textContent = info.view.title;
       render();
     }
@@ -195,11 +223,14 @@
     table.append(head, body); summary.append(toolbar); list.append(table); syncSelection();
   }
 
-  function persist(next, message) {
-    try { store.save(next); dates = store.read(); calendar.removeAllEvents(); calendar.addEventSource(dates.map(date => ({ start: date, title: 'Available', allDay: true }))); calendar.gotoDate(`${month.value}-01`); render(); feedback.textContent = message; return true; }
+  function persist(next, message, showToast = true) {
+    try { store.save(next); dates = store.read(); calendar.removeAllEvents(); calendar.addEventSource(dates.map(date => ({ start: date, title: 'Available', allDay: true }))); calendar.gotoDate(`${month.value}-01`); render(); feedback.textContent = ''; if (showToast) adminToast('Availability removed', message); return true; }
     catch (_) { feedback.textContent = 'Unable to save availability. Enable browser storage and try again.'; return false; }
   }
-  start.addEventListener('change', () => { end.min = start.value; });
+  start.addEventListener('change', () => {
+    if (endPicker) endPicker.set('minDate', start.value || null);
+    else end.min = start.value;
+  });
   month.addEventListener('change', () => { if (month.value) calendar.gotoDate(`${month.value}-01`); });
   form.addEventListener('submit', event => {
     event.preventDefault();
@@ -212,8 +243,12 @@
     if ((until - from) / 86400000 > 365) { editorError.textContent = 'Choose a range of up to 366 days.'; return; }
     const added = [];
     for (let day = from; day <= until; day.setUTCDate(day.getUTCDate() + 1)) added.push(day.toISOString().slice(0, 10));
-    month.value = start.value.slice(0, 7);
-    if (persist([...dates, ...added], 'Availability saved. Reload the public calendar to see your changes.')) { form.reset(); document.getElementById('availability-editor-close').click(); } else editorError.textContent = feedback.textContent;
+    setMonth(start.value.slice(0, 7));
+    if (persist([...dates, ...added], '', false)) {
+      form.reset(); startPicker?.clear(); endPicker?.clear();
+      document.getElementById('availability-editor-close').click();
+      requestAnimationFrame(() => adminToast('Availability added', 'Reload the public calendar to see your changes.'));
+    } else editorError.textContent = feedback.textContent;
   });
   document.getElementById('availability-prev').addEventListener('click', () => calendar.prev());
   document.getElementById('availability-next').addEventListener('click', () => calendar.next());
