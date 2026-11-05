@@ -1,6 +1,9 @@
 /* ── Page ─────────────────────────────────────────────────────────────────── */
+.page__title {
+  font-weight: var(--font-weight-medium, 500);
+}
 .page__title span {
-  font-weight: 500;
+  font-weight: inherit;
 }
 .page__header .breadcrumb {
   margin-bottom: --spacing(4);
